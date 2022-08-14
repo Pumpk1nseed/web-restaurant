@@ -1,0 +1,59 @@
+body {
+    background: url(../images/background.jpg) no-repeat fixed;
+    background-size: 100%; /* Современные браузеры */
+}
+
+.logo {
+    position: fixed;
+    left: 200px;
+    top: 30%;
+}
+
+.linkmenu {
+    position: fixed;
+    left: 1100px;
+    top: 38%;
+    padding: 10px;
+    background: #FF8C00;
+    width: 180px;
+    text-align: center;
+}
+
+.linkauth {
+    position: fixed;
+    left: 1100px;
+    top: 32%;
+    padding: 10px;
+    background: #FF8C00;
+    width: 180px;
+    text-align: center;
+}
+
+.linkabout {
+    position: fixed;
+    left: 1100px;
+    top: 44%;
+    padding: 10px;
+    background: #FF8C00;
+    width: 180px;
+    text-align: center;
+}
+
+a {
+    text-decoration: none
+}
+
+hr {
+    border: none;
+    border-top: 3px double #FF8C00;
+    color: #FF8C00;
+    overflow: visible;
+    height: 5px;
+    margin-top: 50.25em;
+}
+
+span {
+    color: #FFFFFF;
+    font-family: sans-serif;
+
+}
