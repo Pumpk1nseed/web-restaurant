@@ -14,10 +14,10 @@
 <body>
 <form action="controller" method="post">
     <input type="hidden" name="command" value="authorization"/>
-    <input type="text" name="login" value=""/>
-    <input type="password" name="password" value=""/>
+    <input type="text" name="login" placeholder="введите логин" value=""/>
+    <input type="password" name="password" placeholder="введите пароль" value=""/>
     <input type="submit" value="sign in"/> <br/>
 </form>
-<a href="../../index.jsp">go to main</a>
+<a href="index.jsp">go to main</a>
 </body>
 </html>
