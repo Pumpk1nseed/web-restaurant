@@ -1,6 +1,7 @@
 body {
     background: url(../images/background.jpg) no-repeat fixed;
     background-size: 100%; /* Современные браузеры */
+    font-family: sans-serif;
 }
 
 .logo {
@@ -54,6 +55,5 @@ hr {
 
 span {
     color: #FFFFFF;
-    font-family: sans-serif;
 
 }

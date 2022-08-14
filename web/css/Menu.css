@@ -1,4 +1,8 @@
-.menu {
+body {
+    font-family: sans-serif;
+}
+
+.main {
     position: fixed; /* Фиксированное положение */
     right: 10px; /* Расстояние от правого края окна браузера */
     top: 11%; /* Расстояние сверху */
@@ -35,6 +39,13 @@
     position: fixed;
     background: #FFFFFF;
     top: 0%;
+    text-align: left;
+}
+
+.menu table {
+    width: 1700px;
+    margin: auto;
+    padding-left: 40px;
 }
 
 a {
@@ -42,5 +53,23 @@ a {
 }
 
 span {
-    font-family: sans-serif;
+    color: #FFFFFF;
+}
+
+hr {
+    border: none;
+    border-top: 3px double #FF8C00;
+    color: #FF8C00;
+    overflow: visible;
+    height: 5px;
+}
+
+.dish {
+    width: 200px;
+    box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.25);
+    border-radius: 28px;
+}
+
+.price td {
+    font-weight: bolder;
 }
