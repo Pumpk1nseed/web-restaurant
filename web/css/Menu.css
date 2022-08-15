@@ -39,13 +39,15 @@ body {
     position: fixed;
     background: #FFFFFF;
     top: 0%;
-    text-align: left;
+}
+
+.topline td {
+    width: 1000px;
 }
 
 .menu table {
-    width: 1700px;
     margin: auto;
-    padding-left: 40px;
+    border-collapse: separate;
 }
 
 a {
@@ -64,6 +66,8 @@ hr {
     height: 5px;
 }
 
-.price td {
-    font-weight: bolder;
+.dish {
+    width: 300px;
+    box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.25);
+    border-radius: 30px;
 }
