@@ -29,6 +29,16 @@
     </servlet>
 
     <servlet-mapping>
+        <servlet-name>registration</servlet-name>
+        <url-pattern>/jspregistration</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>registration</servlet-name>
+        <jsp-file>/WEB-INF/jsp/registration.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
         <servlet-name>menu</servlet-name>
         <url-pattern>/jspmenu</url-pattern>
     </servlet-mapping>

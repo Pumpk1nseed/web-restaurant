@@ -1,0 +1,74 @@
+body {
+    background: url(../images/background.jpg) no-repeat fixed;
+    background-size: 100%; /* Современные браузеры */
+    font-family: sans-serif;
+}
+
+span {
+    color: #FFFFFF;
+}
+
+a {
+    text-decoration: none
+}
+
+.logo {
+    position: fixed;
+    left: 20px;
+    top: 5%;
+}
+
+.auth {
+    position: fixed;
+    background: #fcfcfc;
+    top: 25%;
+    right: 700px;
+    text-align: center;
+    border-radius: 30px;
+    border: 1px solid #000;
+    width: 400px;
+}
+
+.registration {
+    position: fixed;
+    background: #fcfcfc;
+    top: 50%;
+    right: 700px;
+    text-align: center;
+    border-radius: 30px;
+    width: 400px;
+    border: 1px solid #000;
+}
+
+span {
+    color: #FFFFFF;
+
+}
+
+input[type="submit"] {
+    display: inline-block;
+    width: 200px;
+    background: #FF8C00;
+    color: #fff;
+    border-radius: 30px;
+    font-size: 20px;
+    border: 0 none;
+}
+
+input[type="text"] {
+    display: inline-block;
+    width: 300px;
+    border-radius: 30px;
+    color: #706e6b;
+    font-size: 20px;
+    border-color: #666563;
+}
+
+input[type="password"] {
+    display: inline-block;
+    width: 300px;
+    border-radius: 30px;
+    color: #706e6b;
+    font-size: 20px;
+    border-color: #666563;
+}
