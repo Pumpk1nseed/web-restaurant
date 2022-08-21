@@ -1,5 +1,6 @@
 package by.gaponenko.restaurant.dao.impl;
 
+import by.gaponenko.restaurant.bean.RegistrationUserData;
 import by.gaponenko.restaurant.bean.User;
 import by.gaponenko.restaurant.dao.DaoException;
 import by.gaponenko.restaurant.dao.UserDao;
@@ -11,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+//через pool обратится к базе данных и создаст объект User
 public class SQLUserDao implements UserDao {
 
         private static final String LOGIN =
@@ -45,8 +47,11 @@ public class SQLUserDao implements UserDao {
         user.setRole("user");
 
         return user;
+    }
 
-
+    @Override
+    public boolean registration(RegistrationUserData userData) throws DaoException {
+        return true;
     }
 
     private Connection connectToDataBase() throws DaoException {

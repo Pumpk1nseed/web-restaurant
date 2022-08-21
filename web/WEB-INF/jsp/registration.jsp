@@ -13,9 +13,23 @@
 <body>
 <form action="controller" method="post">
   <input type="hidden" name="command" value="registration"/>
+  <input type="text" name="login" placeholder="введите логин (никнейм)" value=""/>
+  <br>
   <input type="text" name="name" placeholder="введите имя" value=""/>
   <br>
-  <input type="text" name="login" placeholder="введите логин" value=""/>
+  <input type="text" name="surname" placeholder="введите фамилию" value=""/>
+  <br>
+  <input type="text" name="last_name" placeholder="введите отчество" value=""/>
+  <br>
+  <input type="date" name="date_of_birth" placeholder="укажите дату рождения" value=""/>
+  <br>
+  <input type="text" name="phone" placeholder="введите номер телефона" value=""/>
+  <br>
+  <input type="text" name="email" placeholder="введите почту" value=""/>
+  <br>
+  <input type="text" name="address" placeholder="введите адрес" value=""/>
+  <br>
+  <input type="text" name="role" placeholder="введите роль" value=""/>
   <br>
   <input type="password" name="password" placeholder="введите пароль" value=""/>
   <br>

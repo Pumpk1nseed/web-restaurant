@@ -2,6 +2,7 @@ package by.gaponenko.restaurant.controller.command;
 
 import by.gaponenko.restaurant.controller.command.impl.AuthorizationCommand;
 import by.gaponenko.restaurant.controller.command.impl.NoSuchCommand;
+import by.gaponenko.restaurant.controller.command.impl.RegistrationCommand;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,6 +14,7 @@ public class CommandHelper {
 
     public CommandHelper() {
         commands.put(CommandName.AUTHORIZATION, new AuthorizationCommand());
+        commands.put(CommandName.REGISTRATION, new RegistrationCommand());
         commands.put(CommandName.NO_SUCH_COMMAND, new NoSuchCommand());
     }
 
