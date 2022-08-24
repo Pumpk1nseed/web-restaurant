@@ -26,9 +26,12 @@ public class UserServiceImpl implements UserService {
             user = userDao.authorization(login, password);
         } catch(DaoException e){
             throw new ServiceException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
         return user;
     }
+
 
     @Override
     public boolean registration(RegistrationUserData userData) throws ServiceException {

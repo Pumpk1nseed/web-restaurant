@@ -34,7 +34,7 @@ public class AuthorizationCommand implements Command {
 
             req.setAttribute("user", user);
 
-            RequestDispatcher dispatcher = req.getRequestDispatcher(JSPPageName.USER_AUTH_PAGE);
+            RequestDispatcher dispatcher = req.getRequestDispatcher(JSPPageName.USER_AUTHORIZED_PAGE);
             dispatcher.forward(req, resp);
 
         } catch (ServiceException e) {

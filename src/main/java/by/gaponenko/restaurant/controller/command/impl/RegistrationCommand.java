@@ -2,6 +2,7 @@ package by.gaponenko.restaurant.controller.command.impl;
 
 import by.gaponenko.restaurant.bean.RegistrationUserData;
 import by.gaponenko.restaurant.bean.User;
+import by.gaponenko.restaurant.controller.JSPPageName;
 import by.gaponenko.restaurant.controller.RequestParameterName;
 import by.gaponenko.restaurant.controller.command.Command;
 import by.gaponenko.restaurant.service.ServiceException;
@@ -19,8 +20,6 @@ import java.util.Date;
 public class RegistrationCommand implements Command {
 
     SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-
-    private static final String AUTH_PAGE = "jspauthorization";
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException, ParseException {
 
@@ -44,7 +43,7 @@ public class RegistrationCommand implements Command {
 
             req.getSession().setAttribute("user", new User(userData.getName(), userData.getLogin(), userData.getRole()));
 
-            resp.sendRedirect(AUTH_PAGE);
+            resp.sendRedirect(JSPPageName.USER_AUTHORIZATION_PAGE);
         } catch (ServiceException e) {
             throw new RuntimeException(e);
         }
