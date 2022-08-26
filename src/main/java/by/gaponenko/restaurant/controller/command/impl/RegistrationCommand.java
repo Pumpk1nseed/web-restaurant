@@ -19,14 +19,14 @@ import java.util.Date;
 
 public class RegistrationCommand implements Command {
 
-    SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+    //SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException, ParseException {
 
         RegistrationUserData userData =
                 new RegistrationUserData(
                         req.getParameter(RequestParameterName.REQ_PARAM_LOGIN),
-                        req.getParameter(RequestParameterName.REQ_PARAM_PASSWORD).toCharArray(),
+                        req.getParameter(RequestParameterName.REQ_PARAM_PASSWORD),
                         req.getParameter(RequestParameterName.REQ_PARAM_NAME),
                         req.getParameter(RequestParameterName.REQ_PARAM_SURNAME),
                         req.getParameter(RequestParameterName.REQ_PARAM_LAST_NAME),
@@ -41,7 +41,7 @@ public class RegistrationCommand implements Command {
         try {
             userService.registration(userData);
 
-            req.getSession().setAttribute("user", new User(userData.getName(), userData.getLogin(), userData.getRole()));
+            req.getSession().setAttribute("user", new User(userData.getLogin(), userData.getPassword(), userData.getRole()));
 
             resp.sendRedirect(JSPPageName.USER_AUTHORIZATION_PAGE);
         } catch (ServiceException e) {

@@ -23,7 +23,7 @@
   <br>
   <input type="date" name="date_of_birth" placeholder="укажите дату рождения" value=""/>
   <br>
-  <input type="text" name="phone" placeholder="введите номер телефона" value=""/>
+  <input type="text" name="telephone_number" placeholder="введите номер телефона" value=""/>
   <br>
   <input type="text" name="email" placeholder="введите почту" value=""/>
   <br>

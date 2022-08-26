@@ -17,7 +17,7 @@
 
     user = (User) request.getAttribute("user");
 
-    out.print(user.getName());
+    out.print("Наташ...");
 %>
 </body>
 </html>

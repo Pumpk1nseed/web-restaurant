@@ -5,8 +5,9 @@ import java.util.Date;
 import java.util.Objects;
 
 public class RegistrationUserData {
+    private Integer id_user;
     private String login;
-    private char[] password;
+    private String password;
     private String name;
     private String surname;
     private String lastName;
@@ -15,11 +16,11 @@ public class RegistrationUserData {
     private String email;
     private String address;
     private String role;
-    private Integer id;
 
     public RegistrationUserData(){}
 
-    public RegistrationUserData(String login, char[] password, String name, String surname, String lastName, String dateOfBirth, String telephoneNumber, String email, String address, String role) {
+    public RegistrationUserData(Integer id_user, String login, String password, String name, String surname, String lastName, String dateOfBirth, String telephoneNumber, String email, String address, String role) {
+        this.id_user = id_user;
         this.login = login;
         this.password = password;
         this.name = name;
@@ -32,6 +33,27 @@ public class RegistrationUserData {
         this.role = role;
     }
 
+    public RegistrationUserData(String login, String password, String name, String surname, String lastName, String dateOfBirth, String telephoneNumber, String email, String address, String role) {
+        this.login = login;
+        this.password = password;
+        this.name = name;
+        this.surname = surname;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+        this.telephoneNumber = telephoneNumber;
+        this.email = email;
+        this.address = address;
+        this.role = role;
+    }
+
+    public Integer getId_user() {
+        return id_user;
+    }
+
+    public void setId_user(Integer id_user) {
+        this.id_user = id_user;
+    }
+
     public String getLogin() {
         return login;
     }
@@ -40,11 +62,11 @@ public class RegistrationUserData {
         this.login = login;
     }
 
-    public char[] getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(char[] password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
@@ -112,44 +134,36 @@ public class RegistrationUserData {
         this.role = role;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof RegistrationUserData)) return false;
         RegistrationUserData that = (RegistrationUserData) o;
-        return Objects.equals(getLogin(), that.getLogin())
-                && Arrays.equals(getPassword(), that.getPassword())
-                && Objects.equals(getName(), that.getName())
-                && Objects.equals(getSurname(), that.getSurname())
+        return getId_user().equals(that.getId_user())
+                && getLogin().equals(that.getLogin())
+                && getPassword().equals(that.getPassword())
+                && getName().equals(that.getName())
+                && getSurname().equals(that.getSurname())
                 && Objects.equals(getLastName(), that.getLastName())
                 && Objects.equals(getDateOfBirth(), that.getDateOfBirth())
                 && Objects.equals(getTelephoneNumber(), that.getTelephoneNumber())
                 && Objects.equals(getEmail(), that.getEmail())
                 && Objects.equals(getAddress(), that.getAddress())
-                && Objects.equals(getRole(), that.getRole())
-                && Objects.equals(getId(), that.getId());
+                && Objects.equals(getRole(), that.getRole());
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(getLogin(), getName(), getSurname(), getLastName(), getDateOfBirth(), getTelephoneNumber(), getEmail(), getAddress(), getRole(), getId());
-        result = 31 * result + Arrays.hashCode(getPassword());
-        return result;
+        return Objects.hash(getId_user(), getLogin(), getPassword(), getName(), getSurname(),
+                getLastName(), getDateOfBirth(), getTelephoneNumber(), getEmail(), getAddress(), getRole());
     }
 
     @Override
     public String toString() {
         return getClass().getSimpleName() + "{" +
-                "login='" + login + '\'' +
-                ", password=" + Arrays.toString(password) +
+                "id_user='" + id_user + '\'' +
+                ", login='" + login + '\'' +
+                ", password=" + password +
                 ", firstName='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", lastName='" + lastName + '\'' +
@@ -158,7 +172,6 @@ public class RegistrationUserData {
                 ", email='" + email + '\'' +
                 ", address='" + address + '\'' +
                 ", role=" + role +
-                ", id=" + id +
                 '}';
     }
 }

@@ -10,6 +10,8 @@ import by.gaponenko.restaurant.service.UserService;
 import by.gaponenko.restaurant.service.Validation.UserDataValidator;
 import by.gaponenko.restaurant.service.Validation.ValidationException;
 
+import java.sql.SQLException;
+
 public class UserServiceImpl implements UserService {
 
     private static final UserDataValidator validator = UserDataValidator.getInstance();
@@ -27,6 +29,10 @@ public class UserServiceImpl implements UserService {
         } catch(DaoException e){
             throw new ServiceException(e);
         } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
         return user;
@@ -47,6 +53,8 @@ public class UserServiceImpl implements UserService {
             }
         } catch(DaoException e){
             throw new ServiceException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
         return registred;
     }
