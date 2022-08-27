@@ -13,10 +13,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.text.ParseException;
 
 public class AuthorizationCommand implements Command {
+    //private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 

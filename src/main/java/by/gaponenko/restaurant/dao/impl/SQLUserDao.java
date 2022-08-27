@@ -82,7 +82,7 @@ public class SQLUserDao implements UserDao {
 
             // проверяем, есть ли пользователь с таким логином
             if (resultSet.next()) {
-                throw new DaoException("User with this login is already registered! Please, insert another login.");
+                return false;
             }
 
             preparedStatementForUser = connection.prepareStatement(ADD_NEW_USER);
@@ -115,6 +115,10 @@ public class SQLUserDao implements UserDao {
             throw new DaoException("Error while adding new User", e);
         }
         return true;
+    }
+
+    public RegistrationUserData editUserInfo (RegistrationUserData userData){
+        return userData;
     }
 
     private Connection connectToDataBase() throws DaoException {

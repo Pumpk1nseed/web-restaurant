@@ -10,9 +10,9 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Menu</title>
-    <link href="css/Menu.css" rel="stylesheet">
+    <link href="css/menu.css" rel="stylesheet">
 </head>
-<br>
+<body>
 <div class="topline">
     <table>
         <tr>

@@ -9,7 +9,7 @@
 <html>
 <head>
     <title>web-restaurant</title>
-    <link href="css/Main.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
 </head>
 <body>
 <div class="logo">

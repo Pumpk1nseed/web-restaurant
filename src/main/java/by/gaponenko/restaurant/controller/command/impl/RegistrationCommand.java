@@ -19,6 +19,7 @@ import java.util.Date;
 
 public class RegistrationCommand implements Command {
 
+    //private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
     //SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException, ParseException {
