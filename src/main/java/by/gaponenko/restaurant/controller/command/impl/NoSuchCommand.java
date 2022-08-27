@@ -1,8 +1,8 @@
 package by.gaponenko.restaurant.controller.command.impl;
 
 import by.gaponenko.restaurant.controller.command.Command;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class NoSuchCommand implements Command {
     @Override

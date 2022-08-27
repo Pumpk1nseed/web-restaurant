@@ -2,6 +2,28 @@ body {
     font-family: sans-serif;
 }
 
+.basket {
+    position: fixed; /* Фиксированное положение */
+    right: 10px; /* Расстояние от правого края окна браузера */
+    top: 1%; /* Расстояние сверху */
+    padding: 10px; /* Поля вокруг текста */
+    background: #FF8C00; /* Цвет фона */
+    border: 1px solid #FFFFFF; /* Параметры рамки */
+    width: 90px;
+    text-align: center;
+}
+
+.menu {
+    position: fixed; /* Фиксированное положение */
+    right: 10px; /* Расстояние от правого края окна браузера */
+    top: 6%; /* Расстояние сверху */
+    padding: 10px; /* Поля вокруг текста */
+    background: #FF8C00; /* Цвет фона */
+    border: 1px solid #FFFFFF; /* Параметры рамки */
+    width: 90px;
+    text-align: center;
+}
+
 .main {
     position: fixed; /* Фиксированное положение */
     right: 10px; /* Расстояние от правого края окна браузера */
@@ -13,17 +35,20 @@ body {
     text-align: center;
 }
 
-.basket {
-    position: fixed; /* Фиксированное положение */
-    right: 10px; /* Расстояние от правого края окна браузера */
-    top: 6%; /* Расстояние сверху */
-    padding: 10px; /* Поля вокруг текста */
-    background: #FF8C00; /* Цвет фона */
-    border: 1px solid #FFFFFF; /* Параметры рамки */
-    width: 90px;
-    text-align: center;
+.topline {
+    position: fixed;
+    background: #FFFFFF;
+    top: 0%;
+}
+
+.topline td {
+    width: 700px;
 }
 
 span {
     color: #FFFFFF;
+}
+
+a {
+    text-decoration: none
 }
