@@ -13,7 +13,6 @@
     <title>Main-page</title>
 </head>
 <body>
-<%--<jsp:include page=""/>--%>
-<h1>Hello</h1>
+<jsp:include page="/jspmain"/>
 </body>
 </html>

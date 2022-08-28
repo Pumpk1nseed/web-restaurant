@@ -1,6 +1,6 @@
 <%@ page import="by.gaponenko.restaurant.bean.User" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
+<%--<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>&ndash;%&gt;--%>
 <%--
   Created by IntelliJ IDEA.
   User: natalagaponenko
@@ -37,8 +37,8 @@
 
     out.print("Наташ...");
 %>
-
-<c: out value="Hello with jstl"/>
+Hello
+<%--<c: out value="Hello with jstl"/>--%>
 
 </body>
 </html>

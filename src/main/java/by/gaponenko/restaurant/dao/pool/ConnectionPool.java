@@ -1,7 +1,5 @@
 package by.gaponenko.restaurant.dao.pool;
 
-//import org.apache.logging.log4j.LogManager;
-//import org.apache.logging.log4j.Logger;
 import by.gaponenko.restaurant.dao.DaoProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +14,7 @@ import java.util.concurrent.Executor;
 // код контроля работы с connection-ами
 public class ConnectionPool {
     private static final int DEFAULT_POOLSIZE = 10;
-    //private final Logger log = LoggerFactory.getLogger(this.getClass());
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
     private final String driverName;
     private final String url;
     private final String userName;
@@ -78,17 +76,17 @@ public class ConnectionPool {
         try {
             resultSet.close();
         } catch (SQLException e) {
-            //log.error("Error while closing resultSet object", e);
+            log.error("Error while closing resultSet object", e);
         }
         try {
             statement.close();
         } catch (SQLException e) {
-            //log.error("Error while closing statement object", e);
+            log.error("Error while closing statement object", e);
         }
         try {
             connection.close();
         } catch (SQLException e) {
-            //log.error("Error while closing connection object", e);
+            log.error("Error while closing connection object", e);
         }
     }
 
@@ -108,7 +106,7 @@ public class ConnectionPool {
             closeConnectionQueue(connectionsQueue);
             closeConnectionQueue(givenAwayQueue);
         } catch (SQLException e) {
-            //log.error("Error closing connection queue", e);
+            log.error("Error closing connection queue", e);
         }
     }
 

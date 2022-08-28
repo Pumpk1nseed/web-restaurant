@@ -8,13 +8,11 @@ import by.gaponenko.restaurant.dao.pool.ConnectionPool;
 import by.gaponenko.restaurant.service.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-//import org.apache.logging.log4j.LogManager;
-//import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 
 public class SQLUserDao implements UserDao {
-    //private final Logger log = LoggerFactory.getLogger(this.getClass());
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
     private static final String STATUS = "status";
 
     private static final String FIND_AUTHORIZED_USER = "SELECT * FROM users WHERE login = ? AND password = ?;";
@@ -40,12 +38,12 @@ public class SQLUserDao implements UserDao {
             resultSet = preparedStatement.executeQuery();
 
             if (!resultSet.next()) {
-                //log.info("Attempt to log in with incorrect data. Login :{}", login);
+                log.info("Attempt to log in with incorrect data. Login :{}", login);
                 throw new DaoException("Wrong login or password");
             }
 
             if (resultSet.getString(STATUS) == "inactive") {
-                //log.info("Attempt to log in from deleted user. Login :{}", login);
+                log.info("Attempt to log in from deleted user. Login :{}", login);
                 throw new DaoException("Sorry, your profile was deleted.");
             }
 
@@ -56,7 +54,7 @@ public class SQLUserDao implements UserDao {
             preparedStatement.close();
             connection.close();
         } catch (SQLException e) {
-            //log.error("Error working with statements while sign in", e);
+            log.error("Error working with statements while sign in", e);
             throw new DaoException("Error while working with database", e);
         }
         return user;
@@ -111,7 +109,7 @@ public class SQLUserDao implements UserDao {
             preparedStatementForUserInfo.close();
             connection.close();
         } catch (SQLException e) {
-            //log.error("Error working with statements while sign in", e);
+            log.error("Error working with statements while sign in", e);
             throw new DaoException("Error while adding new User", e);
         }
         return true;
@@ -126,7 +124,7 @@ public class SQLUserDao implements UserDao {
         try {
             connection = connectionPool.takeConnection();
         } catch (InterruptedException e) {
-            //   log.error("Error while getting connection from connection pool queue", e);
+            log.error("Error while getting connection from connection pool queue", e);
             throw new DaoException("Error taking connection to database", e);
         } catch (SQLException e) {
             throw new RuntimeException(e);
