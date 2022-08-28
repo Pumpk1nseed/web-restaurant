@@ -7,7 +7,7 @@ public final class RequestParameterName {
     private RequestParameterName(){}
 
     public static final String REQ_PARAM_COMAND_NAME = "command";
-  //  public static final String REQ_PARAM_ID_USER = "id_user";
+  //  public static final String REQ_PARAM_IDUSER = "id_user";
     public static final String REQ_PARAM_LOGIN = "login";
     public static final String REQ_PARAM_PASSWORD = "password";
     public static final String REQ_PARAM_NAME = "name";

@@ -9,20 +9,21 @@ import by.gaponenko.restaurant.service.ServiceException;
 import by.gaponenko.restaurant.service.UserService;
 import by.gaponenko.restaurant.service.Validation.UserDataValidator;
 import by.gaponenko.restaurant.service.Validation.ValidationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class UserServiceImpl implements UserService {
 
     private static final UserDataValidator validator = UserDataValidator.getInstance();
-
     private static final UserDao userDao = DaoProvider.getInstance().getUserDao();
     @Override
     public User authorization(String login, String password) throws ServiceException {
         if (!validator.validate(login, password)) {
             throw new ServiceException("login or password is incorrect!");
         }
-
         User user;
         try{
             user = userDao.authorization(login, password);
@@ -57,5 +58,13 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException(e);
         }
         return registred;
+    }
+
+    public RegistrationUserData loadUserDataByLogin(String login) throws ServiceException{
+        try {
+            return userDao.loadUserDataByLogin(login);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
     }
 }

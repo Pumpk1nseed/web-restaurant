@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.Objects;
 
 public class RegistrationUserData {
-    private Integer id_user;
+    private Integer idUser;
     private String login;
     private String password;
     private String name;
@@ -19,8 +19,8 @@ public class RegistrationUserData {
 
     public RegistrationUserData(){}
 
-    public RegistrationUserData(Integer id_user, String login, String password, String name, String surname, String lastName, String dateOfBirth, String telephoneNumber, String email, String address, String role) {
-        this.id_user = id_user;
+    public RegistrationUserData(Integer idUser, String login, String password, String name, String surname, String lastName, String dateOfBirth, String telephoneNumber, String email, String address, String role) {
+        this.idUser = idUser;
         this.login = login;
         this.password = password;
         this.name = name;
@@ -46,12 +46,12 @@ public class RegistrationUserData {
         this.role = role;
     }
 
-    public Integer getId_user() {
-        return id_user;
+    public Integer getIdUser() {
+        return idUser;
     }
 
-    public void setId_user(Integer id_user) {
-        this.id_user = id_user;
+    public void setIdUser(Integer idUser) {
+        this.idUser = idUser;
     }
 
     public String getLogin() {
@@ -74,7 +74,7 @@ public class RegistrationUserData {
         return name;
     }
 
-    public void setName(String firstName) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -139,7 +139,7 @@ public class RegistrationUserData {
         if (this == o) return true;
         if (!(o instanceof RegistrationUserData)) return false;
         RegistrationUserData that = (RegistrationUserData) o;
-        return getId_user().equals(that.getId_user())
+        return getIdUser().equals(that.getIdUser())
                 && getLogin().equals(that.getLogin())
                 && getPassword().equals(that.getPassword())
                 && getName().equals(that.getName())
@@ -154,14 +154,14 @@ public class RegistrationUserData {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId_user(), getLogin(), getPassword(), getName(), getSurname(),
+        return Objects.hash(getIdUser(), getLogin(), getPassword(), getName(), getSurname(),
                 getLastName(), getDateOfBirth(), getTelephoneNumber(), getEmail(), getAddress(), getRole());
     }
 
     @Override
     public String toString() {
         return getClass().getSimpleName() + "{" +
-                "id_user='" + id_user + '\'' +
+                "idUser='" + idUser + '\'' +
                 ", login='" + login + '\'' +
                 ", password=" + password +
                 ", firstName='" + name + '\'' +

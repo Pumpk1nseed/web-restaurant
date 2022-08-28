@@ -1,9 +1,6 @@
 package by.gaponenko.restaurant.controller.command;
 
-import by.gaponenko.restaurant.controller.command.impl.AuthorizationCommand;
-import by.gaponenko.restaurant.controller.command.impl.NoSuchCommand;
-import by.gaponenko.restaurant.controller.command.impl.RegistrationCommand;
-import by.gaponenko.restaurant.controller.command.impl.UpdateUserInfoCommand;
+import by.gaponenko.restaurant.controller.command.impl.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,6 +14,7 @@ public class CommandHelper {
         commands.put(CommandName.AUTHORIZATION, new AuthorizationCommand());
         commands.put(CommandName.REGISTRATION, new RegistrationCommand());
         commands.put(CommandName.UPDATE_USER_INFO, new UpdateUserInfoCommand());
+        commands.put(CommandName.GET_MENU, new GetMenuCommand());
         commands.put(CommandName.NO_SUCH_COMMAND, new NoSuchCommand());
     }
 

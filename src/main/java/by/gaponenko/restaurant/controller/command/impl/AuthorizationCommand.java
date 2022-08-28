@@ -1,5 +1,6 @@
 package by.gaponenko.restaurant.controller.command.impl;
 
+import by.gaponenko.restaurant.bean.RegistrationUserData;
 import by.gaponenko.restaurant.bean.User;
 import by.gaponenko.restaurant.controller.JSPPageName;
 import by.gaponenko.restaurant.controller.RequestParameterName;
@@ -17,7 +18,7 @@ import java.io.IOException;
 public class AuthorizationCommand implements Command {
     //private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
     @Override
-    public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 
         String login;
         String password;
@@ -28,10 +29,13 @@ public class AuthorizationCommand implements Command {
         UserService userService = ServiceProvider.getInstance().getUserService();
 
         User user;
+        RegistrationUserData userData;
         try {
             user = userService.authorization(login, password);
+            userData = userService.loadUserDataByLogin(login);
 
-            req.setAttribute("user", user);
+            req.getSession().setAttribute("user", user);
+            req.getSession().setAttribute("user_info", userData);
 
             RequestDispatcher dispatcher = req.getRequestDispatcher(JSPPageName.USER_AUTHORIZED_PAGE);
             dispatcher.forward(req, resp);
@@ -44,5 +48,6 @@ public class AuthorizationCommand implements Command {
         } catch (ServletException e) {
             throw new RuntimeException(e);
         }
+        return login;
     }
 }

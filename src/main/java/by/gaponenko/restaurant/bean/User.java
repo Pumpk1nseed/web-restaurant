@@ -3,7 +3,7 @@ package by.gaponenko.restaurant.bean;
 import java.util.Objects;
 
 public class User {
-    private String id_user;
+    private Integer idUser;
     private String login;
     private String password;
     private String role;
@@ -12,8 +12,8 @@ public class User {
     public User() {
     }
 
-    public User(String id_user, String login, String password, String role) {
-        this.id_user = id_user;
+    public User(Integer idUser, String login, String password, String role) {
+        this.idUser = idUser;
         this.login = login;
         this.password = password;
         this.role = role;
@@ -25,12 +25,12 @@ public class User {
         this.role = role;
     }
 
-    public String getId_user() {
-        return id_user;
+    public Integer getIdUser() {
+        return idUser;
     }
 
-    public void setId_user(String id_user) {
-        this.id_user = id_user;
+    public void setIdUser(Integer idUser) {
+        this.idUser = idUser;
     }
     public String getPassword() {
         return password;
@@ -69,7 +69,7 @@ public class User {
         if (this == o) return true;
         if (!(o instanceof User)) return false;
         User user = (User) o;
-        return getId_user().equals(user.getId_user()) && getPassword().equals(user.getPassword()) && getLogin().equals(user.getLogin()) && getRole().equals(user.getRole()) && Objects.equals(getStatus(), user.getStatus());
+        return getIdUser().equals(user.getIdUser()) && getPassword().equals(user.getPassword()) && getLogin().equals(user.getLogin()) && getRole().equals(user.getRole()) && Objects.equals(getStatus(), user.getStatus());
     }
 
     @Override
@@ -80,7 +80,7 @@ public class User {
     @Override
     public String toString() {
         return getClass().getSimpleName() + "{" +
-                "id_user=" + id_user +
+                "idUser=" + idUser +
                 ", password='" + password + '\'' +
                 ", login='" + login + '\'' +
                 ", role='" + role + '\'' +

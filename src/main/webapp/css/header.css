@@ -2,28 +2,6 @@ body {
     font-family: sans-serif;
 }
 
-.basket {
-    position: fixed; /* Фиксированное положение */
-    right: 10px; /* Расстояние от правого края окна браузера */
-    top: 1%; /* Расстояние сверху */
-    padding: 10px; /* Поля вокруг текста */
-    background: #FF8C00; /* Цвет фона */
-    border: 1px solid #FFFFFF; /* Параметры рамки */
-    width: 90px;
-    text-align: center;
-}
-
-.menu {
-    position: fixed; /* Фиксированное положение */
-    right: 10px; /* Расстояние от правого края окна браузера */
-    top: 6%; /* Расстояние сверху */
-    padding: 10px; /* Поля вокруг текста */
-    background: #FF8C00; /* Цвет фона */
-    border: 1px solid #FFFFFF; /* Параметры рамки */
-    width: 90px;
-    text-align: center;
-}
-
 .main {
     position: fixed; /* Фиксированное положение */
     right: 10px; /* Расстояние от правого края окна браузера */
@@ -35,13 +13,26 @@ body {
     text-align: center;
 }
 
-.infocategory{
+.basket {
+    position: fixed; /* Фиксированное положение */
+    right: 10px; /* Расстояние от правого края окна браузера */
+    top: 6%; /* Расстояние сверху */
     padding: 10px; /* Поля вокруг текста */
     background: #FF8C00; /* Цвет фона */
     border: 1px solid #FFFFFF; /* Параметры рамки */
-    width: 200px;
+    width: 90px;
     text-align: center;
-    color: #FFFFFF;
+}
+
+.account {
+    position: fixed; /* Фиксированное положение */
+    right: 10px; /* Расстояние от правого края окна браузера */
+    top: 1%; /* Расстояние сверху */
+    padding: 10px; /* Поля вокруг текста */
+    background: #FF8C00; /* Цвет фона */
+    border: 1px solid #FFFFFF; /* Параметры рамки */
+    width: 90px;
+    text-align: center;
 }
 
 .topline {
@@ -50,31 +41,14 @@ body {
     top: 0%;
 }
 
-.block {
-    width: 400px;
-    height: 600px;
-    background: #FFFFFF;
-    border: 2px solid #ccc;
-    overflow: scroll;
-}
-
-#check_label:checked ~ .block {
-    height: 0px;
-    opacity: 0;
-}
-
-#check_label {
-    display: none;
-}
-
 .topline td {
-    width: 700px;
-}
-
-span {
-    color: #FFFFFF;
+    width: 1000px;
 }
 
 a {
     text-decoration: none
+}
+
+span {
+    color: #FFFFFF;
 }
