@@ -1,13 +1,7 @@
 <%@ page import="by.gaponenko.restaurant.bean.User" %>
-<%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
-<%--<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>&ndash;%&gt;--%>
-<%--
-  Created by IntelliJ IDEA.
-  User: natalagaponenko
-  Date: 17.07.22
-  Time: 03:11
-  To change this template use File | Settings | File Templates.
---%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -38,7 +32,7 @@
     out.print("Наташ...");
 %>
 Hello
-<%--<c: out value="Hello with jstl"/>--%>
+<c:out value="Hello with jstl"/>
 
 </body>
 </html>
