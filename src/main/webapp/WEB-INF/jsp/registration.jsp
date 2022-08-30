@@ -39,33 +39,47 @@
 
 <div class="titleReg"><h1>${regTitleFmt}</h1></div>
 
-<form style="margin-top: 6%" action="controller" method="post">
-    <input type="hidden" name="command" value="registration"/>
-    <input type="text" name="login" placeholder="${loginPhFmt}" value=""/>
-    <br>
-    <input type="text" name="name" placeholder="${nameFmt}" value=""/>
-    <br>
-    <input type="text" name="surname" placeholder="${surnameFmt}" value=""/>
-    <br>
-    <input type="text" name="last_name" placeholder="${lastNameFmt}" value=""/>
-    <br>
-    <input type="date" name="date_of_birth" placeholder="${dateBirthFmt}" value=""/>
-    <br>
-    <input type="text" name="telephone_number" placeholder="${phoneFmt}" value=""/>
-    <br>
-    <input type="text" name="email" placeholder="${mailFmt}" value=""/>
-    <br>
-    <input type="text" name="address" placeholder="${addressFmt}" value=""/>
-    <br>
-    <input type="text" name="role" placeholder="${roleFmt}" value=""/>
-    <br>
-    <input type="password" name="password" placeholder="${passwordFmt}" value=""/>
-    <br>
-    <input type="submit" value="register"/> <br/>
-</form>
+<div class="entity">
+    <div class="register-form-container">
+        <form action="controller" method="post">
+            <input type="hidden" name="command" value="registration"/>
+            <div class="form-field">
+                <input type="text" name="login" placeholder="${loginPhFmt}" value=""/>
+            </div>
+            <div class="form-field">
+                <input type="text" name="name" placeholder="${nameFmt}" value=""/>
+            </div>
+            <div class="form-field">
+                <input type="text" name="surname" placeholder="${surnameFmt}" value=""/>
+            </div>
+            <div class="form-field">
+                <input type="text" name="last_name" placeholder="${lastNameFmt}" value=""/>
+            </div>
+            <div class="form-field">
+                <input type="date" name="date_of_birth" placeholder="${dateBirthFmt}" value=""/>
+            </div>
+            <div class="form-field">
+                <input type="text" name="telephone_number" placeholder="${phoneFmt}" value=""/>
+            </div>
+            <div class="form-field">
+                <input type="text" name="email" placeholder="${mailFmt}" value=""/>
+            </div>
+            <div class="form-field">
+                <input type="text" name="address" placeholder="${addressFmt}" value=""/>
+            </div>
+            <div class="form-field">
+                <input type="text" name="role" placeholder="${roleFmt}" value=""/>
+            </div>
+            <div class="form-field">
+                <input type="password" name="password" placeholder="${passwordFmt}" value=""/>
+            </div>
+            <button class="button">${regTitleFmt}</button>
+        </form>
+    </div>
+</div>
+
 
 <div class="menu"><a href="menu"><span>${menuLower_link}</span></a></div>
 <div class="catharsisinfo"><a href="catharsisinfo"><span>${about_link}</span></a></div>
-
 </body>
 </html>

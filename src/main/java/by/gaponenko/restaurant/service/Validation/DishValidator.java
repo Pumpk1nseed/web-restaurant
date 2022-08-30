@@ -10,12 +10,12 @@ public class DishValidator {
     private DishValidator(){}
 
     public boolean validate(Menu menu) {
-        //можно написать в файлу properties паттеры,
+        //можно написать в файле properties паттеры,
         //а валидатор будет поднимать из properties данные и проверять
         return true;
     }
     public boolean validateDish(Dish dish) {
-        //можно написать в файлу properties паттеры,
+        //можно написать в файле properties паттеры,
         //а валидатор будет поднимать из properties данные и проверять
         return true;
     }

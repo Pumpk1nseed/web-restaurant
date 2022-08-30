@@ -39,7 +39,7 @@
     <p>${nameFmt} : ${sessionScope.user_info.name}</p>
     <p>${surnameFmt} : ${sessionScope.user_info.surname}</p>
     <p>${lastNameFmt} : ${sessionScope.user_info.lastName}</p>
-    <p>${dateBirthFmt} : ${sessionScope.user_info.DateOfBirth}</p>
+<%--    <p>${dateBirthFmt} : ${sessionScope.user_info.DateOfBirth}</p>--%>
     <p>${mailFmt}: ${sessionScope.user_info.email}</p>
     <p>${addressFmt} : ${sessionScope.user_info.address}</p>
     <p>${phoneFmt} : ${sessionScope.user_info.telephoneNumber}</p>

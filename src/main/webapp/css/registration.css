@@ -10,10 +10,26 @@ a {
     text-decoration: none
 }
 
+input {
+    font-size: 14px;
+    height: 45px;
+    width: 100%;
+    color: #4a4947;
+    line-height: 16px;
+    border: 2px solid #fffbf5;
+    border-radius: 5px;
+    padding-left: 25px;
+}
+
+input:focus {
+    outline: none;
+    border: 2px solid #fffbf5;
+}
+
 .titleReg {
     top: 0.5%;
     position: fixed;
-    right: 700px;
+    right: 750px;
     z-index: 9998 !important;
 }
 
@@ -37,4 +53,66 @@ a {
     border: 1px solid #FFFFFF; /* Параметры рамки */
     width: 90px;
     text-align: center;
+}
+
+.entity {
+    margin-left: 37%;
+    margin-top: 6%;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+main {
+    background: #F1F5FE;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-title {
+    color: #000;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 23px;
+    margin-bottom: 38px;
+}
+
+.register-form-container {
+    position: relative;
+    z-index: 2;
+    max-width: 415px;
+    background: #FFFFFF;
+    box-shadow: 0px 6px 50px rgba(217, 229, 255, 0.7);
+    border-radius: 20px;
+    padding-right: 30px;
+    padding-left: 30px;
+    padding-top: 38px;
+    padding-bottom: 38px;
+}
+
+.form-field {
+    margin-bottom: 13px;
+}
+
+.button {
+    display: block;
+    height: 35px;
+    background: #FF8C00;
+    border-color: #FFFFFF;
+    color: #FFFFFF;
+    border-radius: 5px;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 15px;
+    font-weight: bold;
+    font-size: 14px;
+    width: 100%;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #fafcf5;
+    color: #212529;
 }

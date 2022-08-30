@@ -7,6 +7,8 @@ public enum CommandName {
     UPDATE_USER_INFO,
     GET_MENU,
     CHANGE_LOCALIZATION,
+
+    MAKE_ORDER,
     NO_SUCH_COMMAND
 
 }
