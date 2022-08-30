@@ -57,3 +57,43 @@ span {
     color: #FFFFFF;
 
 }
+
+.localeBtnEn {
+    background: #31332e;
+    border-color: #f2a633;
+    color: #f2a633;
+    transition-duration: 0.4s;
+    border-radius: 0.75em;
+    padding: 0.25em 1em;
+    top: 1%;
+    position: fixed;
+    right: 180px;
+    width: 50px;
+}
+
+.localeBtnRu {
+    background: #31332e;
+    border-color: #f2a633;
+    color: #f2a633;
+    transition-duration: 0.4s;
+    border-radius: 0.75em;
+    padding: 0.25em 1em;
+    top: 1%;
+    position: fixed;
+    right: 240px;
+    width: 50px;
+}
+
+.localeBtnRu:hover {
+    cursor: pointer;
+    background: #fff;
+    border-color: #212529;
+    color: #212529;
+}
+
+.localeBtnEn:hover {
+    cursor: pointer;
+    background: #fff;
+    border-color: #212529;
+    color: #212529;
+}

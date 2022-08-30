@@ -18,5 +18,8 @@ public final class RequestParameterName {
     public static final String REQ_PARAM_EMAIL = "email";
     public static final String REQ_PARAM_ADDRESS = "address";
     public static final String REQ_PARAM_ROLE = "role";
+  public static final String REQ_PARAM_LOCALIZATION = "localization";
+  public static final String REQ_PARAM_LAST_USED_PAGE = "last_used_page";
+
 
 }

@@ -3,9 +3,9 @@
 
 <html>
 <head>
-    <title>Main-page</title>
+    <title>Catharsis</title>
 </head>
 <body>
-<jsp:include page="/jspmain"/>
+<jsp:include page="/main"/>
 </body>
 </html>

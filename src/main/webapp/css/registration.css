@@ -2,33 +2,6 @@ body {
     font-family: sans-serif;
 }
 
-.infocategory {
-    padding: 10px; /* Поля вокруг текста */
-    background: #FF8C00; /* Цвет фона */
-    border: 1px solid #FFFFFF; /* Параметры рамки */
-    width: 200px;
-    text-align: center;
-    color: #FFFFFF;
-}
-
-.block {
-    width: 400px;
-    height: 600px;
-    background: #FFFFFF;
-    border: 2px solid #ccc;
-    /*    overflow: scroll; прокрутка*/
-
-}
-
-#check_label:checked ~ .block {
-    height: 0px;
-    opacity: 0;
-}
-
-#check_label {
-    display: none;
-}
-
 span {
     color: #FFFFFF;
 }
@@ -37,10 +10,10 @@ a {
     text-decoration: none
 }
 
-.titleAccount {
+.titleReg {
     top: 0.5%;
     position: fixed;
-    right: 650px;
+    right: 700px;
     z-index: 9998 !important;
 }
 
@@ -55,7 +28,7 @@ a {
     text-align: center;
 }
 
-.basket {
+.catharsisinfo {
     position: fixed; /* Фиксированное положение */
     right: 10px; /* Расстояние от правого края окна браузера */
     top: 6%; /* Расстояние сверху */

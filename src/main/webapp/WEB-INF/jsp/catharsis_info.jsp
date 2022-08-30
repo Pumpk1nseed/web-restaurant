@@ -12,10 +12,10 @@
 <fmt:setLocale value="${sessionScope.local}"/>
 <fmt:setBundle basename="localization" var="loc"/>
 
-<fmt:message bundle="${loc}" key="localization.txt.RestaurantName" var="restNameFmt" />
-<fmt:message bundle="${loc}" key="localization.txt.Info" var="infoFmt" />
-<fmt:message bundle="${loc}" key="localization.txt.About" var="aboutFmt" />
-<fmt:message bundle="${loc}" key="localization.txt.About2" var="about2Fmt" />
+<fmt:message bundle="${loc}" key="localization.txt.RestaurantName" var="restNameFmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.Info" var="infoFmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.About" var="aboutFmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.About2" var="about2Fmt"/>
 <fmt:message bundle="${loc}" key="localization.link.Main" var="main_link"/>
 
 <html>
@@ -25,9 +25,9 @@
 <body>
 <h1>${restNameFmt}</h1>
 <p><strong>${restNameFmt} - </strong>${aboutFmt}</p>
-<br />
+<br/>
 <p>${about2Fmt}</p>
 
-<a href="index.jsp">${main_link}</a>
+<a href="home">${main_link}</a>
 </body>
 </html>

@@ -14,15 +14,16 @@
 
 <fmt:message bundle="${loc}" key="localization.link.Menu" var="menu_link"/>
 <fmt:message bundle="${loc}" key="localization.link.SignIn" var="signIn_link"/>
-<fmt:message bundle="${loc}" key="localization.txt.RestaurantName" var="restNameFmt" />
-<fmt:message bundle="${loc}" key="localization.txt.WorkingMode1" var="workingMode1Fmt" />
-<fmt:message bundle="${loc}" key="localization.txt.WorkingMode2" var="workingMode2Fmt" />
+<fmt:message bundle="${loc}" key="localization.txt.RestaurantName" var="restNameFmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.WorkingMode1" var="workingMode1Fmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.WorkingMode2" var="workingMode2Fmt"/>
 <fmt:message bundle="${loc}" key="localization.link.About" var="about_link"/>
-<fmt:message bundle="${loc}" key="localization.button.ru" var="ru_button" />
-<fmt:message bundle="${loc}" key="localization.button.en" var="en_button" />
+<fmt:message bundle="${loc}" key="localization.button.ru" var="ru_button"/>
+<fmt:message bundle="${loc}" key="localization.button.en" var="en_button"/>
 
 <html>
 <head>
+    <meta charset="UTF-8"/>
     <title>${restNameFmt}</title>
     <link href="css/main.css" rel="stylesheet">
 </head>
@@ -31,12 +32,12 @@
 <form action="controller" method="get">
     <input type="hidden" name="command" value="change_localization">
     <input type="hidden" name="localization" value="en">
-    <input type="submit" value="${en_button}" class="localeBtn">
+    <input type="submit" value="${en_button}" class="localeBtnEn">
 </form>
 <form action="controller" method="get">
     <input type="hidden" name="command" value="change_localization">
     <input type="hidden" name="localization" value="ru">
-    <input type="submit" value="${ru_button}" class="localeBtn">
+    <input type="submit" value="${ru_button}" class="localeBtnRu">
 </form>
 
 <div class="logo">
@@ -56,21 +57,21 @@
     </span></p>
 </div>
 <div class="linkauth">
-    <a href="jspauthorization">
+    <a href="authorization">
         <span style="font-size: medium ">
             ${signIn_link}
         </span>
     </a>
 </div>
 <div class="linkmenu">
-    <a href="jspmenu">
+    <a href="menu">
         <span style="font-size: medium ">
             ${menu_link}
         </span>
     </a>
 </div>
 <div class="linkabout">
-    <a href="jspcatharsisinfo">
+    <a href="catharsisinfo">
         <span style="font-size: medium ">
             ${about_link}
         </span>
