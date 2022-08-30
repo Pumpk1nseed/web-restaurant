@@ -55,7 +55,8 @@ body {
     height: 600px;
     background: #FFFFFF;
     border: 2px solid #ccc;
-    overflow: scroll;
+/*    overflow: scroll; прокрутка*/
+
 }
 
 #check_label:checked ~ .block {

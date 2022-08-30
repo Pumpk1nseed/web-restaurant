@@ -7,9 +7,24 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"
          pageEncoding="utf-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
+<fmt:setLocale value="${sessionScope.local}"/>
+<fmt:setBundle basename="localization" var="loc"/>
+
+<fmt:message bundle="${loc}" key="localization.txt.nameAuth" var="nameAuthFmt" />
+<fmt:message bundle="${loc}" key="localization.txt.Welcome" var="welcomeFmt" />
+<fmt:message bundle="${loc}" key="localization.txt.LoginPh" var="loginPhFmt" />
+<fmt:message bundle="${loc}" key="localization.txt.PasswordPh" var="passwordFmt" />
+<fmt:message bundle="${loc}" key="localization.button.SignIn" var="btnSignInFmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.NotRegister" var="notRegisterFmt" />
+<fmt:message bundle="${loc}" key="localization.link.Registration" var="registration_link"/>
+
+
 <html>
 <head>
-    <title>Authorization</title>
+    <title>${nameAuthFmt}</title>
     <link href="css/authorization.css" rel="stylesheet">
 </head>
 <body>
@@ -19,22 +34,22 @@
                              titlе="Наименование catharsis"/></a>
 </div>
 <div class="auth">
-    <p><strong>WELCOME</strong></p>
+    <p><strong>${welcomeFmt}</strong></p>
     <form action="controller" method="post">
         <input type="hidden" name="command" value="authorization"/>
-        <input type="text" name="login" placeholder="введите логин" value=""/>
+        <input type="text" name="login" placeholder="${loginPhFmt}" value=""/>
         <br>
         <br>
-        <input type="password" size="35" name="password" placeholder="введите пароль" value=""/>
+        <input type="password" size="35" name="password" placeholder="${passwordFmt}" value=""/>
         <br>
         <br>
-        <input type="submit" value="sign in"/> <br/>
+        <input type="submit" value="${btnSignInFmt}"/> <br/>
     </form>
 </div>
 <div class="registration">
-    <p>Еще не зарегистрированы?
+    <p>${notRegisterFmt}
         <br>
-        <a href="jspregistration">registration</a></p>
+        <a href="jspregistration">${registration_link}</a></p>
 </div>
 </body>
 </html>

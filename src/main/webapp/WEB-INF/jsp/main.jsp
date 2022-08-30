@@ -6,18 +6,45 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
+<fmt:setLocale value="${sessionScope.localization}"/>
+<fmt:setBundle basename="localization" var="loc"/>
+
+<fmt:message bundle="${loc}" key="localization.link.Menu" var="menu_link"/>
+<fmt:message bundle="${loc}" key="localization.link.SignIn" var="signIn_link"/>
+<fmt:message bundle="${loc}" key="localization.txt.RestaurantName" var="restNameFmt" />
+<fmt:message bundle="${loc}" key="localization.txt.WorkingMode1" var="workingMode1Fmt" />
+<fmt:message bundle="${loc}" key="localization.txt.WorkingMode2" var="workingMode2Fmt" />
+<fmt:message bundle="${loc}" key="localization.link.About" var="about_link"/>
+<fmt:message bundle="${loc}" key="localization.button.ru" var="ru_button" />
+<fmt:message bundle="${loc}" key="localization.button.en" var="en_button" />
+
 <html>
 <head>
-    <title>web-restaurant</title>
+    <title>${restNameFmt}</title>
     <link href="css/main.css" rel="stylesheet">
 </head>
 <body>
+
+<form action="controller" method="get">
+    <input type="hidden" name="command" value="change_localization">
+    <input type="hidden" name="localization" value="en">
+    <input type="submit" value="${en_button}" class="localeBtn">
+</form>
+<form action="controller" method="get">
+    <input type="hidden" name="command" value="change_localization">
+    <input type="hidden" name="localization" value="ru">
+    <input type="submit" value="${ru_button}" class="localeBtn">
+</form>
+
 <div class="logo">
     <img src="images/CATHARSIS.png" аlt="Логотип ресторана" titlе="Наименование catharsis"/>
     <table>
         <tr>
             <td style="width: 270px"><span>
-                SUN-THU 12:00-00:00
+                ${workingMode1Fmt} 12:00-00:00
             </span></td>
             <td><span>
                 +375(29)314-66-52
@@ -25,27 +52,27 @@
         </tr>
     </table>
     <p><span>
-        &nbspFRI-SAT 12:00-02:00
+        &nbsp${workingMode2Fmt} 12:00-02:00
     </span></p>
 </div>
 <div class="linkauth">
     <a href="jspauthorization">
         <span style="font-size: medium ">
-            SIGN IN
+            ${signIn_link}
         </span>
     </a>
 </div>
 <div class="linkmenu">
     <a href="jspmenu">
         <span style="font-size: medium ">
-             SEE MENU
+            ${menu_link}
         </span>
     </a>
 </div>
 <div class="linkabout">
     <a href="jspcatharsisinfo">
         <span style="font-size: medium ">
-            ABOUT CATHARSIS
+            ${about_link}
         </span>
     </a>
 </div>

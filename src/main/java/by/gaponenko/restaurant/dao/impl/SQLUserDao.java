@@ -19,6 +19,7 @@ public class SQLUserDao implements UserDao {
 
     private static final String FIND_AUTHORIZED_USER = "SELECT * FROM users WHERE login = ? AND password = ?;";
     private static final String FIND_USER_BY_LOGIN = "SELECT * FROM users WHERE login = ?;";
+    private static final String FIND_ROLE = "SELECT * FROM roles WHERE title = ?;";
     private static final String FIND_USERDATA_BY_ID = "SELECT * FROM users_details WHERE id_user = ?;";
     private static final String ADD_NEW_USER = "INSERT INTO users (login, password, id_role, status) VALUES(?,?,?,?);";
     private static final String REGISTER_USER_INFO = "INSERT INTO users_details(id_user, name, surname, last_name, date_of_birth, telephone_number, email, address) VALUES(?,?,?,?,?,?,?,?)";
@@ -67,7 +68,9 @@ public class SQLUserDao implements UserDao {
     public boolean registration(RegistrationUserData userData) throws DaoException, SQLException {
         PreparedStatement preparedStatementForUser;
         PreparedStatement preparedStatementForUserInfo;
+        PreparedStatement preparedStatementForRole;
         ResultSet resultSet;
+        String roleId;
 
         try {
             connection = connectToDataBase();
@@ -79,10 +82,16 @@ public class SQLUserDao implements UserDao {
                 return false;
             }
 
+            preparedStatementForRole = connection.prepareStatement(FIND_ROLE);
+            preparedStatementForRole.setString(1,userData.getRole());
+            resultSet = preparedStatementForRole.executeQuery();
+            resultSet.next();
+            roleId = resultSet.getString(1);
+
             preparedStatementForUser = connection.prepareStatement(ADD_NEW_USER);
             preparedStatementForUser.setString(1, userData.getLogin());
             preparedStatementForUser.setString(2, userData.getPassword());
-            preparedStatementForUser.setString(3, userData.getRole());
+            preparedStatementForUser.setString(3, roleId);
             preparedStatementForUser.setString(4, "active");
             preparedStatementForUser.executeUpdate();
 

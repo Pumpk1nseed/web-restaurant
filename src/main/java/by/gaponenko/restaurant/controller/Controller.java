@@ -58,19 +58,18 @@ public class Controller extends HttpServlet {
 
         String commandName;
         Command command;
-        String page;
 
         commandName = req.getParameter(RequestParameterName.REQ_PARAM_COMAND_NAME);
         command = helper.getCommand(commandName);
 
         //доработать
         try {
-            page = command.execute(req, resp);
+            command.execute(req, resp);
 
-            switch (req.getMethod()) {
+/*            switch (req.getMethod()) {
                 case "GET" -> dispatch(req, resp, page);
                 case "POST" -> resp.sendRedirect("controller?command=forward_command&target=" + page);
-            }
+            }*/
         } catch (ParseException | ServiceException e) {
             throw new RuntimeException(e);
         } catch (NullPointerException e) {

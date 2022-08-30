@@ -12,8 +12,6 @@ public class UpdateUserInfoCommand implements Command {
 
     //private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException, ParseException {
-
-        return null;
+    public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException, ParseException {
     }
 }

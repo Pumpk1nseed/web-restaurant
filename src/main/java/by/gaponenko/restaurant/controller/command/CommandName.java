@@ -6,6 +6,7 @@ public enum CommandName {
     REGISTRATION,
     UPDATE_USER_INFO,
     GET_MENU,
+    CHANGE_LOCALIZATION,
     NO_SUCH_COMMAND
 
 }

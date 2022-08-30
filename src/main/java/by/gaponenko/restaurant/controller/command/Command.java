@@ -10,5 +10,5 @@ import java.text.ParseException;
 
 public interface Command {
 
-    String execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException, ParseException, ServiceException;
+    void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException, ParseException, ServiceException;
 }

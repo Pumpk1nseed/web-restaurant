@@ -18,7 +18,7 @@ import java.io.IOException;
 public class AuthorizationCommand implements Command {
     //private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+    public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 
         String login;
         String password;
@@ -48,6 +48,5 @@ public class AuthorizationCommand implements Command {
         } catch (ServletException e) {
             throw new RuntimeException(e);
         }
-        return login;
     }
 }

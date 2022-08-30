@@ -20,7 +20,7 @@ public class RegistrationCommand implements Command {
     //private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
     //SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException, ParseException {
+    public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException, ParseException {
 
         RegistrationUserData userData =
                 new RegistrationUserData(
@@ -46,7 +46,6 @@ public class RegistrationCommand implements Command {
         } catch (ServiceException e) {
             throw new RuntimeException(e);
         }
-        return null;
     }
 }
 

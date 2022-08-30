@@ -8,6 +8,6 @@ public class JSPPageName {
     public static final String USER_AUTHORIZATION_PAGE = "jspauthorization";
     public static final String MENU_PAGE = "jspmenu";
 
-    public static final String ERROR_PAGE = "jsperror";
+    public static final String ERROR_PAGE = "/jsperror";
 
 }

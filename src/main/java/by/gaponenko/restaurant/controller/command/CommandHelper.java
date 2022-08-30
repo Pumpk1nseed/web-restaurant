@@ -15,6 +15,7 @@ public class CommandHelper {
         commands.put(CommandName.REGISTRATION, new RegistrationCommand());
         commands.put(CommandName.UPDATE_USER_INFO, new UpdateUserInfoCommand());
         commands.put(CommandName.GET_MENU, new GetMenuCommand());
+        commands.put(CommandName.CHANGE_LOCALIZATION, new ChangeLocalizationCommand());
         commands.put(CommandName.NO_SUCH_COMMAND, new NoSuchCommand());
     }
 

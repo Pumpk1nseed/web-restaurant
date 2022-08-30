@@ -23,7 +23,7 @@ public class GetMenuCommand implements Command {
     MenuService menuService = ServiceProvider.getInstance().getMenuService();
 
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, ServiceException {
+    public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, ServiceException {
 
         try {
             Menu menu = menuService.getMenu();
@@ -44,6 +44,5 @@ public class GetMenuCommand implements Command {
         } catch (ServletException e) {
             throw new RuntimeException(e);
         }
-        return null;
     }
 }
