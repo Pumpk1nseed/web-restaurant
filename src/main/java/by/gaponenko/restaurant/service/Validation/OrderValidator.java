@@ -13,6 +13,10 @@ public class OrderValidator {
         return true;
     }
 
+    public boolean validate(int idOrder, int idDish, Integer quantity){
+        return true;
+    }
+
     public static OrderValidator getInstance(){
         return instance;
     }

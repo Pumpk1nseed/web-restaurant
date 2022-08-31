@@ -23,6 +23,33 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>basket</servlet-name>
+        <jsp-file>/WEB-INF/jsp/basket.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>basket</servlet-name>
+        <url-pattern>/basket</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>checkout</servlet-name>
+        <jsp-file>/WEB-INF/jsp/checkout.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>checkout</servlet-name>
+        <url-pattern>/checkout</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>orderFinish</servlet-name>
+        <jsp-file>/WEB-INF/jsp/orderFinish.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>orderFinish</servlet-name>
+        <url-pattern>/orderFinish</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>error</servlet-name>
         <jsp-file>/WEB-INF/jsp/error.jsp</jsp-file>
     </servlet>

@@ -2,6 +2,7 @@ package by.gaponenko.restaurant.service.Validation;
 
 import by.gaponenko.restaurant.bean.Dish;
 import by.gaponenko.restaurant.bean.Menu;
+import by.gaponenko.restaurant.bean.criteria.Criteria;
 
 public class DishValidator {
 
@@ -18,6 +19,10 @@ public class DishValidator {
         //можно написать в файле properties паттеры,
         //а валидатор будет поднимать из properties данные и проверять
         return true;
+    }
+
+    public static void validate(Criteria criteria) throws ValidationException {
+        //мб прописать валидатор в criteria
     }
 
 

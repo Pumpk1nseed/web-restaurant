@@ -18,6 +18,12 @@
 <fmt:message bundle="${loc}" key="localization.txt.PersonalAccountTitle" var="persAccountFmt"/>
 <fmt:message bundle="${loc}" key="localization.link.Basket" var="basket_link"/>
 
+<c:if test="${user == null}">
+    <jsp:include page="/WEB-INF/jsp/authorization.jsp"/>
+</c:if>
+
+<c:if test="${user != null}">
+
 <jsp:include page="/WEB-INF/jsp/header.jsp"/>
 
 <html>
@@ -45,8 +51,10 @@
     <p>${phoneFmt} : ${sessionScope.user_info.telephoneNumber}</p>
 </div>
 
-<div class="basket"><span>${basket_link}</span></div>
+<div class="basket"><a href="basket"><span>${basket_link}</span></a></div>
 <div class="menu"><a href="menu"><span>${menuLower_link}</span></a></div>
 
 </body>
 </html>
+
+</c:if>

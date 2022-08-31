@@ -16,6 +16,10 @@ public class CommandHelper {
         commands.put(CommandName.UPDATE_USER_INFO, new UpdateUserInfoCommand());
         commands.put(CommandName.GET_MENU, new GetMenuCommand());
         commands.put(CommandName.CHANGE_LOCALIZATION, new ChangeLocalizationCommand());
+        commands.put(CommandName.ADD_DISH_TO_ORDER, new AddDishToOrderCommand());
+        commands.put(CommandName.REMOVE_DISH_FROM_ORDER, new RemoveDishFromOrderCommand());
+        commands.put(CommandName.CHECKOUT, new CheckoutCommand());
+        commands.put(CommandName.DELETE_ORDER, new DeleteOrderCommand());
         commands.put(CommandName.MAKE_ORDER, new MakeOrderCommand());
         commands.put(CommandName.NO_SUCH_COMMAND, new NoSuchCommand());
     }

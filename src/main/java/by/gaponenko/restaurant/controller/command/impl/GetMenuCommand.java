@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class GetMenuCommand implements Command {
-    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
     MenuService menuService = ServiceProvider.getInstance().getMenuService();
 
     @Override

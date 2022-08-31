@@ -92,7 +92,7 @@
     </c:forEach>
 </div>
 
-<div class="basket"><span>${basket_link}</span></div>
+<div class="basket"><a href="basket"><span>${basket_link}</span></a></div>
 <div class="account"><a href="account"><span>${account_link}</span></a></div>
 
 <script src="js/xhr.js"></script>
