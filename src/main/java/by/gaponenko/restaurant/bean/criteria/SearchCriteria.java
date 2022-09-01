@@ -13,6 +13,6 @@ public final class SearchCriteria {
     }
 
     public static enum User {
-        LOGIN
+        LOGIN, ID_USER
     }
 }

@@ -24,37 +24,51 @@
 
 <c:if test="${user != null}">
 
-<jsp:include page="/WEB-INF/jsp/header.jsp"/>
+    <jsp:include page="/WEB-INF/jsp/header.jsp"/>
 
-<html>
-<head>
-    <meta charset="UTF-8"/>
-    <title>${persInfoFmt}</title>
-    <link href="css/account.css" rel="stylesheet">
-</head>
-<body>
+    <html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>${persInfoFmt}</title>
+        <link href="css/account.css" rel="stylesheet">
+    </head>
+    <body>
 
-<div class="titleAccount"><h1>${persAccountFmt}</h1></div>
+    <div class="titleAccount"><h1>${persAccountFmt}</h1></div>
 
-<h1 style="margin-top: 6%">${welcomeFmt}, ${sessionScope.user_info.name}!</h1>
+    <h1 style="margin-top: 6%">${welcomeFmt}, ${sessionScope.user_info.name}!</h1>
+    <table>
+        <tr>
+            <td>
+                <div class="infocategory"><label for="check_label"><strong>${persInfoFmt}</strong></label></div>
+                <input type="checkbox" name="personal_info" id="check_label">
+                <div class="block">
+                    <p>${loginFmt} : ${sessionScope.user.login}</p>
+                    <p>${nameFmt} : ${sessionScope.user_info.name}</p>
+                    <p>${surnameFmt} : ${sessionScope.user_info.surname}</p>
+                    <p>${lastNameFmt} : ${sessionScope.user_info.lastName}</p>
+                        <%--    <p>${dateBirthFmt} : ${sessionScope.user_info.DateOfBirth}</p>--%>
+                    <p>${mailFmt}: ${sessionScope.user_info.email}</p>
+                    <p>${addressFmt} : ${sessionScope.user_info.address}</p>
+                    <p>${phoneFmt} : ${sessionScope.user_info.telephoneNumber}</p>
+                </div>
+            </td>
+            <td>
+                <div class="historyCategory"><label for="checkHist_label"><strong>History of orders</strong></label>
+                </div>
+                <input type="checkbox" name="orderHist" id="checkHist_label">
+                <div class="block">
+                    <jsp:include page="/WEB-INF/jsp/ordersHistory.jsp"/>
+                </div>
+            </td>
+        </tr>
+    </table>
 
-<div class="infocategory"><label for="check_label"><strong>${persInfoFmt}</strong></label></div>
-<input type="checkbox" name="personal_info" id="check_label">
-<div class="block">
-    <p>${loginFmt} : ${sessionScope.user.login}</p>
-    <p>${nameFmt} : ${sessionScope.user_info.name}</p>
-    <p>${surnameFmt} : ${sessionScope.user_info.surname}</p>
-    <p>${lastNameFmt} : ${sessionScope.user_info.lastName}</p>
-<%--    <p>${dateBirthFmt} : ${sessionScope.user_info.DateOfBirth}</p>--%>
-    <p>${mailFmt}: ${sessionScope.user_info.email}</p>
-    <p>${addressFmt} : ${sessionScope.user_info.address}</p>
-    <p>${phoneFmt} : ${sessionScope.user_info.telephoneNumber}</p>
-</div>
 
-<div class="basket"><a href="basket"><span>${basket_link}</span></a></div>
-<div class="menu"><a href="menu"><span>${menuLower_link}</span></a></div>
+    <div class="basket"><a href="basket"><span>${basket_link}</span></a></div>
+    <div class="menu"><a href="menu"><span>${menuLower_link}</span></a></div>
 
-</body>
-</html>
+    </body>
+    </html>
 
 </c:if>

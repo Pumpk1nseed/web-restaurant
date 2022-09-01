@@ -12,7 +12,7 @@ body {
 .menu {
     position: fixed; /* Фиксированное положение */
     right: 10px; /* Расстояние от правого края окна браузера */
-    top: 1%; /* Расстояние сверху */
+    top: 6%; /* Расстояние сверху */
     padding: 10px; /* Поля вокруг текста */
     background: #FF8C00; /* Цвет фона */
     border: 1px solid #FFFFFF; /* Параметры рамки */
@@ -22,11 +22,17 @@ body {
 
 .account {
     position: fixed; /* Фиксированное положение */
-    right: 10px; /* Расстояние от правого края окна браузера */
-    top: 6%; /* Расстояние сверху */
-    padding: 10px; /* Поля вокруг текста */
-    background: #FF8C00; /* Цвет фона */
-    border: 1px solid #FFFFFF; /* Параметры рамки */
-    width: 90px;
-    text-align: center;
+    right: 5px; /* Расстояние от правого края окна браузера */
+    top: 0.5%; /* Расстояние сверху */
+    width: 2.5%;
+}
+
+.signIn {
+    position: fixed; /* Фиксированное положение */
+    right: 50px; /* Расстояние от правого края окна браузера */
+    top: 0.5%; /* Расстояние сверху */
+    text-transform: lowercase;
+    text-decoration: none;
+    color: #31332e;
+    z-index: 9998 !important;
 }

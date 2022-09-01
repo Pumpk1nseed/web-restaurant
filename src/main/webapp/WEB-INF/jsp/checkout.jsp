@@ -22,6 +22,9 @@
 <fmt:message bundle="${loc}" key="localization.legend.order" var="legOrderFmt"/>
 <fmt:message bundle="${loc}" key="localization.label.totalPrice" var="totalPriceFmt"/>
 <fmt:message bundle="${loc}" key="localization.txt.AddressPh" var="addressFmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.AddressDeliv" var="addressDelivFmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.ToDeliver" var="toDeliverFmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.newAddr" var="newAddressFmt"/>
 
 <jsp:include page="/WEB-INF/jsp/header.jsp"/>
 
@@ -43,8 +46,8 @@
 <c:if test="${user != null}">
 
     <div style="margin-top: 6%">
-        <form id="checkout" action="controller" method="get">
-            <input type="hidden" name="command" value="checkout">
+        <form id="makeOrder" action="controller" method="get">
+            <input type="hidden" name="command" value="make_order">
 
             <h2>${paymentMethodFmt}</h2>
             <c:forEach items="${paymentMethods}" var="paymentMethod">
@@ -54,32 +57,30 @@
                     </label>
                 </div>
             </c:forEach>
-            <h2>Адрес доставки</h2>
-            доставить на адрес: ${sessionScope.user_info.address}
+            <h2>${addressDelivFmt}</h2>
+                ${toDeliverFmt}: ${sessionScope.user_info.address}
             <br>
-            иной адрес:
+                ${newAddressFmt}:
             <div class="form-field">
                 <input type="text" name="address" placeholder="${addressFmt}" value=""/>
             </div>
             <br>
+            <fieldset>
+                <legend>${legOrderFmt}</legend>
+                <c:forEach items="${order.getOrderList().keySet()}" var="orderedDish">
+                    <label class="dishName">${orderedDish.name}
+                        x${order.getOrderList().get(orderedDish)}</label>
+                    <label class="dishPrice">${orderedDish.price}</label>
+                    <br>
+                </c:forEach>
+                <hr>
+                <label>${totalPriceFmt}: ${order.getPrice()}</label>
+            </fieldset>
+
+            <input id="makeOrderBtn" type="submit" value="${makeOrderFmt}">
 
         </form>
     </div>
-
-    <fieldset>
-        <legend>${legOrderFmt}</legend>
-        <c:forEach items="${order.getOrderList().keySet()}" var="orderedDish">
-            <label class="dishName">${orderedDish.name}
-                x${order.getOrderList().get(orderedDish)}</label>
-            <label class="dishPrice">${orderedDish.price}</label>
-            <br>
-        </c:forEach>
-        <hr>
-        <label>${totalPriceFmt}: ${order.getPrice()}</label>
-    </fieldset>
-
-    <input id="makeOrderBtn" type="submit" value="${makeOrderFmt}">
-
 </c:if>
 
 <div class="account"><a href="account"><span>${account_link}</span></a></div>

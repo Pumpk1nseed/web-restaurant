@@ -18,6 +18,7 @@
 <fmt:message bundle="${loc}" key="localization.txt.WorkingMode1" var="workingMode1Fmt"/>
 <fmt:message bundle="${loc}" key="localization.txt.WorkingMode2" var="workingMode2Fmt"/>
 <fmt:message bundle="${loc}" key="localization.link.About" var="about_link"/>
+<fmt:message bundle="${loc}" key="localization.link.Account" var="account_link"/>
 <fmt:message bundle="${loc}" key="localization.button.ru" var="ru_button"/>
 <fmt:message bundle="${loc}" key="localization.button.en" var="en_button"/>
 
@@ -56,13 +57,26 @@
         &nbsp${workingMode2Fmt} 12:00-02:00
     </span></p>
 </div>
-<div class="linkauth">
-    <a href="authorization">
+<c:if test="${sessionScope.user == null}">
+    <div class="linkauth">
+        <a href="authorization">
         <span style="font-size: medium ">
-            ${signIn_link}
+                ${signIn_link}
         </span>
-    </a>
-</div>
+        </a>
+    </div>
+</c:if>
+
+<c:if test="${sessionScope.user != null}">
+    <div class="linkauth">
+        <a href="account">
+        <span style="font-size: medium; text-transform: uppercase" >
+                ${account_link}
+        </span>
+        </a>
+    </div>
+</c:if>
+
 <div class="linkmenu">
     <a href="menu">
         <span style="font-size: medium ">

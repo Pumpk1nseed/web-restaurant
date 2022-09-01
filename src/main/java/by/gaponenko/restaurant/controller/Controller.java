@@ -2,6 +2,7 @@ package by.gaponenko.restaurant.controller;
 
 import by.gaponenko.restaurant.controller.command.Command;
 import by.gaponenko.restaurant.controller.command.CommandHelper;
+import by.gaponenko.restaurant.dao.DaoException;
 import by.gaponenko.restaurant.service.ServiceException;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -75,6 +76,8 @@ public class Controller extends HttpServlet {
         } catch (NullPointerException e) {
             log.error("Null command name", e);
             dispatch(req, resp, JSPPageName.ERROR_PAGE);
+        } catch (DaoException e) {
+            throw new RuntimeException(e);
         }
     }
 

@@ -1,6 +1,7 @@
 package by.gaponenko.restaurant.service.Validation;
 
 import by.gaponenko.restaurant.bean.RegistrationUserData;
+import by.gaponenko.restaurant.bean.criteria.Criteria;
 
 public class UserDataValidator {
 
@@ -22,6 +23,8 @@ public class UserDataValidator {
         return true;
     }
 
+    public static void validate(Criteria criteria) throws ValidationException {
+    }
 
     public static UserDataValidator getInstance(){
         return instance;

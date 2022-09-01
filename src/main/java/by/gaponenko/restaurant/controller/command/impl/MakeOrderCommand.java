@@ -6,6 +6,7 @@ import by.gaponenko.restaurant.bean.User;
 import by.gaponenko.restaurant.controller.JSPPageName;
 import by.gaponenko.restaurant.controller.RequestParameterName;
 import by.gaponenko.restaurant.controller.command.Command;
+import by.gaponenko.restaurant.dao.DaoException;
 import by.gaponenko.restaurant.service.OrderService;
 import by.gaponenko.restaurant.service.ServiceException;
 import by.gaponenko.restaurant.service.ServiceProvider;
@@ -23,7 +24,7 @@ public class MakeOrderCommand implements Command {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
     private static final ServiceProvider serviceProvider = ServiceProvider.getInstance();
     @Override
-    public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException, ParseException, ServiceException {
+    public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException, ParseException, ServiceException, DaoException {
         HttpSession session = req.getSession();
 
         createOrder(req);
@@ -38,14 +39,14 @@ public class MakeOrderCommand implements Command {
         }
     }
 
-    public static int createOrder(HttpServletRequest req) throws ServiceException {
+    public static int createOrder(HttpServletRequest req) throws ServiceException, DaoException {
         HttpSession session = req.getSession();
 
         User user = (User) session.getAttribute(RequestParameterName.REQ_PARAM_USER);
         Order order = (Order) session.getAttribute(RequestParameterName.REQ_PARAM_ORDER);
 
         OrderService orderService = serviceProvider.getOrderService();
-        int idOrder = orderService.createOrder(order, user.getLogin());
+        int idOrder = orderService.createOrder(order, user.getIdUser());
 
         for (Dish dish : order.getOrderList().keySet()){
             Integer quantity = order.getOrderList().get(dish);

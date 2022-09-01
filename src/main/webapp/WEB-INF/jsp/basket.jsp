@@ -19,6 +19,7 @@
 <fmt:message bundle="${loc}" key="localization.txt.removeDish" var="deletefmt"/>
 <fmt:message bundle="${loc}" key="localization.link.MenuLower" var="menuLower_link"/>
 <fmt:message bundle="${loc}" key="localization.link.Account" var="account_link"/>
+<fmt:message bundle="${loc}" key="localization.link.SignIn" var="signIn_link"/>
 
 
 <jsp:include page="/WEB-INF/jsp/header.jsp"/>
@@ -89,7 +90,20 @@
     <h1>${orderIsEmptyFm}</h1>
 </c:if>
 
-<div class="account"><a href="account"><span>${account_link}</span></a></div>
+<c:if test="${sessionScope.user != null}">
+    <a href="account">
+        <p class="signIn">${sessionScope.user.login}</p>
+        <img src="images/account.jpeg" аlt="empty account" titlе="user is null" class="account"/>
+    </a>
+</c:if>
+
+<c:if test="${sessionScope.user == null}">
+    <a href="authorization">
+        <p class="signIn">${signIn_link}</p>
+        <img src="images/account.jpeg" аlt="empty account" titlе="user is null" class="account"/>
+    </a>
+</c:if>
+
 <div class="menu"><a href="menu"><span>${menuLower_link}</span></a></div>
 
 </body>

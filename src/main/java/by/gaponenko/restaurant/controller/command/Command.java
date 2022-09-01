@@ -1,5 +1,6 @@
 package by.gaponenko.restaurant.controller.command;
 
+import by.gaponenko.restaurant.dao.DaoException;
 import by.gaponenko.restaurant.service.ServiceException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -10,5 +11,5 @@ import java.text.ParseException;
 
 public interface Command {
 
-    void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException, ParseException, ServiceException;
+    void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException, ParseException, ServiceException, DaoException;
 }

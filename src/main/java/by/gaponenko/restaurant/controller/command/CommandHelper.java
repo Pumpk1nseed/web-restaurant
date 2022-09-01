@@ -21,6 +21,7 @@ public class CommandHelper {
         commands.put(CommandName.CHECKOUT, new CheckoutCommand());
         commands.put(CommandName.DELETE_ORDER, new DeleteOrderCommand());
         commands.put(CommandName.MAKE_ORDER, new MakeOrderCommand());
+        commands.put(CommandName.GET_HISTORY_OF_ORDERS, new GetHistoryOfOrdersCommand());
         commands.put(CommandName.NO_SUCH_COMMAND, new NoSuchCommand());
     }
 

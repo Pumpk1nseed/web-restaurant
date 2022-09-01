@@ -19,12 +19,13 @@ public class OrderServiceImpl implements OrderService {
     private static final OrderValidator validator = OrderValidator.getInstance();
     private static final OrderDao orderDao = DaoProvider.getInstance().getOrderDao();
     private static final UserDao userDao = DaoProvider.getInstance().getUserDao();
+
     @Override
-    public int createOrder(Order order, String userLogin) throws ServiceException {
+    public int createOrder(Order order, Integer idUser) throws ServiceException {
         validator.validate(order);
 
         Criteria criteria = new Criteria();
-        criteria.add(SearchCriteria.User.LOGIN.toString(), userLogin);
+        criteria.add(SearchCriteria.User.ID_USER.toString(), idUser);
 
         try {
             List<RegistrationUserData> users = userDao.find(criteria);
@@ -44,7 +45,18 @@ public class OrderServiceImpl implements OrderService {
 
         try {
             return orderDao.createOrderDetails(idOrder, idDish, quantity);
-        } catch (DaoException | SQLException e) {
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public List<Order> getOrdersHistory(int idUser) throws ServiceException {
+        validator.validate(idUser);
+
+        try {
+            return orderDao.getOrdersHistory(idUser);
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }

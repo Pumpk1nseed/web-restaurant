@@ -11,6 +11,16 @@ body {
     color: #FFFFFF;
 }
 
+.historyCategory {
+    margin-left: 20%;
+    padding: 10px; /* Поля вокруг текста */
+    background: #FF8C00; /* Цвет фона */
+    border: 1px solid #FFFFFF; /* Параметры рамки */
+    width: 200px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
 .block {
     width: 400px;
     height: 600px;
@@ -26,6 +36,15 @@ body {
 }
 
 #check_label {
+    display: none;
+}
+
+#checkHist_label:checked ~ .block {
+    height: 0px;
+    opacity: 0;
+}
+
+#checkHist_label {
     display: none;
 }
 

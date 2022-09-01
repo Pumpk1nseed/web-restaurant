@@ -1,7 +1,7 @@
 package by.gaponenko.restaurant.bean;
 
 import java.math.BigDecimal;
-import java.security.Timestamp;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -97,4 +97,5 @@ public class Order {
                 ", price=" + price +
                 '}';
     }
+
 }

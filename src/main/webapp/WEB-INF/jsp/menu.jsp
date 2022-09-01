@@ -10,6 +10,7 @@
 <fmt:message bundle="${loc}" key="localization.txt.dishAddedMsg" var="dishAddedMsgFmt"/>
 <fmt:message bundle="${loc}" key="localization.link.Account" var="account_link"/>
 <fmt:message bundle="${loc}" key="localization.link.Basket" var="basket_link"/>
+<fmt:message bundle="${loc}" key="localization.link.SignIn" var="signIn_link"/>
 
 <link href="css/menu.css" rel="stylesheet">
 
@@ -93,7 +94,19 @@
 </div>
 
 <div class="basket"><a href="basket"><span>${basket_link}</span></a></div>
-<div class="account"><a href="account"><span>${account_link}</span></a></div>
+<c:if test="${sessionScope.user != null}">
+    <a href="account">
+        <p class="signIn">${sessionScope.user.login}</p>
+        <img src="images/account.jpeg" аlt="empty account" titlе="user is null" class="account"/>
+    </a>
+</c:if>
+
+<c:if test="${sessionScope.user == null}">
+    <a href="authorization">
+        <p class="signIn">${signIn_link}</p>
+        <img src="images/account.jpeg" аlt="empty account" titlе="user is null" class="account"/>
+    </a>
+</c:if>
 
 <script src="js/xhr.js"></script>
 <script src="js/Menu/AddReduceBtn.js"></script>

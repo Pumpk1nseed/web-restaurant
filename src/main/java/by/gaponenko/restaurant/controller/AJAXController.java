@@ -2,6 +2,7 @@ package by.gaponenko.restaurant.controller;
 
 import by.gaponenko.restaurant.controller.command.Command;
 import by.gaponenko.restaurant.controller.command.CommandHelper;
+import by.gaponenko.restaurant.dao.DaoException;
 import by.gaponenko.restaurant.service.ServiceException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -30,6 +31,8 @@ public class AJAXController extends HttpServlet {
         try {
             command.execute(req, resp);
         } catch (ParseException | ServiceException | ServletException e) {
+            throw new RuntimeException(e);
+        } catch (DaoException e) {
             throw new RuntimeException(e);
         }
     }

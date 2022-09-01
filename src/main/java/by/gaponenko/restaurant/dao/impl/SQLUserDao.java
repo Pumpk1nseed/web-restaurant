@@ -22,7 +22,7 @@ public class SQLUserDao implements UserDao {
 
     private static final String FIND_AUTHORIZED_USER = "SELECT * FROM users WHERE login = ? AND password = ?;";
     private static final String FIND_USER_BY_LOGIN = "SELECT * FROM users WHERE login = ?;";
-    private static final String FIND_USER_BY_CRITERIA = "SELECT * FROM users WHERE ";
+    private static final String FIND_USER_DETAILS_BY_CRITERIA = "SELECT * FROM users_details WHERE ";
     private static final String FIND_ROLE = "SELECT * FROM roles WHERE title = ?;";
     private static final String FIND_USERDATA_BY_ID = "SELECT * FROM users_details WHERE id_user = ?;";
     private static final String ADD_NEW_USER = "INSERT INTO users (login, password, id_role, status) VALUES(?,?,?,?);";
@@ -180,7 +180,7 @@ public class SQLUserDao implements UserDao {
         try {
             connection = connectToDataBase();
 
-            StringBuilder queryUserDataBuilder = new StringBuilder(FIND_USER_BY_CRITERIA);
+            StringBuilder queryUserDataBuilder = new StringBuilder(FIND_USER_DETAILS_BY_CRITERIA);
             for (String criteriaName : criteriaMap.keySet()) {
                 queryUserDataBuilder.append(String.format("%s=? %s", criteriaName.toLowerCase(), AND));
             }
@@ -254,7 +254,7 @@ public class SQLUserDao implements UserDao {
         return connection;
     }
 
-   /* private void fillMenu() throws SQLException, DaoException {
+/*    private void fillMenu() throws SQLException, DaoException {
         connection = connectToDataBase();
         PreparedStatement preparedStatement;
         PreparedStatement preparedStatement1;

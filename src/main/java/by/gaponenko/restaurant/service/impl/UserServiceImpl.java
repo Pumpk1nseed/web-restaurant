@@ -2,6 +2,7 @@ package by.gaponenko.restaurant.service.impl;
 
 import by.gaponenko.restaurant.bean.RegistrationUserData;
 import by.gaponenko.restaurant.bean.User;
+import by.gaponenko.restaurant.bean.criteria.Criteria;
 import by.gaponenko.restaurant.dao.DaoException;
 import by.gaponenko.restaurant.dao.DaoProvider;
 import by.gaponenko.restaurant.dao.UserDao;
@@ -67,4 +68,15 @@ public class UserServiceImpl implements UserService {
             throw new ServiceException(e);
         }
     }
+
+    public List<RegistrationUserData> find(Criteria criteria) throws ServiceException {
+        validator.validate(criteria);
+
+        try {
+            return userDao.find(criteria);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
 }
