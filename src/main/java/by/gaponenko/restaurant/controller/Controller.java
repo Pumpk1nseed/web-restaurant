@@ -57,8 +57,6 @@ public class Controller extends HttpServlet {
         } catch (NullPointerException e) {
             log.error("Null command name", e);
             dispatch(req, resp, JSPPageName.ERROR_PAGE);
-        } catch (ServiceException e) {
-            throw new RuntimeException(e);
         }
     }
 

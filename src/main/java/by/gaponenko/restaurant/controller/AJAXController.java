@@ -29,7 +29,7 @@ public class AJAXController extends HttpServlet {
 
         try {
             command.execute(req, resp);
-        } catch (ControllerException | ServiceException e) {
+        } catch (ControllerException e) {
             log.error(e.getMessage(), e);
         }
     }
