@@ -11,13 +11,15 @@ import by.gaponenko.restaurant.service.UserService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.text.ParseException;
 
 public class RegistrationCommand implements Command {
 
-    //private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
     //SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException, ParseException {
@@ -40,7 +42,7 @@ public class RegistrationCommand implements Command {
         try {
             userService.registration(userData);
 
-            req.getSession().setAttribute("user", new User(userData.getLogin(), userData.getPassword(), userData.getRole()));
+            req.getSession().setAttribute("user", new User(userData.getLogin(), userData.getPassword()));
 
             resp.sendRedirect(JSPPageName.USER_AUTHORIZATION_PAGE);
         } catch (ServiceException e) {

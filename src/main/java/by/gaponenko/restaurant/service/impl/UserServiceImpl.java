@@ -46,11 +46,10 @@ public class UserServiceImpl implements UserService {
         if (!validator.validateUserData(userData)){
             throw new ServiceException("Check your data!");
         }
-
-        boolean registred = false;
+        boolean registered = false;
         try{
-            registred = userDao.registration(userData);
-            if(!registred){
+            registered = userDao.registration(userData);
+            if(!registered){
                 throw new ValidationException("User is already exists!");
             }
         } catch(DaoException e){
@@ -58,7 +57,7 @@ public class UserServiceImpl implements UserService {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return registred;
+        return registered;
     }
 
     public RegistrationUserData loadUserDataByLogin(String login) throws ServiceException{

@@ -6,23 +6,23 @@ public class User {
     private Integer idUser;
     private String login;
     private String password;
-    private String role;
+    private int idRole;
     private String status;
 
     public User() {
     }
 
-    public User(Integer idUser, String login, String password, String role) {
+    public User(Integer idUser, String login, String password, int idRole, String status) {
         this.idUser = idUser;
         this.login = login;
         this.password = password;
-        this.role = role;
+        this.idRole = idRole;
+        this.status = status;
     }
 
-    public User(String login, String password, String role) {
+    public User(String login, String password) {
         this.login = login;
         this.password = password;
-        this.role = role;
     }
 
     public Integer getIdUser() {
@@ -48,12 +48,12 @@ public class User {
         this.login = login;
     }
 
-    public String getRole() {
-        return role;
+    public int getIdRole() {
+        return idRole;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setIdRole(int idRole) {
+        this.idRole = idRole;
     }
 
     public String getStatus() {
@@ -69,12 +69,12 @@ public class User {
         if (this == o) return true;
         if (!(o instanceof User)) return false;
         User user = (User) o;
-        return getIdUser().equals(user.getIdUser()) && getPassword().equals(user.getPassword()) && getLogin().equals(user.getLogin()) && getRole().equals(user.getRole()) && Objects.equals(getStatus(), user.getStatus());
+        return getIdRole() == user.getIdRole() && getIdUser().equals(user.getIdUser()) && getLogin().equals(user.getLogin()) && getPassword().equals(user.getPassword()) && Objects.equals(getStatus(), user.getStatus());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getPassword(), getLogin(), getRole());
+        return Objects.hash(getIdUser(), getLogin(), getPassword(), getIdRole(), getStatus());
     }
 
     @Override
@@ -83,7 +83,7 @@ public class User {
                 "idUser=" + idUser +
                 ", password='" + password + '\'' +
                 ", login='" + login + '\'' +
-                ", role='" + role + '\'' +
+                ", idRole='" + idRole + '\'' +
                 ", status='" + status + '\'' +
                 '}';
     }

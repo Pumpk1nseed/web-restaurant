@@ -3,6 +3,7 @@ package by.gaponenko.restaurant.controller.command;
 public enum CommandName {
 
     AUTHORIZATION,
+    SIGN_OUT,
     REGISTRATION,
     UPDATE_USER_INFO,
     GET_MENU,
@@ -12,6 +13,8 @@ public enum CommandName {
     REMOVE_DISH_FROM_ORDER,
     GET_HISTORY_OF_ORDERS,
     CHECKOUT,
+    GO_TO_ORDER_CONFIRMATION,
+    CONFIRM_ORDER,
     DELETE_ORDER,
     NO_SUCH_COMMAND
 

@@ -14,6 +14,7 @@ import by.gaponenko.restaurant.service.Validation.OrderValidator;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 public class OrderServiceImpl implements OrderService {
     private static final OrderValidator validator = OrderValidator.getInstance();
@@ -40,11 +41,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public boolean createOrderDetails(int idOrder, int idDish, Integer quantity) throws ServiceException {
+    public boolean createOrderDetails(int idOrder, int idDish, Integer quantity, int idPaymentMethod) throws ServiceException {
         validator.validate(idDish, idDish, quantity);
 
         try {
-            return orderDao.createOrderDetails(idOrder, idDish, quantity);
+            return orderDao.createOrderDetails(idOrder, idDish, quantity, idPaymentMethod);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -56,6 +57,26 @@ public class OrderServiceImpl implements OrderService {
 
         try {
             return orderDao.getOrdersHistory(idUser);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public Map<Order, RegistrationUserData> findOrderByUsersInfo(Criteria criteria) throws ServiceException {
+        validator.validate(criteria);
+
+        try {
+            return orderDao.findOrdersByUsersInfo(criteria);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public boolean updateOrderStatus(int idOrder, String status) throws ServiceException {
+        try {
+            return orderDao.updateOrderStatus(idOrder, status);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

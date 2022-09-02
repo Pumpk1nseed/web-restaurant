@@ -25,8 +25,11 @@ public final class RequestParameterName {
     public static final String REQ_PARAM_QUANTITY = "quantity";
     public static final String REQ_PARAM_ID_DISH = "idDish";
     public static final String REQ_PARAM_PAYMENT_METHODS = "paymentMethods";
+    public static final String REQ_PARAM_PAYMENT_BY = "paymentBy";
     public static final String REQ_PARAM_USER = "user";
     public static final String REQ_PARAM_ORDERS_HISTORY = "ordersHistory";
+    public static final String REQ_PARAM_CONFIRMED_ORDER_ID = "confirmedOrderId";
+    public static final String REQ_PARAM_ORDERS_FOR_CONFIRMATION = "ordersForConfirmation";
     //public static final String REQ_PARAM_LAST_USED_PAGE = "last_used_page";
 
 

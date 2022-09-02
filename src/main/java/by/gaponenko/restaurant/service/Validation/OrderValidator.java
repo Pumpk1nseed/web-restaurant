@@ -1,6 +1,7 @@
 package by.gaponenko.restaurant.service.Validation;
 
 import by.gaponenko.restaurant.bean.Order;
+import by.gaponenko.restaurant.bean.criteria.Criteria;
 
 public class OrderValidator {
 
@@ -18,6 +19,10 @@ public class OrderValidator {
     }
 
     public boolean validate(int idOrder, int idDish, Integer quantity){
+        return true;
+    }
+
+    public boolean validate(Criteria criteria) {
         return true;
     }
 

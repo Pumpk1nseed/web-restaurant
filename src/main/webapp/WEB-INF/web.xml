@@ -50,21 +50,21 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>ordersHistory</servlet-name>
-        <jsp-file>/WEB-INF/jsp/ordersHistory.jsp</jsp-file>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>ordersHistory</servlet-name>
-        <url-pattern>/ordersHistory</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
         <servlet-name>error</servlet-name>
         <jsp-file>/WEB-INF/jsp/error.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
         <servlet-name>error</servlet-name>
         <url-pattern>/error</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>confirmation</servlet-name>
+        <jsp-file>/WEB-INF/jsp/ordersForConfirmation.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>confirmation</servlet-name>
+        <url-pattern>/confirmation</url-pattern>
     </servlet-mapping>
 
     <servlet>

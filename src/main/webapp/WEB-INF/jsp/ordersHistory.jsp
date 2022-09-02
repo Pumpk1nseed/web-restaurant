@@ -21,38 +21,37 @@
 <head>
     <meta charset="UTF-8"/>
     <title>${persInfoFmt}</title>
-<%--    <link href="css/ordersHistory.css" rel="stylesheet">--%>
+    <%--    <link href="css/ordersHistory.css" rel="stylesheet">--%>
 </head>
 <body>
 
 <div class="entry">
-    <c:if test="${ordersHistory == null}">
-        <jsp:forward page="/controller">
-            <jsp:param name="command" value="get_history_of_orders"/>
-        </jsp:forward>
-    </c:if>
+    <form id="makeOrder" action="controller" method="get">
+        <input type="hidden" name="command" value="get_history_of_orders">
 
-    <c:if test="${ordersHistory.size() == 0}">
-        <h1>${orderIsEmptyFmt}</h1>
-    </c:if>
+        <c:if test="${ordersHistory.size() == 0}">
+            <h1>${orderIsEmptyFmt}</h1>
+        </c:if>
 
-    <c:if test="${ordersHistory.size() > 0}">
-        <table>
-            <th>№</th>
-            <th>${orderPriceFmt}</th>
-            <th>${orderDateFmt}</th>
-            <th>${orderStatusFmt}</th>
+        <c:if test="${ordersHistory.size() > 0}">
+            <table>
+                <th>№</th>
+                <th>${orderPriceFmt}</th>
+                <th>${orderDateFmt}</th>
+                <th>${orderStatusFmt}</th>
 
-            <c:forEach items="${ordersHistory}" var="order">
-                <tr>
-                    <td>${order.idOrder}</td>
-                    <td>${order.price}</td>
-                    <td>${order.dateTime}</td>
-                    <td>${order.status}</td>
-                </tr>
-            </c:forEach>
-        </table>
-    </c:if>
+                <c:forEach items="${ordersHistory}" var="order">
+                    <tr>
+                        <td>${order.idOrder}</td>
+                        <td>${order.price} BYN</td>
+                        <td>${order.dateTime}</td>
+                        <td>${order.status}</td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </c:if>
+
+    </form>
 </div>
 </body>
 </html>

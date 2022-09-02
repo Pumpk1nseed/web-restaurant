@@ -58,6 +58,7 @@ public class SQLUserDao implements UserDao {
             user.setIdUser(resultSet.getInt(1));
             user.setLogin(resultSet.getString(2));
             user.setPassword(resultSet.getString(3));
+            user.setIdRole(resultSet.getInt(4));
 
             resultSet.close();
             preparedStatement.close();
@@ -75,7 +76,7 @@ public class SQLUserDao implements UserDao {
         PreparedStatement preparedStatementForUserInfo;
         PreparedStatement preparedStatementForRole;
         ResultSet resultSet;
-        String roleId;
+        int idRole;
 
         try {
             connection = connectToDataBase();
@@ -91,12 +92,12 @@ public class SQLUserDao implements UserDao {
             preparedStatementForRole.setString(1, userData.getRole());
             resultSet = preparedStatementForRole.executeQuery();
             resultSet.next();
-            roleId = resultSet.getString(1);
+            idRole = resultSet.getInt(1);
 
             preparedStatementForUser = connection.prepareStatement(ADD_NEW_USER);
             preparedStatementForUser.setString(1, userData.getLogin());
             preparedStatementForUser.setString(2, userData.getPassword());
-            preparedStatementForUser.setString(3, roleId);
+            preparedStatementForUser.setInt(3, idRole);
             preparedStatementForUser.setString(4, "active");
             preparedStatementForUser.executeUpdate();
 
@@ -119,7 +120,7 @@ public class SQLUserDao implements UserDao {
             preparedStatementForUserInfo.close();
             connection.close();
         } catch (SQLException e) {
-            log.error("Error working with statements while sign in", e);
+            log.error("Error working with statements while registration", e);
             throw new DaoException("Error while adding new User", e);
         }
         return true;
@@ -132,6 +133,7 @@ public class SQLUserDao implements UserDao {
     public RegistrationUserData loadUserDataByLogin(String login) throws DaoException {
 
         PreparedStatement preparedStatement = null;
+        PreparedStatement preparedStatementForRole = null;
         ResultSet resultSet = null;
         RegistrationUserData userData = null;
 
@@ -143,6 +145,7 @@ public class SQLUserDao implements UserDao {
             if (!resultSet.next()) {
                 return userData;
             }
+            String idRole = String.valueOf(resultSet.getInt(4));
 
             preparedStatement = connection.prepareStatement(FIND_USERDATA_BY_ID);
             preparedStatement.setString(1, resultSet.getString(1));
@@ -158,6 +161,7 @@ public class SQLUserDao implements UserDao {
                 userData.setEmail(resultSet.getString(6));
                 userData.setSurname(resultSet.getString(7));
                 userData.setLastName(resultSet.getString(8));
+                userData.setRole(idRole);
             }
             resultSet.close();
             preparedStatement.close();
@@ -254,7 +258,7 @@ public class SQLUserDao implements UserDao {
         return connection;
     }
 
-/*    private void fillMenu() throws SQLException, DaoException {
+   /* private void fillMenu() throws SQLException, DaoException {
         connection = connectToDataBase();
         PreparedStatement preparedStatement;
         PreparedStatement preparedStatement1;

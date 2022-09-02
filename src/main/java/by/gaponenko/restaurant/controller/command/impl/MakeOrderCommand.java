@@ -25,13 +25,17 @@ public class MakeOrderCommand implements Command {
     private static final ServiceProvider serviceProvider = ServiceProvider.getInstance();
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException, ParseException, ServiceException, DaoException {
+        int idPaymentMethod = Integer.parseInt(req.getParameter(RequestParameterName.REQ_PARAM_PAYMENT_BY));
+
         HttpSession session = req.getSession();
+        session.setAttribute(RequestParameterName.REQ_PARAM_PAYMENT_BY, idPaymentMethod);
 
         createOrder(req);
 
         try {
             session.removeAttribute(RequestParameterName.REQ_PARAM_ORDER);
             session.removeAttribute(RequestParameterName.REQ_PARAM_QUANTITY_OF_DISHES);
+            session.removeAttribute(RequestParameterName.REQ_PARAM_PAYMENT_BY);
 
             resp.sendRedirect(JSPPageName.ORDER_FINISH_PAGE);
         } catch (IOException e){
@@ -48,9 +52,11 @@ public class MakeOrderCommand implements Command {
         OrderService orderService = serviceProvider.getOrderService();
         int idOrder = orderService.createOrder(order, user.getIdUser());
 
+        int idPaymentMethod = Integer.parseInt(req.getParameter(RequestParameterName.REQ_PARAM_PAYMENT_BY));
+
         for (Dish dish : order.getOrderList().keySet()){
             Integer quantity = order.getOrderList().get(dish);
-            orderService.createOrderDetails(idOrder, dish.getIdDish(), quantity);
+            orderService.createOrderDetails(idOrder, dish.getIdDish(), quantity, idPaymentMethod);
         }
 
         return idOrder;

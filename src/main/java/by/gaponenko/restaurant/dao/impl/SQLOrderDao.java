@@ -1,6 +1,8 @@
 package by.gaponenko.restaurant.dao.impl;
 
 import by.gaponenko.restaurant.bean.Order;
+import by.gaponenko.restaurant.bean.RegistrationUserData;
+import by.gaponenko.restaurant.bean.criteria.Criteria;
 import by.gaponenko.restaurant.dao.DaoException;
 import by.gaponenko.restaurant.dao.OrderDao;
 import by.gaponenko.restaurant.dao.pool.ConnectionPool;
@@ -9,20 +11,31 @@ import org.slf4j.LoggerFactory;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.sql.Timestamp;
+import java.util.Map;
 
 public class SQLOrderDao implements OrderDao {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     private static final String ADD_NEW_ORDER = "INSERT INTO orders (date, id_user, status) VALUES (?, ?, ?)";
-    private static final String ADD_ORDER_DETAILS = "INSERT INTO order_details (id_order, id_dish, quantity) VALUES (?, ?, ?)";
+    private static final String ADD_ORDER_DETAILS = "INSERT INTO order_details (id_order, id_dish, quantity, id_payment_method) VALUES (?, ?, ?, ?)";
     private static final String GET_ORDERS = "SELECT ord.id_order, SUM(ordd.quantity * m.price) as 'total',  ord.date, ord.status\n" +
             "FROM orders ord LEFT JOIN order_details ordd on ordd.id_order = ord.id_order \n" +
             "LEFT JOIN menu m on ordd.id_dish = m.id_dish \n" +
             "where id_user=? group by ord.id_order;";
+
+    private static final String GET_ORDERS_BY_USER_INFO = "SELECT ord.id_order, SUM(ordd.quantity * m.price) as 'total',  ord.date, ord.status, ud.name, ud.surname, ud.address, ud.telephone_number\n" +
+            "            FROM orders ord LEFT JOIN order_details ordd on ordd.id_order = ord.id_order\n" +
+            "            LEFT JOIN users_details ud on ord.id_user = ud.id_user\n" +
+            "            LEFT JOIN menu m on ordd.id_dish = m.id_dish\n" +
+            "            where %s group by ord.id_order;";
+
+    private static final String UPDATE_ORDER_STATUS = "UPDATE orders SET status=? where id_order=?;";
     private static final String IN_PROCESSING = "in processing";
     private static final int GENERATED_KEYS = 1;
+    private static final String AND = "AND ";
     private Connection connection;
 
     @Override
@@ -59,7 +72,7 @@ public class SQLOrderDao implements OrderDao {
     }
 
     @Override
-    public boolean createOrderDetails(int idOrder, int idDish, Integer quantity) throws DaoException {
+    public boolean createOrderDetails(int idOrder, int idDish, Integer quantity, int idPaymentMethod) throws DaoException {
         PreparedStatement preparedStatement;
 
         try {
@@ -69,6 +82,7 @@ public class SQLOrderDao implements OrderDao {
             preparedStatement.setInt(1, idOrder);
             preparedStatement.setInt(2, idDish);
             preparedStatement.setInt(3, quantity);
+            preparedStatement.setInt(4, idPaymentMethod);
             preparedStatement.executeUpdate();
 
             preparedStatement.close();
@@ -105,11 +119,92 @@ public class SQLOrderDao implements OrderDao {
                 orders.add(order);
             }
 
+            resultSet.close();
+            preparedStatement.close();
+            connection.close();
+
         } catch (SQLException e) {
             log.error("Error occurred while create order details", e);
             throw new DaoException("Error while working with database while create order details", e);
         }
         return orders;
+    }
+
+    @Override
+    public Map<Order, RegistrationUserData> findOrdersByUsersInfo(Criteria criteria) throws DaoException {
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+
+        Map<Order, RegistrationUserData> orderUsedDataMap;
+
+        try {
+            connection = connectToDataBase();
+
+            Map<String, Object> criterias = criteria.getCriteria();
+
+            StringBuilder sqlBuilder = new StringBuilder("");
+            for (String criteriaName : criterias.keySet()) {
+                sqlBuilder.append(String.format("%s=? %s", criteriaName.toLowerCase(), AND));
+            }
+            sqlBuilder = new StringBuilder(sqlBuilder.substring(0, sqlBuilder.length() - AND.length()));
+            String queryBuilder = String.format(GET_ORDERS_BY_USER_INFO, sqlBuilder);
+
+            preparedStatement = connection.prepareStatement(queryBuilder);
+            int i = 1;
+            for (Object value : criterias.values()) {
+                preparedStatement.setString(1, value.toString());
+                i++;
+            }
+            resultSet = preparedStatement.executeQuery();
+
+            orderUsedDataMap = new LinkedHashMap<>();
+            while (resultSet.next()) {
+                Order order = new Order();
+                order.setIdOrder(resultSet.getInt(1));
+                order.setPrice(resultSet.getBigDecimal(2));
+                order.setDateTime(resultSet.getTimestamp(3));
+                order.setStatus(resultSet.getString(4));
+
+                RegistrationUserData userData = new RegistrationUserData();
+                userData.setName(resultSet.getString(5));
+                userData.setSurname(resultSet.getString(6));
+                userData.setAddress(resultSet.getString(7));
+                userData.setTelephoneNumber(resultSet.getString(8));
+
+                orderUsedDataMap.put(order, userData);
+            }
+
+            resultSet.close();
+            preparedStatement.close();
+            connection.close();
+
+        } catch (SQLException e) {
+            log.error("Error occurred while find orders by users info", e);
+            throw new DaoException("Error while working with database while find orders by users info", e);
+        }
+        return orderUsedDataMap;
+    }
+
+    @Override
+    public boolean updateOrderStatus(int idOrder, String status) throws DaoException {
+        PreparedStatement preparedStatement;
+
+        try {
+            connection = connectToDataBase();
+
+            preparedStatement = connection.prepareStatement(UPDATE_ORDER_STATUS);
+            preparedStatement.setString(1, status);
+            preparedStatement.setInt(2, idOrder);
+            preparedStatement.executeUpdate();
+
+            preparedStatement.close();
+            connection.close();
+
+        } catch (SQLException e) {
+            log.error("Error occurred while updating order status", e);
+            throw new DaoException("Error while working with database while updating order status", e);
+        }
+        return true;
     }
 
     private Connection connectToDataBase() throws DaoException {

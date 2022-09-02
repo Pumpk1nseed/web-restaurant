@@ -55,6 +55,11 @@
                     <label for="${paymentMethod.getName()}">
                             ${paymentMethod.getName()}
                     </label>
+                    <div>
+                    <div>
+                        <input type="radio" id="${paymentMethod.getName()}" name="paymentBy"
+                               value="${paymentMethod.getIdPaymentMethod()}" checked><br>
+                    </div>
                 </div>
             </c:forEach>
             <h2>${addressDelivFmt}</h2>
