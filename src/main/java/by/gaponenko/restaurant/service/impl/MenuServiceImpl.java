@@ -10,11 +10,14 @@ import by.gaponenko.restaurant.dao.MenuDao;
 import by.gaponenko.restaurant.service.MenuService;
 import by.gaponenko.restaurant.service.ServiceException;
 import by.gaponenko.restaurant.service.Validation.DishValidator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 public class MenuServiceImpl implements MenuService{
     private static final DishValidator validator = DishValidator.getInstance();
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
     private static final MenuDao menuDao = DaoProvider.getInstance().getMenuDao();
 
     public Menu getMenu() throws ServiceException {

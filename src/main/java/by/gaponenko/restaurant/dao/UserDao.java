@@ -10,9 +10,9 @@ import java.util.List;
 
 public interface UserDao {
 
-    User authorization(String login, String password) throws DaoException, ClassNotFoundException, SQLException, InterruptedException;
+    User authorization(String login, String password) throws DaoException;
 
-    boolean registration(RegistrationUserData userData) throws DaoException, SQLException;
+    boolean registration(RegistrationUserData userData) throws DaoException;
 
     RegistrationUserData loadUserDataByLogin(String login) throws DaoException;
 

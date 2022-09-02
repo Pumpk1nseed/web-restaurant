@@ -13,7 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.text.ParseException;
 
 @WebServlet("/ajaxController")
 public class AJAXController extends HttpServlet {
@@ -30,10 +29,8 @@ public class AJAXController extends HttpServlet {
 
         try {
             command.execute(req, resp);
-        } catch (ParseException | ServiceException | ServletException e) {
-            throw new RuntimeException(e);
-        } catch (DaoException e) {
-            throw new RuntimeException(e);
+        } catch (ControllerException | ServiceException e) {
+            log.error(e.getMessage(), e);
         }
     }
 

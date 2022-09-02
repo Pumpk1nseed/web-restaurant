@@ -70,30 +70,34 @@
                         </c:if>
                     </c:forEach>
                 </tr>
+                <c:if test="${user.idRole != 2}">
+                    <tr id="orderRow">
+                        <c:forEach items="${menu.getDishes()}" var="dish">
+                            <c:if test="${dish.idCategory == category.idCategory}">
+                                <td>
+                                    <button onclick="reduceOne(event, `${category.idCategory}`, `${dish.idDish}`)">-
+                                    </button>
+                                    <input id="quantityOf${dish.idDish}_${category.idCategory}" type="text"
+                                           name="quantity"
+                                           value="1" class="quantity">
+                                    <button onclick="addOne(event,`${category.idCategory}`, `${dish.idDish}`)">+
+                                    </button>
 
-                <tr id="orderRow">
-                    <c:forEach items="${menu.getDishes()}" var="dish">
-                        <c:if test="${dish.idCategory == category.idCategory}">
-                            <td>
-                                <button onclick="reduceOne(event, `${category.idCategory}`, `${dish.idDish}`)">-
-                                </button>
-                                <input id="quantityOf${dish.idDish}_${category.idCategory}" type="text" name="quantity"
-                                       value="1" class="quantity">
-                                <button onclick="addOne(event,`${category.idCategory}`, `${dish.idDish}`)">+</button>
-
-                                <input type="submit" value="${btnAddFmt}" class="addDishToOrderBtn"
-                                       id="addDishToOrder${dish.idDish}_${category.idCategory}"
-                                       onclick="addDishToOrder(this,`${category.idCategory}`, `${dish.idDish}`)">
-                            </td>
-                        </c:if>
-                    </c:forEach>
-                </tr>
+                                    <input type="submit" value="${btnAddFmt}" class="addDishToOrderBtn"
+                                           id="addDishToOrder${dish.idDish}_${category.idCategory}"
+                                           onclick="addDishToOrder(this,`${category.idCategory}`, `${dish.idDish}`)">
+                                </td>
+                            </c:if>
+                        </c:forEach>
+                    </tr>
+                </c:if>
             </table>
         </div>
     </c:forEach>
 </div>
-
-<div class="basket"><a href="basket"><span>${basket_link}</span></a></div>
+<c:if test="${user.idRole != 2}">
+    <div class="basket"><a href="basket"><span>${basket_link}</span></a></div>
+</c:if>
 <c:if test="${sessionScope.user != null}">
     <a href="account">
         <p class="signIn">${sessionScope.user.login}</p>

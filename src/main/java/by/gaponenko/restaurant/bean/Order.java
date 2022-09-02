@@ -1,12 +1,13 @@
 package by.gaponenko.restaurant.bean;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class Order {
+public class Order implements Serializable {
     private Integer idOrder;
     private Map<Dish, Integer> orderList = new HashMap<>(); // dish-amount
     private Integer idUser;

@@ -62,13 +62,9 @@ public class SQLPaymentDao implements PaymentDao {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         try {
             connection = connectionPool.takeConnection();
-        } catch (InterruptedException e) {
+        } catch (InterruptedException | SQLException | ClassNotFoundException e) {
             log.error("Error while getting connection from connection pool queue", e);
             throw new DaoException("Error taking connection to database", e);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
         }
         return connection;
     }

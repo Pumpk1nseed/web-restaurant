@@ -2,6 +2,7 @@ package by.gaponenko.restaurant.controller.command.impl;
 
 import by.gaponenko.restaurant.bean.RegistrationUserData;
 import by.gaponenko.restaurant.bean.User;
+import by.gaponenko.restaurant.controller.ControllerException;
 import by.gaponenko.restaurant.controller.JSPPageName;
 import by.gaponenko.restaurant.controller.RequestParameterName;
 import by.gaponenko.restaurant.controller.command.Command;
@@ -20,7 +21,7 @@ import java.io.IOException;
 public class AuthorizationCommand implements Command {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
     @Override
-    public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+    public void execute(HttpServletRequest req, HttpServletResponse resp) throws ControllerException {
 
         String login;
         String password;
@@ -42,13 +43,12 @@ public class AuthorizationCommand implements Command {
             RequestDispatcher dispatcher = req.getRequestDispatcher(JSPPageName.USER_AUTHORIZED_PAGE);
             dispatcher.forward(req, resp);
 
-        } catch (ServiceException e) {
-            //исправить
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ServletException e) {
-            throw new RuntimeException(e);
+        } catch (IOException e ) {
+            log.error("Invalid address to forward in authorization command", e);
+            throw new ControllerException(e);
+        } catch (ServiceException | ServletException e){
+            log.error("Error occurred while authorization", e);
+            throw new ControllerException(e);
         }
     }
 }

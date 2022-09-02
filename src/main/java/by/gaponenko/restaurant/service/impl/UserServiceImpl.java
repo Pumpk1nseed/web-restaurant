@@ -17,25 +17,22 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     private static final UserDataValidator validator = UserDataValidator.getInstance();
     private static final UserDao userDao = DaoProvider.getInstance().getUserDao();
     @Override
     public User authorization(String login, String password) throws ServiceException {
-        if (!validator.validate(login, password)) {
-            throw new ServiceException("login or password is incorrect!");
+        if (login == null || password == null) {
+            log.info("login or password is null");
+            return new User();
         }
         User user;
         try{
             user = userDao.authorization(login, password);
         } catch(DaoException e){
-            throw new ServiceException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            log.error("Error while logging. Login: {}, Password: {}", login, password, e);
+            throw new ServiceException(e.getMessage());
         }
         return user;
     }
@@ -53,9 +50,8 @@ public class UserServiceImpl implements UserService {
                 throw new ValidationException("User is already exists!");
             }
         } catch(DaoException e){
+            log.error("Error while registering new user");
             throw new ServiceException(e);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
         return registered;
     }
@@ -64,6 +60,7 @@ public class UserServiceImpl implements UserService {
         try {
             return userDao.loadUserDataByLogin(login);
         } catch (DaoException e) {
+            log.error("Error while load user data");
             throw new ServiceException(e);
         }
     }

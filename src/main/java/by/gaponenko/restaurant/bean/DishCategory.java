@@ -1,8 +1,9 @@
 package by.gaponenko.restaurant.bean;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class DishCategory {
+public class DishCategory implements Serializable {
 
     private Integer idCategory;
     private String name;

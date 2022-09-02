@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.text.ParseException;
 
 public class Controller extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2133400551086625355L;
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     private static final CommandHelper helper = new CommandHelper();
@@ -30,27 +30,12 @@ public class Controller extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-/*        String commandName;
-        Command command;
-        String page = null;
-
-        commandName = req.getParameter(RequestParameterName.REQ_PARAM_COMAND_NAME);
-        command = helper.getCommand(commandName);
-
-        //доработать
-        try {
-            command.execute(req, resp);
-        } catch (ParseException | ServiceException e) {
-            throw new RuntimeException(e);
-        }*/
-
         processRequest(req, resp);
 
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        /*super.doGet(req, resp);*/
         processRequest(req, resp);
     }
 
@@ -63,20 +48,16 @@ public class Controller extends HttpServlet {
         commandName = req.getParameter(RequestParameterName.REQ_PARAM_COMAND_NAME);
         command = helper.getCommand(commandName);
 
-        //доработать
         try {
             command.execute(req, resp);
 
-/*            switch (req.getMethod()) {
-                case "GET" -> dispatch(req, resp, page);
-                case "POST" -> resp.sendRedirect("controller?command=forward_command&target=" + page);
-            }*/
-        } catch (ParseException | ServiceException e) {
-            throw new RuntimeException(e);
+        } catch (ControllerException e) {
+            log.error("Error while process request");
+            dispatch(req, resp, JSPPageName.ERROR_PAGE);
         } catch (NullPointerException e) {
             log.error("Null command name", e);
             dispatch(req, resp, JSPPageName.ERROR_PAGE);
-        } catch (DaoException e) {
+        } catch (ServiceException e) {
             throw new RuntimeException(e);
         }
     }

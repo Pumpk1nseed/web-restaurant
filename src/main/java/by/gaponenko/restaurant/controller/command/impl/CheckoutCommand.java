@@ -3,13 +3,13 @@ package by.gaponenko.restaurant.controller.command.impl;
 import by.gaponenko.restaurant.bean.Dish;
 import by.gaponenko.restaurant.bean.Order;
 import by.gaponenko.restaurant.bean.PaymentMethod;
+import by.gaponenko.restaurant.controller.ControllerException;
 import by.gaponenko.restaurant.controller.JSPPageName;
 import by.gaponenko.restaurant.controller.RequestParameterName;
 import by.gaponenko.restaurant.controller.command.Command;
 import by.gaponenko.restaurant.service.PaymentService;
 import by.gaponenko.restaurant.service.ServiceException;
 import by.gaponenko.restaurant.service.ServiceProvider;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -18,7 +18,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,15 +27,15 @@ public class CheckoutCommand implements Command {
     private static final ServiceProvider serviceProvider = ServiceProvider.getInstance();
 
     @Override
-    public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException, ParseException, ServiceException {
+    public void execute(HttpServletRequest req, HttpServletResponse resp) throws ControllerException {
         calculatePriceOfOrder(req);
         setPaymentMethodSession(req);
 
         try {
             resp.sendRedirect(JSPPageName.CHECKOUT_PAGE);
         } catch (IOException e) {
-            log.error("Error occured while checkout: invalid address");
-            throw new RuntimeException(e);
+            log.error("Invalid address to redirect while checkout");
+            throw new ControllerException(e);
         }
     }
 
@@ -68,12 +67,17 @@ public class CheckoutCommand implements Command {
         session.setAttribute(RequestParameterName.REQ_PARAM_ORDER, order);
     }
 
-    private void setPaymentMethodSession(HttpServletRequest req) throws ServiceException {
+    private void setPaymentMethodSession(HttpServletRequest req) throws ControllerException {
         HttpSession session = req.getSession();
         List<PaymentMethod> paymentMethods = (List<PaymentMethod>) session.getAttribute(RequestParameterName.REQ_PARAM_PAYMENT_METHODS);
         if (paymentMethods == null) {
             PaymentService paymentService = serviceProvider.getPaymentService();
-            paymentMethods = paymentService.getPaymentMethods();
+            try {
+                paymentMethods = paymentService.getPaymentMethods();
+            } catch (ServiceException e) {
+                log.error("Error while trying to get payment methods while checkout");
+                throw new ControllerException(e);
+            }
 
             session.setAttribute(RequestParameterName.REQ_PARAM_PAYMENT_METHODS, paymentMethods);
         }

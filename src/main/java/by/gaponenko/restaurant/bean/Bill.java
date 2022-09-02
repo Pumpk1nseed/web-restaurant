@@ -1,9 +1,11 @@
 package by.gaponenko.restaurant.bean;
 
+import java.io.Serializable;
 import java.security.Timestamp;
 import java.util.Objects;
 
-public class Bill {
+public class Bill implements Serializable {
+
     private String idBill;
     private String idOrder;
     private String price;

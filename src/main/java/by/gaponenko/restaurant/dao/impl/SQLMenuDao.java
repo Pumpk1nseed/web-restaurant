@@ -10,14 +10,12 @@ import by.gaponenko.restaurant.dao.pool.ConnectionPool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 public class SQLMenuDao implements MenuDao {
@@ -156,8 +154,6 @@ public class SQLMenuDao implements MenuDao {
             resultSet.close();
             preparedStatement.close();
             connection.close();
-        } catch (DaoException e) {
-            throw new RuntimeException(e);
         } catch (SQLException e) {
             log.error("Error working with statements while getting dish by criteria", e);
             throw new DaoException("Error while getting dish", e);

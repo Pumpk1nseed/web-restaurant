@@ -12,7 +12,7 @@ public interface OrderService {
 
     int createOrder(Order order, Integer idUser) throws ServiceException;
 
-    boolean createOrderDetails(int idOrder, int idDish, Integer quantity, int idPaymentMethod) throws ServiceException, DaoException;
+    boolean createOrderDetails(int idOrder, int idDish, Integer quantity, int idPaymentMethod) throws ServiceException;
 
     List<Order> getOrdersHistory (int idUser) throws ServiceException;
 

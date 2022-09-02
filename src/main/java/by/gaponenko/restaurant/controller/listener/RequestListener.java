@@ -1,7 +1,6 @@
-package by.gaponenko.restaurant.controller.listner;
+package by.gaponenko.restaurant.controller.listener;
 
 import by.gaponenko.restaurant.controller.JSPPageName;
-import by.gaponenko.restaurant.controller.RequestParameterName;
 import jakarta.servlet.ServletRequestEvent;
 import jakarta.servlet.ServletRequestListener;
 import jakarta.servlet.annotation.WebListener;
@@ -12,7 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @WebListener
-public class RequestListner implements ServletRequestListener {
+public class RequestListener implements ServletRequestListener {
     Pattern notPages = Pattern.compile("(?i)(\\W|^)(controller|images|css|js|ajaxController)(\\W|$)");
     Matcher mNotPages;
     private static final String LAST_PAGE_ATTR = "lastPage";

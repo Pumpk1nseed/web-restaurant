@@ -1,9 +1,11 @@
 package by.gaponenko.restaurant.bean;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-public class Dish {
+public class Dish implements Serializable {
+
     private int idDish;
     private String name;
     private String description;

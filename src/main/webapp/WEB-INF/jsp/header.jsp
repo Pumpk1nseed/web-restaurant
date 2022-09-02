@@ -40,13 +40,13 @@
 </div>
 
 <div class="topline">
-<a href="home"><img src="images/catharsisblack.png"
-                                    аlt="Логотип ресторана черный"
-                                    titlе="Наименование catharsis"/></a>
+    <a href="home"><img src="images/catharsisblack.png"
+                        аlt="Логотип ресторана черный"
+                        titlе="Наименование catharsis"/></a>
 </div>
-
-<div class="main"><a href="home"><span>${main_link}</span></a></div>
-
+<c:if test="${user.idRole != 2}">
+    <div class="main"><a href="home"><span>${main_link}</span></a></div>
+</c:if>
 </body>
 </html>
 

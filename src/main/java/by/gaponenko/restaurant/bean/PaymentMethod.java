@@ -1,8 +1,9 @@
 package by.gaponenko.restaurant.bean;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class PaymentMethod {
+public class PaymentMethod implements Serializable {
     private Integer idPaymentMethod;
     private String name;
 

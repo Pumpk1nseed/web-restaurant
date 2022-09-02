@@ -46,6 +46,7 @@ public class SQLOrderDao implements OrderDao {
 
         try {
             connection = connectToDataBase();
+            connection.setAutoCommit(false);
 
             preparedStatement = connection.prepareStatement(ADD_NEW_ORDER, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
@@ -58,12 +59,11 @@ public class SQLOrderDao implements OrderDao {
 
             idOrder = resultSet.getInt(GENERATED_KEYS);
 
+            connection.commit();
             resultSet.close();
             preparedStatement.close();
             connection.close();
 
-        } catch (DaoException e) {
-            throw new RuntimeException(e);
         } catch (SQLException e) {
             log.error("Error working with statements while create order", e);
             throw new DaoException("Error while working with database while create order", e);
@@ -77,6 +77,7 @@ public class SQLOrderDao implements OrderDao {
 
         try {
             connection = connectToDataBase();
+            connection.setAutoCommit(false);
 
             preparedStatement = connection.prepareStatement(ADD_ORDER_DETAILS);
             preparedStatement.setInt(1, idOrder);
@@ -85,6 +86,7 @@ public class SQLOrderDao implements OrderDao {
             preparedStatement.setInt(4, idPaymentMethod);
             preparedStatement.executeUpdate();
 
+            connection.commit();
             preparedStatement.close();
             connection.close();
 
@@ -124,8 +126,8 @@ public class SQLOrderDao implements OrderDao {
             connection.close();
 
         } catch (SQLException e) {
-            log.error("Error occurred while create order details", e);
-            throw new DaoException("Error while working with database while create order details", e);
+            log.error("Error occurred while get orders history", e);
+            throw new DaoException("Error while working with database while get orders history", e);
         }
         return orders;
     }
@@ -179,7 +181,7 @@ public class SQLOrderDao implements OrderDao {
             connection.close();
 
         } catch (SQLException e) {
-            log.error("Error occurred while find orders by users info", e);
+            log.error("Error occurred while find orders by criteria", e);
             throw new DaoException("Error while working with database while find orders by users info", e);
         }
         return orderUsedDataMap;
@@ -211,13 +213,9 @@ public class SQLOrderDao implements OrderDao {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         try {
             connection = connectionPool.takeConnection();
-        } catch (InterruptedException e) {
+        } catch (InterruptedException | SQLException | ClassNotFoundException e) {
             log.error("Error while getting connection from connection pool queue", e);
             throw new DaoException("Error taking connection to database", e);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
         }
         return connection;
     }

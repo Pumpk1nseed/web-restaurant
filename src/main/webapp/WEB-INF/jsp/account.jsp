@@ -100,7 +100,8 @@
                 <td>
 
 
-                    <div class="confirmCategory"><label for="checkInP_label"><strong>Confirmation of orders</strong></label>
+                    <div class="confirmCategory"><label for="checkInP_label"><strong>Confirmation of
+                        orders</strong></label>
                     </div>
                     <input type="checkbox" name="orderConfirm" id="checkInP_label">
                     <div class="blockConfirm">
@@ -143,8 +144,9 @@
         </tr>
     </table>
 
-
-    <div class="basket"><a href="basket"><span>${basket_link}</span></a></div>
+    <c:if test="${user.idRole != 2}">
+        <div class="basket"><a href="basket"><span>${basket_link}</span></a></div>
+    </c:if>
     <div class="menu"><a href="menu"><span>${menuLower_link}</span></a></div>
 
     <div>

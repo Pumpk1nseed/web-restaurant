@@ -1,7 +1,7 @@
 package by.gaponenko.restaurant.service;
 
 public class ServiceException extends Exception {
-
+    private static final long serialVersionUID = 8734357278908575546L;
     public ServiceException() {
         super();
     }

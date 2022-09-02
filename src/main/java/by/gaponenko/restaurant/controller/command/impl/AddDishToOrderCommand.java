@@ -4,10 +4,10 @@ import by.gaponenko.restaurant.bean.Dish;
 import by.gaponenko.restaurant.bean.Order;
 import by.gaponenko.restaurant.bean.criteria.Criteria;
 import by.gaponenko.restaurant.bean.criteria.SearchCriteria;
+import by.gaponenko.restaurant.controller.ControllerException;
 import by.gaponenko.restaurant.controller.RequestParameterName;
 import by.gaponenko.restaurant.controller.command.Command;
 import by.gaponenko.restaurant.service.*;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -16,7 +16,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.ParseException;
 import java.util.Map;
 
 public class AddDishToOrderCommand implements Command {
@@ -24,7 +23,7 @@ public class AddDishToOrderCommand implements Command {
     MenuService menuService = ServiceProvider.getInstance().getMenuService();
 
     @Override
-    public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException, ParseException, ServiceException {
+    public void execute(HttpServletRequest req, HttpServletResponse resp) throws ControllerException {
         HttpSession session = req.getSession();
         PrintWriter writer;
         Criteria criteria;
@@ -51,9 +50,9 @@ public class AddDishToOrderCommand implements Command {
 
             setDishQuantitySession(order.getOrderList(), session);
 
-        } catch (IOException e) {
+        } catch (ServiceException | IOException e) {
             log.error("Error occurred while trying to add dish to order", e);
-            throw new RuntimeException(e);
+            throw new ControllerException(e);
         }
     }
 

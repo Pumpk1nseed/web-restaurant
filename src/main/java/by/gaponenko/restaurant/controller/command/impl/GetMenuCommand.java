@@ -2,6 +2,7 @@ package by.gaponenko.restaurant.controller.command.impl;
 
 import by.gaponenko.restaurant.bean.DishCategory;
 import by.gaponenko.restaurant.bean.Menu;
+import by.gaponenko.restaurant.controller.ControllerException;
 import by.gaponenko.restaurant.controller.JSPPageName;
 import by.gaponenko.restaurant.controller.command.Command;
 import by.gaponenko.restaurant.service.MenuService;
@@ -23,7 +24,7 @@ public class GetMenuCommand implements Command {
     MenuService menuService = ServiceProvider.getInstance().getMenuService();
 
     @Override
-    public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, ServiceException {
+    public void execute(HttpServletRequest req, HttpServletResponse resp) throws ControllerException {
 
         try {
             Menu menu = menuService.getMenu();
@@ -36,13 +37,12 @@ public class GetMenuCommand implements Command {
             RequestDispatcher requestDispatcher = req.getRequestDispatcher(JSPPageName.MENU_PAGE);
             requestDispatcher.forward(req, resp);
 
-        } catch (ServiceException e) {
-            //исправить
-            throw new RuntimeException(e);
         } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ServletException e) {
-            throw new RuntimeException(e);
+            log.error("Invalid address to forward in get Menu command", e);
+            throw new ControllerException(e);
+        } catch (ServletException | ServiceException e) {
+            log.error("Error occurred in get Menu command", e);
+            throw new ControllerException(e);
         }
     }
 }

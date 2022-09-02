@@ -5,6 +5,7 @@ import by.gaponenko.restaurant.bean.RegistrationUserData;
 import by.gaponenko.restaurant.bean.User;
 import by.gaponenko.restaurant.bean.criteria.Criteria;
 import by.gaponenko.restaurant.bean.criteria.SearchCriteria;
+import by.gaponenko.restaurant.controller.ControllerException;
 import by.gaponenko.restaurant.controller.JSPPageName;
 import by.gaponenko.restaurant.controller.RequestParameterName;
 import by.gaponenko.restaurant.controller.command.Command;
@@ -19,14 +20,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.List;
 
 public class GetHistoryOfOrdersCommand implements Command {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
     private static final ServiceProvider serviceProvider = ServiceProvider.getInstance();
+
     @Override
-    public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException, ParseException, ServiceException {
+    public void execute(HttpServletRequest req, HttpServletResponse resp) throws ControllerException {
         OrderService orderService = serviceProvider.getOrderService();
         HttpSession session = req.getSession();
 
@@ -35,8 +36,15 @@ public class GetHistoryOfOrdersCommand implements Command {
         Criteria criteria = new Criteria();
         criteria.add(String.valueOf(SearchCriteria.User.ID_USER), user.getIdUser());
 
-        List<RegistrationUserData> userData = serviceProvider.getUserService().find(criteria);
-        List<Order> ordersHistory = orderService.getOrdersHistory(userData.get(0).getIdUser());
+        List<RegistrationUserData> userData = null;
+        List<Order> ordersHistory = null;
+        try {
+            userData = serviceProvider.getUserService().find(criteria);
+            ordersHistory = orderService.getOrdersHistory(userData.get(0).getIdUser());
+        } catch (ServiceException e) {
+            log.error("Error occurred while getting history of orders", e);
+            throw new ControllerException(e);
+        }
 
         session.setAttribute(RequestParameterName.REQ_PARAM_ORDERS_HISTORY, ordersHistory);
 
@@ -44,6 +52,10 @@ public class GetHistoryOfOrdersCommand implements Command {
             req.getRequestDispatcher(JSPPageName.USER_AUTHORIZED_PAGE).forward(req, resp);
         } catch (IOException e) {
             log.error("Error invalid address to forward while getting history of orders", e);
+            throw new ControllerException(e);
+        } catch (ServletException e) {
+            log.error("Error occurred while getting history of orders", e);
+            throw new ControllerException(e);
         }
     }
 }

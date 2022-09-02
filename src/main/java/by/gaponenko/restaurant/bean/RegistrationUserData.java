@@ -1,10 +1,11 @@
 package by.gaponenko.restaurant.bean;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Objects;
 
-public class RegistrationUserData {
+public class RegistrationUserData implements Serializable {
     private Integer idUser;
     private String login;
     private String password;
