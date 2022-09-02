@@ -1,0 +1,106 @@
+body {
+    background: url(../images/aboutback.jpeg) no-repeat fixed;
+    background-size: 100%; /* Современные браузеры */
+    font-family: sans-serif;
+    color: white;
+}
+
+.main {
+    position: fixed; /* Фиксированное положение */
+    right: 13px; /* Расстояние от правого края окна браузера */
+    top: 11%; /* Расстояние сверху */
+    padding: 10px; /* Поля вокруг текста */
+    background: #31332e; /* Цвет фона */
+    border: 1px solid #FFFFFF; /* Параметры рамки */
+    width: 90px;
+    text-align: center;
+}
+
+.topline {
+    position: fixed;
+    top: 1%;
+    left: 38%;
+    width: 2000px;
+}
+
+
+a {
+    text-decoration: none
+}
+
+span {
+    color: #FFFFFF;
+}
+
+.localeBtnEn {
+    background: #fafcf5;
+    border-color: #8da36a;
+    color: #212529;
+    transition-duration: 0.4s;
+    border-radius: 0.75em;
+    padding: 0.25em 1em;
+    top: 1%;
+    position: fixed;
+    right: 180px;
+    width: 50px;
+}
+
+.localeBtnRu {
+    background: #fafcf5;
+    border-color: #8da36a;
+    color: #212529;
+    transition-duration: 0.4s;
+    border-radius: 0.75em;
+    padding: 0.25em 1em;
+    top: 1%;
+    position: fixed;
+    right: 240px;
+    width: 50px;
+}
+
+.lng:hover {
+    cursor: pointer;
+    background: #fff;
+    border-color: #212529;
+    color: #212529;
+}
+
+.lng {
+    position: relative;
+    z-index: 9998!important;
+    color: #212529;
+}
+
+.signIn {
+    position: fixed; /* Фиксированное положение */
+    right: 50px; /* Расстояние от правого края окна браузера */
+    top: 0.2%; /* Расстояние сверху */
+    text-decoration: none;
+    color: white;
+    text-transform: uppercase;
+    border-color: white;
+    z-index: 9998 !important;
+}
+
+.entity {
+    margin-top: 10%;
+    margin-left: 40%;
+}
+
+.menu {
+    position: fixed; /* Фиксированное положение */
+    right: 50px; /* Расстояние от правого края окна браузера */
+    top: 6%; /* Расстояние сверху */
+    text-decoration: none;
+    color: white;
+    text-transform: uppercase;
+    border-color: white;
+    z-index: 9998 !important;
+}
+
+.margo img{
+    position: fixed;
+    bottom: 0.5%;
+    right: 30px;
+    width: 20%;
+}
