@@ -8,9 +8,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Error page</title>
+    <title>Error</title>
 </head>
 <body>
-smth_wrong
+<h1>Oops, something went wrong, try again later.</h1>
+Error${errorMsg}
+<br>
+<br>
+<a href="home">на главную</a>
 </body>
 </html>

@@ -44,13 +44,13 @@
         <form action="controller" method="post">
             <input type="hidden" name="command" value="registration"/>
             <div class="form-field">
-                <input type="text" name="login" placeholder="${loginPhFmt}" value=""/>
+                <input type="text" name="login" placeholder="${loginPhFmt}*" value=""/>
             </div>
             <div class="form-field">
-                <input type="text" name="name" placeholder="${nameFmt}" value=""/>
+                <input type="text" name="name" placeholder="${nameFmt}*" value=""/>
             </div>
             <div class="form-field">
-                <input type="text" name="surname" placeholder="${surnameFmt}" value=""/>
+                <input type="text" name="surname" placeholder="${surnameFmt}*" value=""/>
             </div>
             <div class="form-field">
                 <input type="text" name="last_name" placeholder="${lastNameFmt}" value=""/>
@@ -59,19 +59,19 @@
                 <input type="date" name="date_of_birth" placeholder="${dateBirthFmt}" value=""/>
             </div>
             <div class="form-field">
-                <input type="text" name="telephone_number" placeholder="${phoneFmt}" value=""/>
+                <input type="text" name="telephone_number" placeholder="+375()___-__-__" value=""/>
             </div>
             <div class="form-field">
                 <input type="text" name="email" placeholder="${mailFmt}" value=""/>
             </div>
             <div class="form-field">
-                <input type="text" name="address" placeholder="${addressFmt}" value=""/>
+                <input type="text" name="address" placeholder="${addressFmt}*" value=""/>
             </div>
             <div class="form-field">
-                <input type="text" name="role" placeholder="${roleFmt}" value=""/>
+                <input type="text" name="role" placeholder="${roleFmt}*" value=""/>
             </div>
             <div class="form-field">
-                <input type="password" name="password" placeholder="${passwordFmt}" value=""/>
+                <input type="password" name="password" placeholder="${passwordFmt}*" value=""/>
             </div>
             <button class="button">${regTitleFmt}</button>
         </form>

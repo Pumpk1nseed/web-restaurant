@@ -13,7 +13,6 @@ import by.gaponenko.restaurant.service.Validation.ValidationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
@@ -40,9 +39,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean registration(RegistrationUserData userData) throws ServiceException {
-        if (!validator.validateUserData(userData)){
-            throw new ServiceException("Check your data!");
-        }
+        validator.validateUserData(userData);
+
         boolean registered = false;
         try{
             registered = userDao.registration(userData);

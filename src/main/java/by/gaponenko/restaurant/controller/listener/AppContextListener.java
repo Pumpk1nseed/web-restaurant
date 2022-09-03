@@ -12,12 +12,11 @@ import java.sql.SQLException;
 
 public class AppContextListener implements ServletRequestListener {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
-    private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     public void contextInitialized(ServletContextEvent sce) {
 
         try {
-            connectionPool.initPoolData();
+            ConnectionPool.getInstance().initPoolData();
 
         } catch (ClassNotFoundException e) {
             log.error("Error while trying to init connection pool", e);
@@ -30,8 +29,9 @@ public class AppContextListener implements ServletRequestListener {
 
     public void contextDestroyed(ServletContextEvent sce) {
         try {
-            connectionPool.dispose();
+            ConnectionPool.getInstance().dispose();
         } catch (Exception e) {
+            log.error("Error with dispose connection", e);
             throw new RuntimeException(e);
         }
     }

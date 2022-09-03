@@ -52,12 +52,27 @@ public class Controller extends HttpServlet {
             command.execute(req, resp);
 
         } catch (ControllerException e) {
-            log.error("Error while process request");
+            log.error(e.getMessage(), e);
+
+            int lastIndx = e.getMessage().lastIndexOf(":");
+            String errorMsg;
+            if (lastIndx == -1) {
+                errorMsg = e.getMessage();
+            } else {
+                errorMsg = e.getMessage().substring(lastIndx);
+            }
+//            String errorMsg = e.getMessage();
+            req.getSession().setAttribute(RequestParameterName.REQ_PARAM_ERROR_MSG, errorMsg);
             dispatch(req, resp, JSPPageName.ERROR_PAGE);
+
         } catch (NullPointerException e) {
             log.error("Null command name", e);
+            String errorMsg = e.getMessage();
+            req.getSession().setAttribute(RequestParameterName.REQ_PARAM_ERROR_MSG, errorMsg);
             dispatch(req, resp, JSPPageName.ERROR_PAGE);
         }
+
+
     }
 
     private void dispatch(HttpServletRequest req, HttpServletResponse resp, String page) {

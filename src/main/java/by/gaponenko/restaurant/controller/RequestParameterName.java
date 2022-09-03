@@ -30,6 +30,8 @@ public final class RequestParameterName {
     public static final String REQ_PARAM_ORDERS_HISTORY = "ordersHistory";
     public static final String REQ_PARAM_CONFIRMED_ORDER_ID = "confirmedOrderId";
     public static final String REQ_PARAM_ORDERS_FOR_CONFIRMATION = "ordersForConfirmation";
+    public static final String REQ_PARAM_ERROR_MSG = "errorMsg";
+
     //public static final String REQ_PARAM_LAST_USED_PAGE = "last_used_page";
 
 
