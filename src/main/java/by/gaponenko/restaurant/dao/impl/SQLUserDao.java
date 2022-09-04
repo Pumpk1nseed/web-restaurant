@@ -24,6 +24,9 @@ public class SQLUserDao implements UserDao {
     private static final String FIND_USER_BY_LOGIN = "SELECT * FROM users WHERE login = ?;";
     private static final String FIND_USER_DETAILS_BY_CRITERIA = "SELECT * FROM users_details WHERE ";
     private static final String FIND_ROLE = "SELECT * FROM roles WHERE title = ?;";
+
+    private static final String UPDATE_USER_PASSWORD = "UPDATE users SET password = ? WHERE id_user=?;";
+    private static final String UPDATE_USER_DETAILS = "UPDATE users_details SET name = ?, surname = ?, last_name = ?, telephone_number = ?, email = ?, address = ? WHERE id_user=?;";
     private static final String FIND_USERDATA_BY_ID = "SELECT * FROM users_details WHERE id_user = ?;";
     private static final String ADD_NEW_USER = "INSERT INTO users (login, password, id_role, status) VALUES(?,?,?,?);";
     private static final String REGISTER_USER_INFO = "INSERT INTO users_details(id_user, name, surname, last_name, date_of_birth, telephone_number, email, address) VALUES(?,?,?,?,?,?,?,?)";
@@ -122,14 +125,16 @@ public class SQLUserDao implements UserDao {
             preparedStatementForUserInfo.close();
             connection.close();
         } catch (SQLException e) {
-            log.error("Error working with statements while registration", e);
-            throw new DaoException("Error while adding new User", e);
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                log.error("Error rollback while register new User", ex);
+                throw new DaoException("Error rollback while register new User", ex);
+            }
+            log.error("Error working with statements while register new User", e);
+            throw new DaoException("Error while register new User", e);
         }
         return true;
-    }
-
-    public RegistrationUserData editUserInfo(RegistrationUserData userData) throws DaoException {
-        return userData;
     }
 
     public RegistrationUserData loadUserDataByLogin(String login) throws DaoException {
@@ -231,6 +236,50 @@ public class SQLUserDao implements UserDao {
         }
 
         return usersData;
+    }
+
+    @Override
+    public boolean updateUserData(RegistrationUserData newUserData, String newPassword) throws DaoException {
+        PreparedStatement preparedStatementForUser;
+        PreparedStatement preparedStatementForUserInfo;
+
+        try {
+            connection = connectToDataBase();
+            connection.setAutoCommit(false);
+
+            if (newPassword != "") {
+                preparedStatementForUser = connection.prepareStatement(UPDATE_USER_PASSWORD);
+                preparedStatementForUser.setString(1, newPassword);
+                preparedStatementForUser.setInt(2, newUserData.getIdUser());
+                preparedStatementForUser.executeUpdate();
+
+                preparedStatementForUser.close();
+            }
+
+            preparedStatementForUserInfo = connection.prepareStatement(UPDATE_USER_DETAILS);
+            preparedStatementForUserInfo.setString(1, newUserData.getName());
+            preparedStatementForUserInfo.setString(2, newUserData.getSurname());
+            preparedStatementForUserInfo.setString(3, newUserData.getLastName());
+            preparedStatementForUserInfo.setString(4, newUserData.getTelephoneNumber());
+            preparedStatementForUserInfo.setString(5, newUserData.getEmail());
+            preparedStatementForUserInfo.setString(6, newUserData.getAddress());
+            preparedStatementForUserInfo.setInt(7, newUserData.getIdUser());
+            preparedStatementForUserInfo.executeUpdate();
+
+            connection.commit();
+            preparedStatementForUserInfo.close();
+            connection.close();
+        } catch (SQLException e) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                log.error("Error rollback while update user info", ex);
+                throw new DaoException("Error rollback while update user info", ex);
+            }
+            log.error("Error working with statements while update user info", e);
+            throw new DaoException("Error while update user info", e);
+        }
+        return true;
     }
 
     private ResultSet findUserByLogin(Connection connection, String login) throws DaoException {

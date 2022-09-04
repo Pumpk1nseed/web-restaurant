@@ -23,9 +23,9 @@ public class UserServiceImpl implements UserService {
     private static final UserDao userDao = DaoProvider.getInstance().getUserDao();
     @Override
     public User authorization(String login, String password) throws ServiceException {
-        if (login == null || password == null) {
+        if (login == "" || password == "") {
             log.info("login or password is null");
-            return new User();
+            throw new ValidationException("login or password is empty");
         }
         User user;
         try{
@@ -40,6 +40,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean registration(RegistrationUserData userData) throws ServiceException {
+
+        if (userData.getLogin() == "" || userData.getSurname() == "" || userData.getName() == ""
+                || userData.getTelephoneNumber() == "" || userData.getPassword() == "" || userData.getRole() == ""){
+            log.info("Smth in user data is null");
+            throw new ValidationException("All fields marked with * must be filled in");
+        }
+
         validator.validateUserData(userData);
 
         boolean registered = false;
@@ -72,6 +79,25 @@ public class UserServiceImpl implements UserService {
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
+    }
+
+    @Override
+    public boolean updateUserData(RegistrationUserData newUserData, String newPassword) throws ServiceException {
+        if (newUserData.getSurname() == null || newUserData.getName() == null
+                || newUserData.getTelephoneNumber() == null){
+            log.info("Smth in user data is null");
+            throw new ValidationException("All fields marked with * must be filled in");
+        }
+
+        validator.validateUserDataUpdate(newUserData);
+
+        boolean updated = false;
+        try {
+            updated = userDao.updateUserData(newUserData, newPassword);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        return updated;
     }
 
 }

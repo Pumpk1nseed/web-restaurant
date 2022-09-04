@@ -5,8 +5,6 @@ import by.gaponenko.restaurant.bean.criteria.Criteria;
 import by.gaponenko.restaurant.bean.criteria.SearchCriteria;
 
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 //но валидатор не должен выбрасывать исключений,
 //т.к они говорят о том, что код некорректный
@@ -28,6 +26,19 @@ public class UserDataValidator {
             helper.validateTelephone(userData.getTelephoneNumber());
             helper.validateEmail(userData.getEmail());
             helper.validateRole(userData.getRole());
+        }
+    }
+
+    public void validateUserDataUpdate(RegistrationUserData userData) throws ValidationException {
+
+        if (userData == null) {
+            throw new ValidationException("User is null");
+        } else {
+            helper.validateName(userData.getName());
+            helper.validateSurName(userData.getSurname());
+            helper.validateLastName(userData.getLastName());
+            helper.validateTelephone(userData.getTelephoneNumber());
+            helper.validateEmail(userData.getEmail());
         }
     }
 

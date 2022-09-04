@@ -73,6 +73,24 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>success</servlet-name>
+        <jsp-file>/WEB-INF/jsp/editInfoSuccess.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>success</servlet-name>
+        <url-pattern>/success</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>editInfo</servlet-name>
+        <jsp-file>/WEB-INF/jsp/editInfo.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>editInfo</servlet-name>
+        <url-pattern>/editInfo</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>menu</servlet-name>
         <jsp-file>/WEB-INF/jsp/menu.jsp</jsp-file>
     </servlet>

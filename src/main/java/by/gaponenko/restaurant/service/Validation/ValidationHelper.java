@@ -51,33 +51,29 @@ public class ValidationHelper {
     }
 
     public void validateName(String nameInput) throws ValidationException {
-        if (nameInput != null) {
+        if (nameInput != "" && nameInput != null) {
             pattern = pattern.compile(name);
             matcher = pattern.matcher(nameInput);
 
             if (matcher.find() || nameInput.length() > 50) {
                 throw new ValidationException(nameErrorMsg);
             }
-        } else {
-            throw new ValidationException(nullErrorMsg);
         }
     }
 
     public void validateSurName(String surName) throws ValidationException {
-        if (surName != null) {
+        if (surName != "" && surName != null) {
             pattern = pattern.compile(name);
             matcher = pattern.matcher(surName);
 
             if (matcher.find() || surName.length() > 50) {
                 throw new ValidationException(nameErrorMsg);
             }
-        } else {
-            throw new ValidationException(nullErrorMsg);
         }
     }
 
     public void validateLastName(String lastName) throws ValidationException {
-        if (lastName != null) {
+        if (lastName !="" && lastName != null) {
             pattern = pattern.compile(name);
             matcher = pattern.matcher(lastName);
 
@@ -88,46 +84,40 @@ public class ValidationHelper {
     }
 
     public void validateLogin(String userLogin) throws ValidationException {
-        if (userLogin != null) {
+        if (userLogin != "" && userLogin != null) {
             pattern = pattern.compile(login);
             matcher = pattern.matcher(userLogin);
 
             if (!matcher.find() || userLogin.length() > 15) {
                 throw new ValidationException(loginErrorMsg);
             }
-        } else {
-            throw new ValidationException(nullErrorMsg);
         }
     }
 
     public void validateTelephone(String userTelephone) throws ValidationException {
-        if (userTelephone != null) {
+        if (userTelephone != "" && userTelephone != null) {
             pattern = pattern.compile(telephone);
             matcher = pattern.matcher(userTelephone);
 
             if (matcher.find() || (userTelephone.length() < 10 || userTelephone.length() > 14)) {
                 throw new ValidationException(telephoneErrorMsg);
             }
-        } else {
-            throw new ValidationException(nullErrorMsg);
         }
     }
 
     public void validateRole(String roleInput) throws ValidationException {
-        if (roleInput != null) {
+        if (roleInput != "" && roleInput != null) {
             pattern = pattern.compile(role);
             matcher = pattern.matcher(roleInput);
-
+            System.out.println(roleInput);
             if (!matcher.find()) {
                 throw new ValidationException(roleErrorMsg);
             }
-        } else {
-            throw new ValidationException(nullErrorMsg);
         }
     }
 
     public void validateEmail(String emailInput) throws ValidationException {
-        if (emailInput != null) {
+        if (emailInput != "" && emailInput != null) {
             pattern = pattern.compile(email);
             matcher = pattern.matcher(emailInput);
 
@@ -138,7 +128,7 @@ public class ValidationHelper {
     }
 
     public void validateId(String idInput) throws ValidationException {
-        if (idInput != null) {
+        if (idInput != "" && idInput != null) {
             pattern = pattern.compile(id);
             matcher = pattern.matcher(idInput);
 
@@ -149,7 +139,7 @@ public class ValidationHelper {
     }
 
     public void validatePrice(String priceInput) throws ValidationException {
-        if (priceInput != null) {
+        if (priceInput != "" && priceInput != null) {
             pattern = pattern.compile(price);
             matcher = pattern.matcher(priceInput);
 
@@ -160,7 +150,7 @@ public class ValidationHelper {
     }
 
     public void validateStatus(String statusInput) throws ValidationException {
-        if (statusInput != null) {
+        if (statusInput != "" && statusInput != null) {
             pattern = pattern.compile(status);
             matcher = pattern.matcher(statusInput);
 

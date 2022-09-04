@@ -13,7 +13,7 @@ public class CommandHelper {
     public CommandHelper() {
         commands.put(CommandName.AUTHORIZATION, new AuthorizationCommand());
         commands.put(CommandName.REGISTRATION, new RegistrationCommand());
-        commands.put(CommandName.UPDATE_USER_INFO, new UpdateUserInfoCommand());
+        commands.put(CommandName.UPDATE_PERSONAL_INFO, new UpdatePersonalInfoCommand());
         commands.put(CommandName.GET_MENU, new GetMenuCommand());
         commands.put(CommandName.CHANGE_LOCALIZATION, new ChangeLocalizationCommand());
         commands.put(CommandName.ADD_DISH_TO_ORDER, new AddDishToOrderCommand());

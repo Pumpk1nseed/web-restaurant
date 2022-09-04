@@ -12,6 +12,8 @@ public class JSPPageName {
     public static final String CHECKOUT_PAGE = "checkout";
     public static final String CONFIRM_PAGE = "confirmation";
     public static final String HOME_PAGE = "home";
+
+    public static final String EDIT_USERINFO_SUCCESS_PAGE = "success";
     public static final String ERROR_PAGE = "/error";
 
 }

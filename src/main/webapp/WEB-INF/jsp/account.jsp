@@ -74,9 +74,10 @@
                                 <p>${phoneFmt} : ${sessionScope.user_info.telephoneNumber}</p>
                             </div>
                         </div>
+                        <a href="editInfo">Update info</a>
+
                     </div>
                 </div>
-        </tr>
         </td>
         <div class="functional-block">
 

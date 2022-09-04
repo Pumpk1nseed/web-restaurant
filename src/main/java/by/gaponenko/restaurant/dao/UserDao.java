@@ -18,4 +18,6 @@ public interface UserDao {
 
     List<RegistrationUserData> find(Criteria criteria) throws DaoException;
 
+    boolean updateUserData(RegistrationUserData newUserData, String newPassword) throws DaoException;
+
 }

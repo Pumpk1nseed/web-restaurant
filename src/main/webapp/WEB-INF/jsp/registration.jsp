@@ -59,7 +59,7 @@
                 <input type="date" name="date_of_birth" placeholder="${dateBirthFmt}" value=""/>
             </div>
             <div class="form-field">
-                <input type="text" name="telephone_number" placeholder="+375()___-__-__" value=""/>
+                <input type="text" name="telephone_number" placeholder="+375()___-__-__*" value="+375"/>
             </div>
             <div class="form-field">
                 <input type="text" name="email" placeholder="${mailFmt}" value=""/>
