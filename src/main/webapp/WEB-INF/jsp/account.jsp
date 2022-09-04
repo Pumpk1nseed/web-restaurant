@@ -41,106 +41,112 @@
 
     <div class="titleAccount"><h1>${persAccountFmt}</h1></div>
 
-    <h1 style="margin-top: 6%">${welcomeFmt}, ${sessionScope.user_info.name}!</h1>
-
-
+        <%--    <h1 style="margin-top: 6%">${welcomeFmt}, ${sessionScope.user_info.name}!</h1>--%>
     <table>
         <tr>
             <td>
-                <div class="infoCategory"><label for="check_label"><strong>${persInfoFmt}</strong></label></div>
-                <input type="checkbox" name="personal_info" id="check_label">
-                <div class="blockCat">
-                    <p>${loginFmt} : ${sessionScope.user.login}</p>
-                    <p>${nameFmt} : ${sessionScope.user_info.name}</p>
-                    <p>${surnameFmt} : ${sessionScope.user_info.surname}</p>
-                    <p>${lastNameFmt} : ${sessionScope.user_info.lastName}</p>
-                    <p>${dateBirthFmt} : ${sessionScope.user_info.dateOfBirth}</p>
-                    <p>${mailFmt}: ${sessionScope.user_info.email}</p>
-                    <p>${addressFmt} : ${sessionScope.user_info.address}</p>
-                    <p>${phoneFmt} : ${sessionScope.user_info.telephoneNumber}</p>
+                <div class="dashboard_cards">
+                    <div class="personal_info">
+                        <div class="header">${persInfoFmt}</div>
+                        <div class="personal_card">
+                            <div class="form-field">
+                                <p>${loginFmt} : ${sessionScope.user.login}</p>
+                            </div>
+                            <div class="form-field">
+                                <p>${nameFmt} : ${sessionScope.user_info.name}</p>
+                            </div>
+                            <div class="form-field">
+                                <p>${surnameFmt} : ${sessionScope.user_info.surname}</p>
+                            </div>
+                            <div class="form-field">
+                                <p>${lastNameFmt} : ${sessionScope.user_info.lastName}</p>
+                            </div>
+                            <div class="form-field">
+                                <p>${dateBirthFmt} : ${sessionScope.user_info.dateOfBirth}</p>
+                            </div>
+                            <div class="form-field">
+                                <p>${mailFmt}: ${sessionScope.user_info.email}</p>
+                            </div>
+                            <div class="form-field">
+                                <p>${addressFmt} : ${sessionScope.user_info.address}</p>
+                            </div>
+                            <div class="form-field">
+                                <p>${phoneFmt} : ${sessionScope.user_info.telephoneNumber}</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </td>
+        </tr>
+        </td>
+        <div class="functional-block">
 
-            <c:if test="${user.idRole == 1}">
-                <td>
-                    <div class="historyCategory"><label for="checkHist_label"><strong>History of orders</strong></label>
-                    </div>
-                    <input type="checkbox" name="orderHist" id="checkHist_label">
-                    <div class="blockHist">
-                        <form id="getOrderHistory" action="controller" method="get">
-                            <input type="hidden" name="command" value="get_history_of_orders">
-
-                            <c:if test="${ordersHistory.size() == 0}">
-                                <h1>${orderIsEmptyFmt}</h1>
-                            </c:if>
-
-                            <c:if test="${ordersHistory.size() > 0}">
-                                <table>
-                                    <th>№</th>
-                                    <th>${orderPriceFmt}</th>
-                                    <th>${orderDateFmt}</th>
-                                    <th>${orderStatusFmt}</th>
-
-                                    <c:forEach items="${ordersHistory}" var="order">
-                                        <tr>
-                                            <td>${order.idOrder}</td>
-                                            <td>${order.price} BYN</td>
-                                            <td>${order.dateTime}</td>
-                                            <td>${order.status}</td>
-                                        </tr>
-                                    </c:forEach>
-                                </table>
-                            </c:if>
-                            <input id="getHistBtn" type="submit" value="обновить">
-                        </form>
-                    </div>
-                </td>
-            </c:if>
-            <c:if test="${user.idRole == 2}">
-                <td>
+        </div>
 
 
-                    <div class="confirmCategory"><label for="checkInP_label"><strong>Confirmation of
-                        orders</strong></label>
-                    </div>
-                    <input type="checkbox" name="orderConfirm" id="checkInP_label">
-                    <div class="blockConfirm">
-                        <form id="goToConfirm" action="controller" method="get">
-                            <input type="hidden" name="command" value="go_to_order_confirmation">
+            <%--            <td>
+                            <div class="infoCategory"><label for="check_label"><strong>${persInfoFmt}</strong></label></div>
+                            <input type="checkbox" name="personal_info" id="check_label">
+                            <div class="blockCat">
+                                <p>${loginFmt} : ${sessionScope.user.login}</p>
+                                <p>${nameFmt} : ${sessionScope.user_info.name}</p>
+                                <p>${surnameFmt} : ${sessionScope.user_info.surname}</p>
+                                <p>${lastNameFmt} : ${sessionScope.user_info.lastName}</p>
+                                <p>${dateBirthFmt} : ${sessionScope.user_info.dateOfBirth}</p>
+                                <p>${mailFmt}: ${sessionScope.user_info.email}</p>
+                                <p>${addressFmt} : ${sessionScope.user_info.address}</p>
+                                <p>${phoneFmt} : ${sessionScope.user_info.telephoneNumber}</p>
+                            </div>
+                        </td>--%>
+
+        <c:if test="${user.idRole == 1}">
+            <td>
+                <div class="historyCategory"><label for="checkHist_label"><strong>History of orders</strong></label>
+                </div>
+                <input type="checkbox" name="orderHist" id="checkHist_label">
+                <div class="blockHist">
+                    <form id="getOrderHistory" action="controller" method="get">
+                        <input type="hidden" name="command" value="get_history_of_orders">
+
+                        <c:if test="${ordersHistory.size() == 0}">
+                            <h1>${orderIsEmptyFmt}</h1>
+                        </c:if>
+
+                        <c:if test="${ordersHistory.size() > 0}">
                             <table>
                                 <th>№</th>
                                 <th>${orderPriceFmt}</th>
                                 <th>${orderDateFmt}</th>
-                                <th>${nameFmt}</th>
-                                <th>${surnameFmt}</th>
-                                <th>${addressFmt}</th>
-                                <th>${phoneFmt}</th>
-                                <th>Confirmation of order</th>
+                                <th>${orderStatusFmt}</th>
 
-                                <c:forEach items="${ordersForConfirmation.keySet()}" var="order">
+                                <c:forEach items="${ordersHistory}" var="order">
                                     <tr>
                                         <td>${order.idOrder}</td>
                                         <td>${order.price} BYN</td>
                                         <td>${order.dateTime}</td>
-                                        <td>${ordersForConfirmation.get(order).name}</td>
-                                        <td>${ordersForConfirmation.get(order).surname}</td>
-                                        <td>${ordersForConfirmation.get(order).address}</td>
-                                        <td>${ordersForConfirmation.get(order).telephoneNumber}</td>
-                                        <td>
-                                            <form action="controller" method="post">
-                                                <input type="hidden" name="command" value="confirm_order">
-                                                <input type="hidden" name="confirmedOrderId" value="${order.idOrder}">
-                                                <input type="submit" value="Confirm &#10004;" id="confirmBtn">
-                                            </form>
-                                        </td>
+                                        <td>${order.status}</td>
                                     </tr>
                                 </c:forEach>
                             </table>
-                            <input id="getInProcessBtn" type="submit" value="обновить">
-                        </form>
-                    </div>
-                </td>
-            </c:if>
+                        </c:if>
+                        <input id="getHistBtn" type="submit" value="обновить">
+                    </form>
+                </div>
+            </td>
+        </c:if>
+        <c:if test="${user.idRole == 2}">
+            <td>
+
+
+                <div class="confirmCategory"><label for="checkInP_label"><strong>Confirmation of
+                    orders</strong></label>
+                </div>
+                <input type="checkbox" name="orderConfirm" id="checkInP_label">
+                <div class="blockConfirm">
+                    <a href="/web_restaurant_war/controller?command=go_to_order_confirmation">Orders for
+                        confirmation</a>
+                </div>
+            </td>
+        </c:if>
         </tr>
     </table>
 

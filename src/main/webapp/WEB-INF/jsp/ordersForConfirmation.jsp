@@ -18,46 +18,59 @@
 <fmt:message bundle="${loc}" key="localization.txt.OrderPrice" var="orderPriceFmt"/>
 <fmt:message bundle="${loc}" key="localization.txt.OrderDate" var="orderDateFmt"/>
 
+<%--<jsp:include page="/WEB-INF/jsp/header.jsp"/>--%>
+
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Подтверждение заказов</title>
+    <link rel="stylesheet" href="css/confirmationOfOrders.css">
 </head>
 <body>
 
-<table>
-    <caption>
-        Confirmation of orders
-    </caption>
-    <th>№</th>
-    <th>${orderPriceFmt}</th>
-    <th>${orderDateFmt}</th>
-    <th>${nameFmt}</th>
-    <th>${surnameFmt}</th>
-    <th>${addressFmt}</th>
-    <th>${phoneFmt}</th>
-    <th>Confirmation of order</th>
+<div class="wrapper">
+    <main class="main">
 
-    <c:forEach items="${ordersForConfirmation.keySet()}" var="order">
-        <tr>
-            <td>${order.idOrder}</td>
-            <td>${order.price} BYN</td>
-            <td>${order.dateTime}</td>
-            <td>${ordersForConfirmation.get(order).name}</td>
-            <td>${ordersForConfirmation.get(order).surname}</td>
-            <td>${ordersForConfirmation.get(order).telephoneNumber}</td>
-            <td>${ordersForConfirmation.get(order).email}</td>
-            <td>
-                <form action="controller" method="post">
-                    <input type="hidden" name="command" value="confirm_order">
-                    <input type="hidden" name="confirmedOrderId" value="${order.idOrder}">
-                    <input type="submit" value="Confirm &#10004;" id="confirmBtn">
-                </form>
-            </td>
-        </tr>
+        <table>
+            <caption>
+                Confirmation of orders
+            </caption>
+            <th>№</th>
+            <th>${orderPriceFmt}</th>
+            <th>${orderDateFmt}</th>
+            <th>${nameFmt}</th>
+            <th>${surnameFmt}</th>
+            <th>${addressFmt}</th>
+            <th>${phoneFmt}</th>
+            <th>Confirmation of order</th>
 
-    </c:forEach>
-</table>
+            <c:forEach items="${ordersForConfirmation.keySet()}" var="order">
+                <tr>
+                    <td>${order.idOrder}</td>
+                    <td>${order.price} BYN</td>
+                    <td>${order.dateTime}</td>
+                    <td>${ordersForConfirmation.get(order).name}</td>
+                    <td>${ordersForConfirmation.get(order).surname}</td>
+                    <td>${ordersForConfirmation.get(order).address}</td>
+                    <td>${ordersForConfirmation.get(order).telephoneNumber}</td>
+                    <td>${ordersForConfirmation.get(order).email}</td>
+                    <td>
+                        <form action="controller" method="post">
+                            <input type="hidden" name="command" value="confirm_order">
+                            <input type="hidden" name="confirmedOrderId" value="${order.idOrder}">
+                            <input type="submit" value="Confirm &#10004;" id="confirmBtn">
+                        </form>
+                    </td>
+                </tr>
 
+            </c:forEach>
+        </table>
+        <a href="account">back</a>
+    </main>
+</div>
 </body>
 </html>
+

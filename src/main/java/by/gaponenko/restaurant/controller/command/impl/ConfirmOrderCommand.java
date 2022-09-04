@@ -30,14 +30,14 @@ public class ConfirmOrderCommand implements Command {
         try {
             orderService.updateOrderStatus(orderIdForConfirm, STATUS_CONFIRMED);
         } catch (ServiceException e) {
-            log.error("Error while update order status", e);
+            log.error("Error while updating order status", e);
             throw new ControllerException(e);
         }
 
         removeOrder(req, orderIdForConfirm);
 
         try {
-            resp.sendRedirect(JSPPageName.USER_AUTHORIZED_PAGE);
+            resp.sendRedirect(JSPPageName.CONFIRM_PAGE);
         } catch (IOException e) {
             log.error("Error invalid address to forward while confirm an order", e);
             throw new ControllerException(e);

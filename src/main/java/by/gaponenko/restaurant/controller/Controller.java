@@ -29,9 +29,7 @@ public class Controller extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         processRequest(req, resp);
-
     }
 
     @Override
@@ -61,7 +59,6 @@ public class Controller extends HttpServlet {
             } else {
                 errorMsg = e.getMessage().substring(lastIndx);
             }
-//            String errorMsg = e.getMessage();
             req.getSession().setAttribute(RequestParameterName.REQ_PARAM_ERROR_MSG, errorMsg);
             dispatch(req, resp, JSPPageName.ERROR_PAGE);
 
@@ -71,8 +68,6 @@ public class Controller extends HttpServlet {
             req.getSession().setAttribute(RequestParameterName.REQ_PARAM_ERROR_MSG, errorMsg);
             dispatch(req, resp, JSPPageName.ERROR_PAGE);
         }
-
-
     }
 
     private void dispatch(HttpServletRequest req, HttpServletResponse resp, String page) {

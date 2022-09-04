@@ -43,7 +43,7 @@ public class GoToOrderConfirmationCommand implements Command {
         req.getSession().setAttribute(RequestParameterName.REQ_PARAM_ORDERS_FOR_CONFIRMATION, orderUsedDataMap);
 
         try {
-            resp.sendRedirect(JSPPageName.USER_AUTHORIZED_PAGE);
+            resp.sendRedirect(JSPPageName.CONFIRM_PAGE);
         } catch (IOException e) {
             log.error("Invalid address redirect while getting orders for confirmation", e);
             throw new ControllerException(e);
