@@ -13,6 +13,7 @@ import by.gaponenko.restaurant.service.Validation.ValidationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class UserServiceImpl implements UserService {

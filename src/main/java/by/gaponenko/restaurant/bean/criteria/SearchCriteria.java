@@ -20,6 +20,6 @@ public final class SearchCriteria {
     }
 
     public static enum User {
-        LOGIN, ID_USER, PASSWORD, IDROLE, STATUS
+        LOGIN, ID_USER, PASSWORD, ROLE, STATUS, EMAIL, TELEPHONE_NUMBER, NAME, SURNAME, LAST_NAME
     }
 }

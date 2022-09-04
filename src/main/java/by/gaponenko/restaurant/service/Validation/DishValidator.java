@@ -3,28 +3,39 @@ package by.gaponenko.restaurant.service.Validation;
 import by.gaponenko.restaurant.bean.Dish;
 import by.gaponenko.restaurant.bean.Menu;
 import by.gaponenko.restaurant.bean.criteria.Criteria;
+import by.gaponenko.restaurant.bean.criteria.SearchCriteria;
+
+import java.util.Map;
 
 public class DishValidator {
 
     private static final DishValidator instance = new DishValidator();
+    private static final ValidationHelper helper = ValidationHelper.getInstance();
 
     private DishValidator(){}
 
-    public boolean validate(Menu menu) {
-        //можно написать в файле properties паттеры,
-        //а валидатор будет поднимать из properties данные и проверять
-        return true;
-    }
-    public boolean validateDish(Dish dish) {
-        //можно написать в файле properties паттеры,
-        //а валидатор будет поднимать из properties данные и проверять
-        return true;
-    }
-
     public static void validate(Criteria criteria) throws ValidationException {
-        //мб прописать валидатор в criteria
-    }
+        if (criteria == null) {
+            throw new ValidationException("Criteria to find User is null");
+        }
 
+        Map<String, Object> criterias = criteria.getCriteria();
+        for (Map.Entry<String, Object> entry : criterias.entrySet()) {
+            if (entry.getKey().equals(SearchCriteria.Dish.ID_DISH.name())) {
+                helper.validateId(entry.getValue().toString());
+            } else if (entry.getKey().equals(SearchCriteria.Dish.NAME.name())) {
+                helper.validateName(entry.getValue().toString());
+            } else if (entry.getKey().equals(SearchCriteria.Dish.PRICE.name())) {
+                helper.validatePrice(entry.getValue().toString());
+            } else if (entry.getKey().equals(SearchCriteria.Dish.ID_CATEGORY.name())) {
+                helper.validateId(entry.getValue().toString());
+            } else if (entry.getKey().equals(SearchCriteria.Dish.STATUS.name())) {
+                helper.validateStatus(entry.getValue().toString());
+            } else if (entry.getKey().equals(SearchCriteria.Dish.DESCRIPTION.name()) && entry.getValue() == null) {
+                throw new ValidationException("Description of dish is empty!");
+            }
+        }
+    }
 
     public static DishValidator getInstance(){
         return instance;

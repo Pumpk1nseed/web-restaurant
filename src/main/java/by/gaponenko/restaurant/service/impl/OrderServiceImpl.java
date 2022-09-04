@@ -12,7 +12,6 @@ import by.gaponenko.restaurant.service.OrderService;
 import by.gaponenko.restaurant.service.ServiceException;
 import by.gaponenko.restaurant.service.Validation.OrderValidator;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -22,8 +21,8 @@ public class OrderServiceImpl implements OrderService {
     private static final UserDao userDao = DaoProvider.getInstance().getUserDao();
 
     @Override
-    public int createOrder(Order order, Integer idUser) throws ServiceException {
-        validator.validate(order);
+    public int createOrder(Order order, int idUser) throws ServiceException {
+        validator.validate(order, idUser);
 
         Criteria criteria = new Criteria();
         criteria.add(SearchCriteria.User.ID_USER.toString(), idUser);
@@ -42,7 +41,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public boolean createOrderDetails(int idOrder, int idDish, Integer quantity, int idPaymentMethod) throws ServiceException {
-        validator.validate(idDish, idDish, quantity);
+        validator.validate(idOrder, idDish, quantity, idPaymentMethod);
 
         try {
             return orderDao.createOrderDetails(idOrder, idDish, quantity, idPaymentMethod);

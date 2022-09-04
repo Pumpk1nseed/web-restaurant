@@ -10,7 +10,7 @@ import java.util.Map;
 
 public interface OrderService {
 
-    int createOrder(Order order, Integer idUser) throws ServiceException;
+    int createOrder(Order order, int idUser) throws ServiceException;
 
     boolean createOrderDetails(int idOrder, int idDish, Integer quantity, int idPaymentMethod) throws ServiceException;
 

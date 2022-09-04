@@ -202,11 +202,12 @@ public class SQLOrderDao implements OrderDao {
             preparedStatement.close();
             connection.close();
 
+            return true;
+
         } catch (SQLException e) {
             log.error("Error occurred while updating order status", e);
             throw new DaoException("Error while working with database while updating order status", e);
         }
-        return true;
     }
 
     private Connection connectToDataBase() throws DaoException {
