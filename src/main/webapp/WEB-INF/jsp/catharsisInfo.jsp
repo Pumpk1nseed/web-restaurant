@@ -9,13 +9,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<fmt:setLocale value="${sessionScope.local}"/>
+<fmt:setLocale value="${sessionScope.localization}"/>
 <fmt:setBundle basename="localization" var="loc"/>
 
 <fmt:message bundle="${loc}" key="localization.txt.RestaurantName" var="restNameFmt"/>
 <fmt:message bundle="${loc}" key="localization.txt.Info" var="infoFmt"/>
 <fmt:message bundle="${loc}" key="localization.txt.About" var="aboutFmt"/>
 <fmt:message bundle="${loc}" key="localization.txt.About2" var="about2Fmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.Chef" var="chefFmt"/>
 <fmt:message bundle="${loc}" key="localization.link.Main" var="main_link"/>
 <fmt:message bundle="${loc}" key="localization.link.SignIn" var="signIn_link"/>
 <fmt:message bundle="${loc}" key="localization.button.ru" var="ru_button"/>
@@ -28,18 +29,6 @@
     <link href="css/catharsisInfo.css" rel="stylesheet">
 </head>
 <body>
-
-
-<%--<h1>${restNameFmt}</h1>--%>
-<div class="entity">
-<p><strong>${restNameFmt} - </strong>${aboutFmt}</p>
-<br/><br/>
-<p>${about2Fmt}</p>
-</div>
-
-<div class="margo">
-<img src="images/chef.png" аlt="Margo" titlе="chef"/>
-</div>
 
 <div class="lng">
     <form action="controller" method="get">
@@ -56,8 +45,22 @@
 
 <div class="topline">
     <a href="home"><img src="images/CATHARSIS.png"
-                        аlt="Логотип ресторана черный"
-                        titlе="Наименование catharsis"/></a>
+                        аlt="logo_black"
+                        titlе="catharsis_black"/></a>
+</div>
+
+<div class="cathInfo">
+    <p><strong>${restNameFmt} - </strong>${aboutFmt}</p>
+    <br/>
+    <p>${about2Fmt}</p>
+</div>
+
+<div class="chefInfo">
+    <p>${chefFmt}</p>
+</div>
+
+<div class="margo">
+    <img src="images/chef.png" аlt="Margo" titlе="chef"/>
 </div>
 
 <div class="menu"><a href="menu"><span>${menuLower_link}</span></a></div>

@@ -17,55 +17,75 @@
 <fmt:message bundle="${loc}" key="localization.txt.Phone" var="phoneFmt"/>
 <fmt:message bundle="${loc}" key="localization.txt.Mail" var="emailFmt"/>
 <fmt:message bundle="${loc}" key="localization.txt.Address" var="addressFmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.BackPh" var="backFmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.Change" var="changeFmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.ChangePersInfo" var="changePersInfoFmt"/>
+<fmt:message bundle="${loc}" key="localization.link.MenuLower" var="menuLower_link"/>
+<fmt:message bundle="${loc}" key="localization.link.Basket" var="basket_link"/>
+
+<jsp:include page="/WEB-INF/jsp/header.jsp"/>
+
 <html>
 <head>
-    <title>Updating personal info</title>
+    <title>${changePersInfoFmt}</title>
+    <link href="css/editInfo.css" rel="stylesheet">
 </head>
 <body>
-<form action="controller" method="post">
-    <fieldset>
-        <input type="hidden" name="command" value="update_personal_info">
-        <legend>Updating personal info</legend>
-        <p>
-            <label for="name">${nameFmt} </label>
-            <input autofocus id="name" type="text" name="name" value="${sessionScope.user_info.name}">
-        </p>
-        <p>
-            <label for="surname">${surnameFmt} </label>
-            <input id="surname" type="text" name="surname" value="${sessionScope.user_info.surname}">
-        </p>
-        <p>
-            <label for="email">${emailFmt}<span class="required">*</span> </label>
-            <input required id="email" type="email" name="email" value="${sessionScope.user_info.email}"
-                   placeholder="example@gmail.com">
-        </p>
-        <p>
-            <label for="address">${addressFmt} </label>
-            <input id="address" type="text" name="address" value="${sessionScope.user_info.address}">
-        </p>
-        <p>
-            <label for="phonenumber">${phoneFmt} </label>
-            <input id="phonenumber" type="tel" name="telephone_number" value="${sessionScope.user_info.telephoneNumber}"
-                   placeholder="+375123456789">
-        </p>
 
-        <p>
-            <label for="password">New password</label>
-            <input id="password" type="password" name="password" value=""
-                   autocomplete="new-password">
+<div class="title"><h1>${changePersInfoFmt}</h1></div>
 
-        </p>
-        <p>
-            <label for="confirm-password">Подтвердить</label>
-            <input id="confirm-password" type="password"
-                   name="passwordConfirm" value="">
-        </p>
-        <p style="display: flex;justify-content: flex-start;">
-            <span class="required">*</span>&nbsp- required fields
-        </p>
-        <input id="login-submit" type="submit" value="Change information">
-    </fieldset>
-</form>
+<div class="entity">
+    <div class="register-form-container">
+        <form action="controller" method="post">
+                <input type="hidden" name="command" value="update_personal_info">
+                <div class="form-field">
+                    <label for="name">${nameFmt} </label>
+                    <input autofocus id="name" class="inputUserData" type="text" name="name" value="${sessionScope.user_info.name}">
+                </div>
+                <div class="form-field">
+                    <label for="surname">${surnameFmt} </label>
+                    <input id="surname" type="text" class="inputUserData" name="surname" value="${sessionScope.user_info.surname}">
+                </div>
+                <div class="form-field">
+                    <label for="email">${emailFmt}<span class="required">*</span> </label>
+                    <input required id="email" type="email" class="inputUserData" name="email" value="${sessionScope.user_info.email}"
+                           placeholder="example@gmail.com">
+                </div>
+                <div class="form-field">
+                    <label for="address">${addressFmt} </label>
+                    <input id="address" type="text" name="address" class="inputUserData" value="${sessionScope.user_info.address}">
+                </div>
+                <div class="form-field">
+                    <label for="phonenumber">${phoneFmt} </label>
+                    <input id="phonenumber" type="tel" class="inputUserData" name="telephone_number"
+                           value="${sessionScope.user_info.telephoneNumber}"
+                           placeholder="+375123456789">
+                </div>
+                <div class="form-field">
+                    <label for="password">New password</label>
+                    <input id="password" type="password" class="inputUserData" name="password" value=""
+                           autocomplete="new-password">
+
+                </div>
+                <%--        <p>
+                            <label for="confirm-password">Подтвердить</label>
+                            <input id="confirm-password" type="password"
+                                   name="passwordConfirm" value="">
+                        </p>--%>
+                <%--        <p style="display: flex;justify-content: flex-start;">
+                            <span class="required">*</span>&nbsp- required fields
+                        </p>--%>
+                <input id="login-submit" type="submit" class="submit" value="${changeFmt}">
+        </form>
+    </div>
 </div>
+
+<a href="account">${backFmt}</a>
+
+<c:if test="${user.idRole != 2}">
+    <div class="basket"><a href="basket"><span>${basket_link}</span></a></div>
+</c:if>
+<div class="menu"><a href="menu"><span>${menuLower_link}</span></a></div>
+
 </body>
 </html>

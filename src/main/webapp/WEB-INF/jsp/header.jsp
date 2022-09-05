@@ -30,7 +30,7 @@
     <form action="controller" method="get">
         <input type="hidden" name="command" value="change_localization">
         <input type="hidden" name="localization" value="en">
-        <input type="submit" value="${en_button}" class="localeBtnEn">
+        <input type="submit"  value="${en_button}" class="localeBtnEn">
     </form>
     <form action="controller" method="get">
         <input type="hidden" name="command" value="change_localization">
