@@ -24,12 +24,16 @@ public final class RequestParameterName {
     public static final String REQ_PARAM_QUANTITY_OF_DISHES = "quantityDish";
     public static final String REQ_PARAM_QUANTITY = "quantity";
     public static final String REQ_PARAM_ID_DISH = "idDish";
+    public static final String REQ_PARAM_MENU = "menu";
+    public static final String REQ_PARAM_DISH_CATEGORIES= "dish_categories";
     public static final String REQ_PARAM_PAYMENT_METHODS = "paymentMethods";
     public static final String REQ_PARAM_PAYMENT_BY = "paymentBy";
     public static final String REQ_PARAM_USER = "user";
+    public static final String REQ_PARAM_USERS = "users";
     public static final String REQ_PARAM_ORDERS_HISTORY = "ordersHistory";
     public static final String REQ_PARAM_CONFIRMED_ORDER_ID = "confirmedOrderId";
     public static final String REQ_PARAM_ORDERS_FOR_CONFIRMATION = "ordersForConfirmation";
+    public static final String REQ_PARAM_ORDERS = "orders";
     public static final String REQ_PARAM_ERROR_MSG = "errorMsg";
 
     //public static final String REQ_PARAM_LAST_USED_PAGE = "last_used_page";

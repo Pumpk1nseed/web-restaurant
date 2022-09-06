@@ -1,5 +1,6 @@
 package by.gaponenko.restaurant.dao.impl;
 
+import by.gaponenko.restaurant.bean.Dish;
 import by.gaponenko.restaurant.bean.Order;
 import by.gaponenko.restaurant.bean.RegistrationUserData;
 import by.gaponenko.restaurant.bean.criteria.Criteria;
@@ -10,11 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.*;
 import java.sql.Timestamp;
-import java.util.Map;
 
 public class SQLOrderDao implements OrderDao {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
@@ -25,6 +23,12 @@ public class SQLOrderDao implements OrderDao {
             "FROM orders ord LEFT JOIN order_details ordd on ordd.id_order = ord.id_order \n" +
             "LEFT JOIN menu m on ordd.id_dish = m.id_dish \n" +
             "where id_user=? group by ord.id_order;";
+
+    private static final String GET_ALL_ORDERS = "SELECT ord.id_order, SUM(ordd.quantity * m.price) as 'total',  ord.date, id_user, ord.status\n" +
+            "            FROM orders ord LEFT JOIN order_details ordd on ordd.id_order = ord.id_order\n" +
+            "            LEFT JOIN menu m on ordd.id_dish = m.id_dish group by ord.id_order;";
+
+    private static final String GET_DISH_LIST_BY_ORDER_ID = "SELECT m.name, m.description, m.price, ordd.quantity FROM order_details ordd LEFT JOIN menu m on ordd.id_dish = m.id_dish where id_order=?;";
 
     private static final String GET_ORDERS_BY_USER_INFO = "SELECT ord.id_order, SUM(ordd.quantity * m.price) as 'total',  ord.date, ord.status, ud.name, ud.surname, ud.address, ud.telephone_number\n" +
             "            FROM orders ord LEFT JOIN order_details ordd on ordd.id_order = ord.id_order\n" +
@@ -98,7 +102,7 @@ public class SQLOrderDao implements OrderDao {
     }
 
     @Override
-    public List<Order> getOrdersHistory(int idUser) throws DaoException {
+    public List<Order> getOrdersHistory(int idUser, int idRole) throws DaoException {
         PreparedStatement preparedStatement;
         ResultSet resultSet;
 
@@ -107,18 +111,41 @@ public class SQLOrderDao implements OrderDao {
         try {
             connection = connectToDataBase();
 
-            preparedStatement = connection.prepareStatement(GET_ORDERS);
-            preparedStatement.setInt(1, idUser);
-            resultSet = preparedStatement.executeQuery();
+            if (idRole == 2) {
+                preparedStatement = connection.prepareStatement(GET_ALL_ORDERS);
+                resultSet = preparedStatement.executeQuery();
 
-            orders = new ArrayList<>();
-            while (resultSet.next()) {
-                Order order = new Order();
-                order.setIdOrder(resultSet.getInt(1));
-                order.setPrice(resultSet.getBigDecimal(2));
-                order.setDateTime(resultSet.getTimestamp(3));
-                order.setStatus(resultSet.getString(4));
-                orders.add(order);
+                orders = new ArrayList<>();
+                while (resultSet.next()) {
+                    Order order = new Order();
+                    Map<Dish, Integer> orderList = new HashMap<>();
+                    orderList = getOrderListByOrderId(connection, resultSet.getInt(1));
+                    order.setIdOrder(resultSet.getInt(1));
+                    order.setPrice(resultSet.getBigDecimal(2));
+                    order.setDateTime(resultSet.getTimestamp(3));
+                    order.setIdUser(resultSet.getInt(4));
+                    order.setStatus(resultSet.getString(5));
+                    order.setOrderList(orderList);
+                    orders.add(order);
+                }
+            } else {
+
+                preparedStatement = connection.prepareStatement(GET_ORDERS);
+                preparedStatement.setInt(1, idUser);
+                resultSet = preparedStatement.executeQuery();
+
+                orders = new ArrayList<>();
+                while (resultSet.next()) {
+                    Order order = new Order();
+                    Map<Dish, Integer> orderList = new HashMap<>();
+                    orderList = getOrderListByOrderId(connection, resultSet.getInt(1));
+                    order.setIdOrder(resultSet.getInt(1));
+                    order.setPrice(resultSet.getBigDecimal(2));
+                    order.setDateTime(resultSet.getTimestamp(3));
+                    order.setStatus(resultSet.getString(4));
+                    order.setOrderList(orderList);
+                    orders.add(order);
+                }
             }
 
             resultSet.close();
@@ -207,6 +234,33 @@ public class SQLOrderDao implements OrderDao {
         } catch (SQLException e) {
             log.error("Error occurred while updating order status", e);
             throw new DaoException("Error while working with database while updating order status", e);
+        }
+    }
+
+    private Map<Dish, Integer> getOrderListByOrderId(Connection connection, int idOrder) throws DaoException {
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        Map<Dish, Integer> orderList = new HashMap<>();
+
+        try {
+            preparedStatement = connection.prepareStatement(GET_DISH_LIST_BY_ORDER_ID);
+            preparedStatement.setInt(1, idOrder);
+            resultSet = preparedStatement.executeQuery();
+
+            while(resultSet.next()){
+                Dish dish = new Dish();
+                int quantity = resultSet.getInt(4);
+
+                dish.setName(resultSet.getString(1));
+                dish.setDescription(resultSet.getString(2));
+                dish.setPrice(resultSet.getBigDecimal(3));
+                orderList.put(dish, quantity);
+            }
+
+            return orderList;
+        } catch (SQLException e) {
+            log.error("Error working with statements while get order list by order id");
+            throw new DaoException("Error when trying to get order list by order id", e);
         }
     }
 

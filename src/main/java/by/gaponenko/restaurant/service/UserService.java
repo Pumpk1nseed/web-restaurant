@@ -15,6 +15,7 @@ public interface UserService {
     RegistrationUserData loadUserDataByLogin(String login) throws ServiceException;
 
     List<RegistrationUserData> find(Criteria criteria) throws ServiceException;
+    List<RegistrationUserData> getUsers() throws ServiceException;
 
     boolean updateUserData(RegistrationUserData newUserData, String newPassword) throws ServiceException;
 }

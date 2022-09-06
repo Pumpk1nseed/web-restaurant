@@ -13,7 +13,7 @@ public interface OrderDao {
 
     boolean createOrderDetails(int idOrder, int idDish, Integer quantity, int idPaymentMethod) throws DaoException;
 
-    List<Order> getOrdersHistory(int idUser) throws DaoException;
+    List<Order> getOrdersHistory(int idUser, int idRole) throws DaoException;
 
     Map<Order, RegistrationUserData> findOrdersByUsersInfo(Criteria criteria) throws DaoException;
 

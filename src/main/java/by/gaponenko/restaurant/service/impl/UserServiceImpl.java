@@ -82,6 +82,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<RegistrationUserData> getUsers() throws ServiceException {
+        try {
+            return userDao.getUsers();
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
     public boolean updateUserData(RegistrationUserData newUserData, String newPassword) throws ServiceException {
         if (newUserData.getSurname() == null || newUserData.getName() == null
                 || newUserData.getTelephoneNumber() == null){

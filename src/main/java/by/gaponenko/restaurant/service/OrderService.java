@@ -14,7 +14,7 @@ public interface OrderService {
 
     boolean createOrderDetails(int idOrder, int idDish, Integer quantity, int idPaymentMethod) throws ServiceException;
 
-    List<Order> getOrdersHistory (int idUser) throws ServiceException;
+    List<Order> getOrdersHistory (int idUser, int idRole) throws ServiceException;
 
     Map<Order, RegistrationUserData> findOrderByUsersInfo(Criteria criteria) throws ServiceException;
 

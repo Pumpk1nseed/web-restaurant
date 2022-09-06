@@ -23,6 +23,7 @@ public class SQLUserDao implements UserDao {
     private static final String FIND_AUTHORIZED_USER = "SELECT * FROM users WHERE login = ? AND password = ?;";
     private static final String FIND_USER_BY_LOGIN = "SELECT * FROM users WHERE login = ?;";
     private static final String FIND_USER_DETAILS_BY_CRITERIA = "SELECT * FROM users_details WHERE ";
+    private static final String GET_USERS_DETAILS = "SELECT * FROM users_details";
     private static final String FIND_ROLE = "SELECT * FROM roles WHERE title = ?;";
 
     private static final String UPDATE_USER_PASSWORD = "UPDATE users SET password = ? WHERE id_user=?;";
@@ -211,6 +212,44 @@ public class SQLUserDao implements UserDao {
             if (!resultSet.isBeforeFirst()) {
                 return usersData;
             }
+
+            usersData = new ArrayList<>();
+            while (resultSet.next()) {
+                RegistrationUserData userData = new RegistrationUserData();
+                userData.setIdUser(resultSet.getInt(1));
+                userData.setName(resultSet.getString(2));
+                userData.setDateOfBirth(resultSet.getString(3));
+                userData.setTelephoneNumber(resultSet.getString(4));
+                userData.setAddress(resultSet.getString(5));
+                userData.setEmail(resultSet.getString(6));
+                userData.setSurname(resultSet.getString(7));
+                userData.setLastName(resultSet.getString(8));
+                usersData.add(userData);
+            }
+
+            resultSet.close();
+            preparedStatement.close();
+            connection.close();
+
+        } catch (SQLException e) {
+            log.error("Error working with statements while find usersData by criteria");
+            throw new DaoException("Error when trying to create a statement user find query", e);
+        }
+
+        return usersData;
+    }
+
+    @Override
+    public List<RegistrationUserData> getUsers() throws DaoException {
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+
+        List<RegistrationUserData> usersData = null;
+
+        try {
+            connection = connectToDataBase();
+            preparedStatement = connection.prepareStatement(GET_USERS_DETAILS);
+            resultSet = preparedStatement.executeQuery();
 
             usersData = new ArrayList<>();
             while (resultSet.next()) {

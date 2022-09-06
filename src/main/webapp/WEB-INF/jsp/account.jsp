@@ -96,41 +96,23 @@
                                 </div>
                             </td>--%>
 
-            <c:if test="${user.idRole == 1}">
-                <td>
-                    <div class="historyCategory"><label for="checkHist_label"><strong>${histTitleFmt}</strong></label>
-                    </div>
-                    <input type="checkbox" name="orderHist" id="checkHist_label">
-                    <div class="blockHist">
-                        <form id="getOrderHistory" action="controller" method="get">
-                            <input type="hidden" name="command" value="get_history_of_orders">
-
-                            <c:if test="${ordersHistory.size() == 0}">
-                                <h1>${orderIsEmptyFmt}</h1>
-                            </c:if>
-
-                            <c:if test="${ordersHistory.size() > 0}">
-                                <table>
-                                    <th>№</th>
-                                    <th>${orderPriceFmt}</th>
-                                    <th>${orderDateFmt}</th>
-                                    <th>${orderStatusFmt}</th>
-
-                                    <c:forEach items="${ordersHistory}" var="order">
-                                        <tr>
-                                            <td>${order.idOrder}</td>
-                                            <td>${order.price} BYN</td>
-                                            <td>${order.dateTime}</td>
-                                            <td>${order.status}</td>
-                                        </tr>
-                                    </c:forEach>
-                                </table>
-                            </c:if>
-                            <input id="getHistBtn" type="submit" value="${updateBtn}">
-                        </form>
-                    </div>
-                </td>
-            </c:if>
+                <%--            <c:if test="${user.idRole == 1}">--%>
+            <td>
+                <div class="historyCategory"><label for="checkHist_label"><strong>${histTitleFmt}</strong></label>
+                </div>
+                <input type="checkbox" name="orderHist" id="checkHist_label">
+                <div class="blockHist">
+                    <c:if test="${user.idRole == 2}">
+                        <a href="ordersHistoryForAdmin">${histTitleFmt}</a>
+                        <br>
+                        <a href="listOfUsers">Users</a>
+                    </c:if>
+                    <c:if test="${user.idRole != 2}">
+                        <a href="ordersHistory">${histTitleFmt}</a>>
+                    </c:if>
+                </div>
+            </td>
+                <%--            </c:if>--%>
             <c:if test="${user.idRole == 2}">
                 <td>
 

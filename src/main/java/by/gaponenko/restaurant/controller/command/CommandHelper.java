@@ -25,6 +25,8 @@ public class CommandHelper {
         commands.put(CommandName.CONFIRM_ORDER, new ConfirmOrderCommand());
         commands.put(CommandName.GET_HISTORY_OF_ORDERS, new GetHistoryOfOrdersCommand());
         commands.put(CommandName.SIGN_OUT, new SignOutCommand());
+        commands.put(CommandName.GET_USER, new GetUserCommand());
+        commands.put(CommandName.GET_ORDERS, new GetOrdersCommand());
         commands.put(CommandName.NO_SUCH_COMMAND, new NoSuchCommand());
     }
 

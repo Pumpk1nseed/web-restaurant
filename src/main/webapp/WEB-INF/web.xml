@@ -46,6 +46,33 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>listOfUsers</servlet-name>
+        <jsp-file>/WEB-INF/jsp/listOfUsers.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>listOfUsers</servlet-name>
+        <url-pattern>/listOfUsers</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ordersHistoryForAdmin</servlet-name>
+        <jsp-file>/WEB-INF/jsp/ordersHistoryForAdmin.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ordersHistoryForAdmin</servlet-name>
+        <url-pattern>/ordersHistoryForAdmin</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ordersHistory</servlet-name>
+        <jsp-file>/WEB-INF/jsp/ordersHistory.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ordersHistory</servlet-name>
+        <url-pattern>/ordersHistory</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>orderFinish</servlet-name>
         <jsp-file>/WEB-INF/jsp/orderFinish.jsp</jsp-file>
     </servlet>

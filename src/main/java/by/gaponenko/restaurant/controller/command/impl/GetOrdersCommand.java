@@ -2,7 +2,6 @@ package by.gaponenko.restaurant.controller.command.impl;
 
 import by.gaponenko.restaurant.bean.Order;
 import by.gaponenko.restaurant.bean.RegistrationUserData;
-import by.gaponenko.restaurant.bean.User;
 import by.gaponenko.restaurant.bean.criteria.Criteria;
 import by.gaponenko.restaurant.bean.criteria.SearchCriteria;
 import by.gaponenko.restaurant.controller.ControllerException;
@@ -12,49 +11,40 @@ import by.gaponenko.restaurant.controller.command.Command;
 import by.gaponenko.restaurant.service.OrderService;
 import by.gaponenko.restaurant.service.ServiceException;
 import by.gaponenko.restaurant.service.ServiceProvider;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.Map;
 
-public class GetHistoryOfOrdersCommand implements Command {
+public class GetOrdersCommand implements Command {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
     private static final ServiceProvider serviceProvider = ServiceProvider.getInstance();
-
+    private static final String SQL_PREFIX = "ord.";
+    private static final String CONFIRMED= "confirmed";
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws ControllerException {
         OrderService orderService = serviceProvider.getOrderService();
-        HttpSession session = req.getSession();
-
-        User user = (User) session.getAttribute(RequestParameterName.REQ_PARAM_USER);
 
         Criteria criteria = new Criteria();
-        criteria.add(String.valueOf(SearchCriteria.User.ID_USER), user.getIdUser());
+        criteria.add(SQL_PREFIX + SearchCriteria.Order.STATUS.toString(), CONFIRMED);
 
-        List<RegistrationUserData> userData = null;
-        List<Order> ordersHistory = null;
+        Map<Order, RegistrationUserData> orderUsedDataMap = null;
         try {
-            userData = serviceProvider.getUserService().find(criteria);
-            ordersHistory = orderService.getOrdersHistory(userData.get(0).getIdUser(), user.getIdRole());
+            orderUsedDataMap = orderService.findOrderByUsersInfo(criteria);
         } catch (ServiceException e) {
-            log.error("Error occurred while getting history of orders", e);
+            log.error("Error while getting all orders", e);
             throw new ControllerException(e);
         }
 
-        session.setAttribute(RequestParameterName.REQ_PARAM_ORDERS_HISTORY, ordersHistory);
+        req.getSession().setAttribute(RequestParameterName.REQ_PARAM_ORDERS, orderUsedDataMap);
 
         try {
-            req.getRequestDispatcher(JSPPageName.ORDERS_HISTORY_PAGE).forward(req, resp);
+            resp.sendRedirect(JSPPageName.ORDERS_HISTORY_FOR_ADMIN_PAGE);
         } catch (IOException e) {
-            log.error("Error invalid address to forward while getting history of orders", e);
-            throw new ControllerException(e);
-        } catch (ServletException e) {
-            log.error("Error occurred while getting history of orders", e);
+            log.error("Invalid address redirect while getting all orders", e);
             throw new ControllerException(e);
         }
     }

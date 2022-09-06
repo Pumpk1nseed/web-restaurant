@@ -26,30 +26,61 @@
 <body>
 
 <div class="entry">
-    <form id="makeOrder" action="controller" method="get">
-        <input type="hidden" name="command" value="get_history_of_orders">
+    <c:if test="${ordersHistory == null}">
+        <jsp:forward page="controller">
+            <jsp:param name="command" value="get_history_of_orders"/>
+        </jsp:forward>
+    </c:if>
 
-        <c:if test="${ordersHistory.size() == 0}">
-            <h1>${orderIsEmptyFmt}</h1>
-        </c:if>
+    <c:if test="${ordersHistory.size() == 0}">
+        <h1>${orderIsEmptyFmt}</h1>
+    </c:if>
 
-        <c:if test="${ordersHistory.size() > 0}">
+    <c:if test="${ordersHistory.size() > 0}">
+        <c:forEach items="${ordersHistory}" var="order">
             <table>
-                <th>№</th>
-                <th>${orderPriceFmt}</th>
-                <th>${orderDateFmt}</th>
-                <th>${orderStatusFmt}</th>
-
-                <c:forEach items="${ordersHistory}" var="order">
-                    <tr>
-                        <td>${order.idOrder}</td>
-                        <td>${order.price} BYN</td>
-                        <td>${order.dateTime}</td>
-                        <td>${order.status}</td>
-                    </tr>
-                </c:forEach>
+                <tr>
+                    <td>
+                        <table>
+                            <th>№</th>
+                            <th>${orderPriceFmt}</th>
+                            <th>${orderDateFmt}</th>
+                            <th>${orderStatusFmt}</th>
+                            <c:if test="${user.idRole == 2}">
+                                <th>id user</th>
+                            </c:if>
+                            <th>order</th>
+                            <tr>
+                                <td>${order.idOrder}</td>
+                                <td>${order.price} BYN</td>
+                                <td>${order.dateTime}</td>
+                                <td>${order.status}</td>
+                                <c:if test="${user.idRole == 2}">
+                                <td>${order.idUser}</td>
+                                </c:if>
+                        </table>
+                    </td>
+                    <td>
+                        <c:forEach items="${order.orderList.keySet()}" var="dish">
+                            <table>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <tr>
+                                    <td>${dish.name}</td>
+                                    <td>${dish.description}</td>
+                                    <td>${order.orderList.get(dish)}</td>
+                                    <td>${dish.price} BYN</td>
+                                </tr>
+                            </table>
+                        </c:forEach>
+                    </td>
+                </tr>
             </table>
-        </c:if>
+        </c:forEach>
+    </c:if>
+
 
     </form>
 </div>
