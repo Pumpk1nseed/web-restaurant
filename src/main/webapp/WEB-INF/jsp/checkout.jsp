@@ -37,7 +37,7 @@
 <head>
     <meta charset="utf-8">
     <title>${checkoutFmt}</title>
-    <link rel="stylesheet" href="css/checkout.css">
+    <link href="css/checkout.css" rel="stylesheet">
 </head>
 <body>
 
@@ -48,30 +48,32 @@
     <div style="margin-top: 6%">
         <form id="makeOrder" action="controller" method="get">
             <input type="hidden" name="command" value="make_order">
-            <div class="container">
-                <h2>${paymentMethodFmt}</h2>
-                <c:forEach items="${paymentMethods}" var="paymentMethod">
-                <div>
-                    <label for="${paymentMethod.getName()}">
-                            ${paymentMethod.getName()}
-                    </label>
-                    <div>
-                        <div>
-                            <input type="radio" id="${paymentMethod.getName()}" name="paymentBy"
-                                   value="${paymentMethod.getIdPaymentMethod()}" checked><br>
+
+            <table>
+                <tr>
+                    <td>
+                        <h2>${paymentMethodFmt}</h2>
+                        <c:forEach items="${paymentMethods}" var="paymentMethod">
+                            <label for="${paymentMethod.getName()}">
+                                    ${paymentMethod.getName()}
+                            </label>
+                            <div>
+                                <input type="radio" id="${paymentMethod.getName()}" name="paymentBy"
+                                       value="${paymentMethod.getIdPaymentMethod()}" checked>
+                            </div>
+                        </c:forEach>
+                    </td>
+                    <td>
+                        <h2>${addressDelivFmt}</h2>
+                            ${toDeliverFmt}: ${sessionScope.user_info.address}
+                        <br>
+                            ${newAddressFmt}:
+                        <div class="form-field">
+                            <input type="text" style="width: 300px" name="address" placeholder="${addressFmt}" value=""/>
                         </div>
-                    </div>
-                    </c:forEach>
-                </div>
-                <div class="container">
-                    <h2>${addressDelivFmt}</h2>
-                        ${toDeliverFmt}: ${sessionScope.user_info.address}
-                    <br>
-                        ${newAddressFmt}:
-                    <div class="form-field">
-                        <input type="text" name="address" placeholder="${addressFmt}" value=""/>
-                    </div>
-                </div>
+                    </td>
+                </tr>
+            </table>
                 <br>
                 <fieldset>
                     <legend>${legOrderFmt}</legend>
@@ -86,7 +88,7 @@
                 </fieldset>
 
                 <br>
-                <input id="makeOrderBtn" type="submit" value="${makeOrderFmt}">
+                <input id="makeOrderBtn" type="submit" class="backBtn" value="${makeOrderFmt}">
                 <br>
         </form>
     </div>

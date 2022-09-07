@@ -1,9 +1,5 @@
-body{
+body {
     font-family: sans-serif;
-}
-
-h3 {
-    color: darkred;
 }
 
 .titleCheckout {
@@ -43,5 +39,36 @@ h3 {
     border-radius: 5px;
     padding-left: 10px;
     padding-top: 10px;
+}
+
+table {
+    border-spacing: 10px;
+    width: 800px;
+    text-align: left;
+    border-radius: 5px;
+    padding-top: 10px;
     text-align: left;
 }
+
+table td {
+    border-radius: 5px;
+    border: 2px solid #FF8C00;
+}
+
+table tr {
+    border-radius: 5px;
+    border: 2px solid #FF8C00;
+}
+
+fieldset {
+    width: 800px;
+}
+
+button {
+    text-align: center;
+    background: #fafcf5;
+    text-decoration: none;
+    font-size: 15px;
+    border-radius: 5px;
+}
+
