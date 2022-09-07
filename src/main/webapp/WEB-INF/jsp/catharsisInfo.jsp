@@ -76,6 +76,5 @@
         <p class="signIn">${signIn_link}</p>
     </a>
 </c:if>
-<jsp:include page="/WEB-INF/jsp/footer.jsp"/>
 </body>
 </html>

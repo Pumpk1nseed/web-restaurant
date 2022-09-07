@@ -88,7 +88,7 @@
                 </fieldset>
 
                 <br>
-                <input id="makeOrderBtn" type="submit" class="backBtn" value="${makeOrderFmt}">
+                <input id="makeOrderBtn" type="submit" class="placeBtn" value="${makeOrderFmt}">
                 <br>
         </form>
     </div>

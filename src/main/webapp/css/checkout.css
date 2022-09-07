@@ -64,11 +64,16 @@ fieldset {
     width: 800px;
 }
 
-button {
-    text-align: center;
+.placeBtn {
+    left: 0;
+    bottom: 0;
+    width: 150px;
+    height: 20px;
     background: #fafcf5;
-    text-decoration: none;
+    border-color: #8da36a;
+    color: #212529;
     font-size: 15px;
-    border-radius: 5px;
+    border-radius: 0.75em;
+    text-align: center;
 }
 
