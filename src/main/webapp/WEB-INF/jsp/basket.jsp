@@ -105,6 +105,7 @@
 </c:if>
 
 <div class="menu"><a href="menu"><span>${menuLower_link}</span></a></div>
+<jsp:include page="/WEB-INF/jsp/footer.jsp"/>
 
 </body>
 

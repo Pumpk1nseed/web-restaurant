@@ -93,16 +93,17 @@ public class SQLUserDao implements UserDao {
                 return false;
             }
 
-            preparedStatementForRole = connection.prepareStatement(FIND_ROLE);
+            //если введена роль
+/*            preparedStatementForRole = connection.prepareStatement(FIND_ROLE);
             preparedStatementForRole.setString(1, userData.getRole());
             resultSet = preparedStatementForRole.executeQuery();
             resultSet.next();
-            idRole = resultSet.getInt(1);
+            idRole = resultSet.getInt(1);*/
 
             preparedStatementForUser = connection.prepareStatement(ADD_NEW_USER);
             preparedStatementForUser.setString(1, userData.getLogin());
             preparedStatementForUser.setString(2, userData.getPassword());
-            preparedStatementForUser.setInt(3, idRole);
+            preparedStatementForUser.setInt(3, 1);
             preparedStatementForUser.setString(4, "active");
             preparedStatementForUser.executeUpdate();
 

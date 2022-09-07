@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
     public boolean registration(RegistrationUserData userData) throws ServiceException {
 
         if (userData.getLogin() == "" || userData.getSurname() == "" || userData.getName() == ""
-                || userData.getTelephoneNumber() == "" || userData.getPassword() == "" || userData.getRole() == ""){
+                || userData.getTelephoneNumber() == "" || userData.getPassword() == ""){
             log.info("Smth in user data is null");
             throw new ValidationException("All fields marked with * must be filled in");
         }

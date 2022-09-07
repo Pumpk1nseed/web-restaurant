@@ -35,6 +35,7 @@ public class MakeOrderCommand implements Command {
             session.removeAttribute(RequestParameterName.REQ_PARAM_ORDER);
             session.removeAttribute(RequestParameterName.REQ_PARAM_QUANTITY_OF_DISHES);
             session.removeAttribute(RequestParameterName.REQ_PARAM_PAYMENT_BY);
+            session.removeAttribute(RequestParameterName.REQ_PARAM_ORDERS_HISTORY);
 
             resp.sendRedirect(JSPPageName.ORDER_FINISH_PAGE);
         } catch (IOException e) {

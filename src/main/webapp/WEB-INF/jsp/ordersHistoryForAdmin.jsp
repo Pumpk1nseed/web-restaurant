@@ -17,11 +17,18 @@
 <fmt:message bundle="${loc}" key="localization.txt.Phone" var="phoneFmt"/>
 <fmt:message bundle="${loc}" key="localization.txt.OrderPrice" var="orderPriceFmt"/>
 <fmt:message bundle="${loc}" key="localization.txt.OrderDate" var="orderDateFmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.OrderHist" var="orderHistFmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.OrderStatus" var="orderStatusFmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.MailPh" var="mailFmt"/>
+
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Orders history</title>
+    <title>${orderHistFmt}</title>
+    <link rel="stylesheet" href="css/confirmationOfOrders.css">
 </head>
 <body>
+<jsp:include page="/WEB-INF/jsp/header.jsp"/>
 
 <c:if test="${orders == null}">
     <jsp:forward page="controller">
@@ -29,35 +36,37 @@
     </jsp:forward>
 </c:if>
 
-<table>
-    <caption>
-        Orders history
-    </caption>
-    <th>№</th>
-    <th>${orderPriceFmt}</th>
-    <th>${orderDateFmt}</th>
-    <th>status</th>
-    <th>${nameFmt}</th>
-    <th>${surnameFmt}</th>
-    <th>${addressFmt}</th>
-    <th>${phoneFmt}</th>
+<div class="title"><h1>${orderHistFmt}</h1></div>
 
-    <c:forEach items="${orders.keySet()}" var="order">
-        <tr>
-            <td>${order.idOrder}</td>
-            <td>${order.price} BYN</td>
-            <td>${order.dateTime}</td>
-            <td>${order.status}</td>
-            <td>${orders.get(order).name}</td>
-            <td>${orders.get(order).surname}</td>
-            <td>${orders.get(order).address}</td>
-            <td>${orders.get(order).telephoneNumber}</td>
-            <td>${orders.get(order).email}</td>
-            <td>
-            </td>
-        </tr>
+<div class="wrapper">
+    <main class="main">
+        <table>
+            <th>№</th>
+            <th>${orderPriceFmt}</th>
+            <th>${orderDateFmt}</th>
+            <th>${orderStatusFmt}</th>
+            <th>${nameFmt}</th>
+            <th>${surnameFmt}</th>
+            <th>${addressFmt}</th>
+            <th>${phoneFmt}</th>
 
-    </c:forEach>
-</table>
+            <c:forEach items="${orders.keySet()}" var="order">
+                <tr>
+                    <td>${order.idOrder}</td>
+                    <td>${order.price} BYN</td>
+                    <td>${order.dateTime}</td>
+                    <td>${order.status}</td>
+                    <td>${orders.get(order).name}</td>
+                    <td>${orders.get(order).surname}</td>
+                    <td>${orders.get(order).address}</td>
+                    <td>${orders.get(order).telephoneNumber}</td>
+                </tr>
+
+            </c:forEach>
+        </table>
+    </main>
+</div>
+
+<jsp:include page="/WEB-INF/jsp/footer.jsp"/>
 </body>
 </html>

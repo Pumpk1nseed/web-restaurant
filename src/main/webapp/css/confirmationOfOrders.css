@@ -1,40 +1,15 @@
 body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    margin: 0;
+    font-family: sans-serif;
 }
 
 .wrapper {
-    display: flex;
-    flex-direction: column;
     flex: 1 0 auto;
 }
 
 .main {
     padding: 1em;
     text-align: center;
-}
-
-
-@media (max-width: 30em) {
-    .main {
-        flex: 1 0 auto;
-    }
-}
-
-@media (min-width: 30em) {
-    header {
-        display: block;
-    }
-
-    .wrapper {
-        flex-direction: row;
-    }
-
-    .main {
-        flex: 1 1 auto;
-    }
+    margin-top: 6%;
 }
 
 table {
@@ -44,6 +19,14 @@ table {
     margin-right: 10%;
     text-align: center;
 }
+
+.title{
+    top: 0.5%;
+    position: fixed;
+    right: 650px;
+    z-index: 9998 !important;
+}
+
 
 th {
     border: 1px solid;
@@ -58,27 +41,21 @@ tr {
 }
 
 tr:hover td {
-    background: #e8edff;
+    background: #dbf2d5;
 }
 
 #confirmBtn {
     display: inline-block;
-    border-radius: 30px;
-    background: #ffc107;
-    border-color: #ffc107;
+    border-radius: 20px;
+    background: orange;
+    border-color: orange;
     margin: 4px;
-    width: 100%;
+    width: 65%;
     min-width: 75px;
 }
 
 #confirmBtn:hover {
-    background: #03fc7f;
-    color: black;
-    border-color: #03fc7f;
-}
-
-#goBackImg {
-    float: left;
-    width: 2em;
-    height: 2em;
+    background: darkgreen;
+    border-color: #8da36a;
+    color: white;
 }

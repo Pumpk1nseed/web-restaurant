@@ -17,8 +17,10 @@
 <fmt:message bundle="${loc}" key="localization.txt.Phone" var="phoneFmt"/>
 <fmt:message bundle="${loc}" key="localization.txt.OrderPrice" var="orderPriceFmt"/>
 <fmt:message bundle="${loc}" key="localization.txt.OrderDate" var="orderDateFmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.OrderConfirm" var="orderConfirmFmt"/>
 
-<%--<jsp:include page="/WEB-INF/jsp/header.jsp"/>--%>
+
+<jsp:include page="/WEB-INF/jsp/header.jsp"/>
 
 <!DOCTYPE html>
 <html>
@@ -26,18 +28,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Подтверждение заказов</title>
+    <title>${orderConfirmFmt}</title>
     <link rel="stylesheet" href="css/confirmationOfOrders.css">
 </head>
 <body>
+
+<div class="title"><h1>${orderConfirmFmt}</h1></div>
 
 <div class="wrapper">
     <main class="main">
 
         <table>
-            <caption>
-                Confirmation of orders
-            </caption>
             <th>№</th>
             <th>${orderPriceFmt}</th>
             <th>${orderDateFmt}</th>
@@ -45,7 +46,7 @@
             <th>${surnameFmt}</th>
             <th>${addressFmt}</th>
             <th>${phoneFmt}</th>
-            <th>Confirmation of order</th>
+            <th>${orderConfirmFmt}</th>
 
             <c:forEach items="${ordersForConfirmation.keySet()}" var="order">
                 <tr>
@@ -56,7 +57,6 @@
                     <td>${ordersForConfirmation.get(order).surname}</td>
                     <td>${ordersForConfirmation.get(order).address}</td>
                     <td>${ordersForConfirmation.get(order).telephoneNumber}</td>
-                    <td>${ordersForConfirmation.get(order).email}</td>
                     <td>
                         <form action="controller" method="post">
                             <input type="hidden" name="command" value="confirm_order">
@@ -68,9 +68,11 @@
 
             </c:forEach>
         </table>
-        <a href="account">back</a>
     </main>
 </div>
+
+<jsp:include page="/WEB-INF/jsp/footer.jsp"/>
+
 </body>
 </html>
 

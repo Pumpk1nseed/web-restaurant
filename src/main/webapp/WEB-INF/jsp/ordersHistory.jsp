@@ -61,29 +61,30 @@
                         </table>
                     </td>
                     <td>
-                        <c:forEach items="${order.orderList.keySet()}" var="dish">
-                            <table>
-                                <th>Name</th>
-                                <th>Description</th>
-                                <th>Quantity</th>
-                                <th>Price</th>
-                                <tr>
-                                    <td>${dish.name}</td>
-                                    <td>${dish.description}</td>
-                                    <td>${order.orderList.get(dish)}</td>
-                                    <td>${dish.price} BYN</td>
-                                </tr>
-                            </table>
+                        <table>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <tr>
+                                <c:forEach items="${order.orderList.keySet()}" var="dish">
+
+                                <td>${dish.name}</td>
+                                <td>${dish.description}</td>
+                                <td>${order.orderList.get(dish)}</td>
+                                <td>${dish.price} BYN</td>
+                            </tr>
+                        </table>
                         </c:forEach>
                     </td>
                 </tr>
             </table>
         </c:forEach>
     </c:if>
-
-
     </form>
 </div>
+
+<jsp:include page="/WEB-INF/jsp/footer.jsp"/>
 </body>
 </html>
 

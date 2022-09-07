@@ -115,3 +115,5 @@
 <script src="js/xhr.js"></script>
 <script src="js/Menu/AddReduceBtn.js"></script>
 <script src="js/Menu/AddDishToOrder.js"></script>
+
+<jsp:include page="/WEB-INF/jsp/footer.jsp"/>

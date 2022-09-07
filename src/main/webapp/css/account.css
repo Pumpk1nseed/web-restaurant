@@ -2,90 +2,68 @@ body {
     font-family: sans-serif;
 }
 
-.infoCategory {
-    padding: 10px; /* Поля вокруг текста */
-    background: #FF8C00; /* Цвет фона */
-    border: 1px solid #FFFFFF; /* Параметры рамки */
-    width: 200px;
+table {
+    text-align: center;
+    width: 1650px;
+    padding-right: 30px;
+    padding-left: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 2px solid #a3a09b;
+    border-radius: 5px;
+    border-spacing: 40px;
+}
+
+table td {
+    border: 2px solid #a3a09b;
+    border-radius: 5px;
+    /*    width: 550px;*/
+}
+
+table tr {
+    border: 2px solid #a3a09b;
+    border-radius: 5px;
+}
+
+.editInfo {
+    display: block;
+    height: 35px;
+    background: #FF8C00;
+    border-color: #FFFFFF;
     color: #FFFFFF;
+    border-radius: 5px;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 30px;
+    font-weight: bold;
+    font-size: 14px;
+    width: 100%;
+    cursor: pointer;
 }
 
-.historyCategory {
-    padding: 10px; /* Поля вокруг текста */
-    background: #FF8C00; /* Цвет фона */
-    border: 1px solid #FFFFFF; /* Параметры рамки */
-    width: 200px;
-    color: #FFFFFF;
-}
-
-.confirmCategory {
-    padding: 10px; /* Поля вокруг текста */
-    background: #FF8C00; /* Цвет фона */
-    border: 1px solid #FFFFFF; /* Параметры рамки */
-    width: 50px;
-    color: #FFFFFF;
-}
-
-.blockCat {
-    width: 400px;
-    height: 600px;
-    background: #FFFFFF;
-    border: 2px solid #ccc;
-    /*    overflow: scroll; прокрутка*/
-
-}
-
-.blockHist {
-    width: 400px;
-    height: 600px;
-    background: #FFFFFF;
-    border: 2px solid #ccc;
-    /*    overflow: scroll; прокрутка*/
-
-}
-
-.blockConfirm {
-    width: 800px;
-    height: 600px;
-    background: #FFFFFF;
-    border: 2px solid #ccc;
-    /*    overflow: scroll; прокрутка*/
-
-}
-
-#check_label:checked ~ .blockCat {
-    height: 0px;
-    opacity: 0;
-}
-
-#check_label {
-    display: none;
-}
-
-#checkHist_label:checked ~ .blockHist {
-    height: 0px;
-    opacity: 0;
-}
-
-#checkHist_label {
-    display: none;
-}
-
-#checkInP_label:checked ~ .blockHist {
-    height: 0px;
-    opacity: 0;
-}
-
-#checkInP_label {
-    display: none;
-}
-
-span {
-    color: #FFFFFF;
+.editInfo:hover {
+    background-color: #fafcf5;
+    color: black;
 }
 
 a {
-    text-decoration: none
+    color: #212120;
+}
+
+.card {
+    font-size: 20px;
+    color: black;
+    width: 450px;
+}
+
+.card:hover {
+    background-color: #fafcf5;
+    color: #000;
+    box-shadow: 0px 6px 50px rgba(217, 229, 255, 0.7);
+}
+
+a {
+    text-decoration: none;
 }
 
 .titleAccount {
@@ -95,27 +73,6 @@ a {
     z-index: 9998 !important;
 }
 
-.menu {
-    position: fixed; /* Фиксированное положение */
-    right: 10px; /* Расстояние от правого края окна браузера */
-    top: 1%; /* Расстояние сверху */
-    padding: 10px; /* Поля вокруг текста */
-    background: #FF8C00; /* Цвет фона */
-    border: 1px solid #FFFFFF; /* Параметры рамки */
-    width: 90px;
-    text-align: center;
-}
-
-.basket {
-    position: fixed; /* Фиксированное положение */
-    right: 10px; /* Расстояние от правого края окна браузера */
-    top: 6%; /* Расстояние сверху */
-    padding: 10px; /* Поля вокруг текста */
-    background: #FF8C00; /* Цвет фона */
-    border: 1px solid #FFFFFF; /* Параметры рамки */
-    width: 90px;
-    text-align: center;
-}
 
 .signOut {
     position: fixed;
@@ -124,43 +81,25 @@ a {
     width: 7%;
 }
 
-.dashboard_cards {
-    display: flex;
-    justify-content: space-between;
-    box-sizing: border-box;
-    padding: 0;
-}
-
-.dashboard_cards > * + * {
-    margin-left: 30px;
-}
-
-.personal_info {
-    margin-bottom: 24px;
-    height: 1000px;
-}
-
 .header {
     font-weight: 600;
     font-size: 27px;
     letter-spacing: 0.02em;
     color: #000000;
-    line-height: 1.5;
     margin-top: 18%;
 }
 
 .personal_card {
     position: relative;
     z-index: 2;
-    width: 500px;
     background: #FFFFFF;
-    box-shadow: 0px 6px 50px rgba(217, 229, 255, 0.7);
+/*    box-shadow: 0px 6px 50px rgba(217, 229, 255, 0.7);*/
     border-radius: 20px;
     padding-right: 30px;
     padding-left: 30px;
-    padding-top: 38px;
+    padding-top: 8px;
     padding-bottom: 38px;
-    height: 600px;
+    height: 650px;
 }
 
 .form-field {
@@ -168,18 +107,14 @@ a {
 }
 
 .form-field p {
-    font-size: 14px;
-    height: 45px;
-    width: 100%;
+    font-size: 15px;
+    height: 40px;
     color: #4a4947;
-    line-height: 16px;
-    border: 2px solid #fffbf5;
+    line-height: 20px;
+    border: 2px solid #fcefdc;
     border-radius: 5px;
-    padding-left: 25px;
+    padding-left: 10px;
+    padding-top: 10px;
+    text-align: left;
 }
 
-.form-field:focus {
-    outline: none;
-    border: 2px solid #fffbf5;
-    color: #e3f7fa;
-}

@@ -80,12 +80,12 @@
     </div>
 </div>
 
-<a href="account">${backFmt}</a>
 
 <c:if test="${user.idRole != 2}">
     <div class="basket"><a href="basket"><span>${basket_link}</span></a></div>
 </c:if>
 <div class="menu"><a href="menu"><span>${menuLower_link}</span></a></div>
+<jsp:include page="/WEB-INF/jsp/footer.jsp"/>
 
 </body>
 </html>

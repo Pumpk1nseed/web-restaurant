@@ -44,9 +44,9 @@
                         аlt="Логотип ресторана черный"
                         titlе="Наименование catharsis"/></a>
 </div>
-<c:if test="${user.idRole != 2}">
+<%--<c:if test="${user.idRole != 2}">
     <div class="main"><a href="home"><span>${main_link}</span></a></div>
-</c:if>
+</c:if>--%>
 </body>
 </html>
 

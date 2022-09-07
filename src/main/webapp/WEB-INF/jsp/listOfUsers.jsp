@@ -43,5 +43,6 @@
         </c:forEach>
     </table>
 </c:if>
+<jsp:include page="/WEB-INF/jsp/footer.jsp"/>
 </body>
 </html>

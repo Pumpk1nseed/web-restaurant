@@ -36,7 +36,5 @@ public final class RequestParameterName {
     public static final String REQ_PARAM_ORDERS = "orders";
     public static final String REQ_PARAM_ERROR_MSG = "errorMsg";
 
-    //public static final String REQ_PARAM_LAST_USED_PAGE = "last_used_page";
-
 
 }

@@ -64,5 +64,8 @@
         <br>
         <a href="registration">${registration_link}</a></p>
 </div>
+
+<jsp:include page="/WEB-INF/jsp/footer.jsp"/>
+
 </body>
 </html>
