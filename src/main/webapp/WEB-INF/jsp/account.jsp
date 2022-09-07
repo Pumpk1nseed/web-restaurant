@@ -86,14 +86,15 @@
                     <a href="/web_restaurant_war/controller?command=go_to_order_confirmation"><strong>${ordersForConfFmt}</strong></a>
                 </c:if>
                 <c:if test="${user.idRole != 2}">
-                    <a href="ordersHistory"><strong>${histTitleFmt}</strong></a>
+                    <a href="/web_restaurant_war/controller?command=get_history_of_orders"><strong>${histTitleFmt}</strong></a>
+<%--                    <a href="ordersHistory"><strong>${histTitleFmt}</strong></a>--%>
                 </c:if>
 
             </td>
             <td class="card">
                 <p>
                     <c:if test="${user.idRole == 2}">
-                        <a href="ordersHistoryForAdmin"><strong>${histTitleFmt}</strong></a>
+                        <a href="/web_restaurant_war/controller?command=get_orders"><strong>${histTitleFmt}</strong></a>
                     </c:if>
                     <c:if test="${user.idRole != 2}">
                         <a href="basket"><strong>${basket_link}</strong></a>
@@ -124,7 +125,7 @@
 
     </body>
 
-    <jsp:include page="/WEB-INF/jsp/footer.jsp"/>
+    <a href="account" class="backBtn">${backFmt}</a>
 
     </html>
 

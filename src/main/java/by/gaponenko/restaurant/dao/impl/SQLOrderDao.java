@@ -111,7 +111,6 @@ public class SQLOrderDao implements OrderDao {
         try {
             connection = connectToDataBase();
 
-
             preparedStatement = connection.prepareStatement(GET_ORDERS);
             preparedStatement.setInt(1, idUser);
             resultSet = preparedStatement.executeQuery();

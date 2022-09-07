@@ -33,11 +33,11 @@
 
 <div class="wrapper">
     <main class="main">
-        <c:if test="${ordersHistory == null}">
-        <jsp:forward page="controller">
-            <jsp:param name="command" value="get_history_of_orders"/>
-        </jsp:forward>
-        </c:if>
+<%--        <c:if test="${ordersHistory == null}">--%>
+<%--        <jsp:forward page="controller">--%>
+<%--            <jsp:param name="command" value="get_history_of_orders"/>--%>
+<%--        </jsp:forward>--%>
+<%--        </c:if>--%>
 
         <c:if test="${ordersHistory.size() == 0}">
         <h1>${orderIsEmptyFmt}</h1>
@@ -68,11 +68,11 @@
                     <td colspan="4">
                         <table>
                             <c:forEach items="${order.orderList.keySet()}" var="dish">
-                                <tr>
-                                    <td>${dish.name}</td>
-                                    <td>${dish.description}</td>
-                                    <td>${order.orderList.get(dish)}</td>
-                                    <td>${dish.price} BYN</td>
+                                <tr class="dish">
+                                    <td class="dish">${dish.name}</td>
+                                    <td class="dish">${dish.description}</td>
+                                    <td class="dish">x ${order.orderList.get(dish)} x</td>
+                                    <td class="dish">${dish.price} BYN</td>
                                 </tr>
                             </c:forEach>
                         </table>

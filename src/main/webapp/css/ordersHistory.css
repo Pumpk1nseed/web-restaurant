@@ -22,7 +22,7 @@ table {
     border-spacing: 15px;
 }
 
-.title{
+.title {
     top: 0.5%;
     position: fixed;
     right: 650px;
@@ -34,6 +34,7 @@ th {
     border: 1px solid;
     background-color: #dbf2d5;
     height: 30px;
+    position: sticky;
 }
 
 td {

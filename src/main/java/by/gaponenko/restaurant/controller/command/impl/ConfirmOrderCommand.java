@@ -40,7 +40,7 @@ public class ConfirmOrderCommand implements Command {
         try {
             resp.sendRedirect(JSPPageName.CONFIRM_PAGE);
         } catch (IOException e) {
-            log.error("Error invalid address to forward while confirm an order", e);
+            log.error("Error invalid address to redirect while confirm an order", e);
             throw new ControllerException(e);
         }
     }
@@ -52,7 +52,7 @@ public class ConfirmOrderCommand implements Command {
                 orders.remove(order);
                 break;
             }
-            req.getSession().setAttribute(RequestParameterName.REQ_PARAM_ORDERS_FOR_CONFIRMATION, orders);
         }
+        req.getSession().setAttribute(RequestParameterName.REQ_PARAM_ORDERS_FOR_CONFIRMATION, orders);
     }
 }
