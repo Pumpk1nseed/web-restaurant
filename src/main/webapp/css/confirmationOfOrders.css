@@ -61,3 +61,16 @@ tr:hover td {
     border-color: #8da36a;
     color: white;
 }
+
+.backBtn {
+    left: 0;
+    bottom: 0;
+    width: 6%;
+    height: 20px;
+    background: #fafcf5;
+    border-color: #8da36a;
+    color: #212529;
+    font-size: 15px;
+    border-radius: 0.75em;
+    text-align: center;
+}

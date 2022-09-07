@@ -20,6 +20,7 @@
 <fmt:message bundle="${loc}" key="localization.txt.Role" var="roleFmt"/>
 <fmt:message bundle="${loc}" key="localization.txt.DateBirthPh" var="dateBirthFmt"/>
 <fmt:message bundle="${loc}" key="localization.txt.ListUsers" var="listUsersFmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.BackPh" var="backFmt"/>
 
 <html>
 <head>
@@ -62,6 +63,6 @@
     </div>
 
 </c:if>
-<jsp:include page="/WEB-INF/jsp/footer.jsp"/>
+<a href="account" class="backBtn">${backFmt}</a>
 </body>
 </html>

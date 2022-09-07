@@ -51,11 +51,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> getOrdersHistory(int idUser, int idRole) throws ServiceException {
+    public List<Order> getOrdersHistory(int idUser) throws ServiceException {
         validator.validate(idUser);
 
         try {
-            return orderDao.getOrdersHistory(idUser, idRole);
+            return orderDao.getOrdersHistory(idUser);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

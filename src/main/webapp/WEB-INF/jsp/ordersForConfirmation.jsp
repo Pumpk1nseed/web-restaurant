@@ -18,6 +18,7 @@
 <fmt:message bundle="${loc}" key="localization.txt.OrderPrice" var="orderPriceFmt"/>
 <fmt:message bundle="${loc}" key="localization.txt.OrderDate" var="orderDateFmt"/>
 <fmt:message bundle="${loc}" key="localization.txt.OrderConfirm" var="orderConfirmFmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.BackPh" var="backFmt"/>
 
 
 <jsp:include page="/WEB-INF/jsp/header.jsp"/>
@@ -71,7 +72,7 @@
     </main>
 </div>
 
-<jsp:include page="/WEB-INF/jsp/footer.jsp"/>
+<a href="account" class="backBtn">${backFmt}</a>
 
 </body>
 </html>

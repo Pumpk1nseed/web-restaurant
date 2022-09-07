@@ -40,7 +40,7 @@ public class GetHistoryOfOrdersCommand implements Command {
         List<Order> ordersHistory = null;
         try {
             userData = serviceProvider.getUserService().find(criteria);
-            ordersHistory = orderService.getOrdersHistory(userData.get(0).getIdUser(), user.getIdRole());
+            ordersHistory = orderService.getOrdersHistory(userData.get(0).getIdUser());
         } catch (ServiceException e) {
             log.error("Error occurred while getting history of orders", e);
             throw new ControllerException(e);
