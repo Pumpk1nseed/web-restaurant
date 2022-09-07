@@ -21,6 +21,6 @@
 <body>
 <jsp:include page="/WEB-INF/jsp/header.jsp"/>
 
-<p>${successEditFmt}</p>
+<p style="margin-top: 10%">${successEditFmt}</p>
 </body>
 </html>

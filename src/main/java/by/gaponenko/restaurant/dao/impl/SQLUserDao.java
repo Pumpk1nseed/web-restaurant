@@ -78,7 +78,7 @@ public class SQLUserDao implements UserDao {
     public boolean registration(RegistrationUserData userData) throws DaoException {
         PreparedStatement preparedStatementForUser;
         PreparedStatement preparedStatementForUserInfo;
-        PreparedStatement preparedStatementForRole;
+/*        PreparedStatement preparedStatementForRole;*/
         ResultSet resultSet;
         int idRole;
 

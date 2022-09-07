@@ -51,7 +51,7 @@
         <tr>
             <td rowspan="2">
                 <div class="personal_card">
-                    <p style="font-size: 17px"><strong>${persInfoFmt}</strong></p>
+                    <p style="font-size: 20px"><strong>${persInfoFmt}</strong></p>
                     <div class="form-field">
                         <p>${loginFmt}: ${sessionScope.user.login}</p>
                     </div>

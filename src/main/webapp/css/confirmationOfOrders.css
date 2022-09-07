@@ -30,6 +30,8 @@ table {
 
 th {
     border: 1px solid;
+    background-color: #dbf2d5;
+    height: 30px;
 }
 
 td {

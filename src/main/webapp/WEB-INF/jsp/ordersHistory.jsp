@@ -16,72 +16,72 @@
 <fmt:message bundle="${loc}" key="localization.txt.OrderPrice" var="orderPriceFmt"/>
 <fmt:message bundle="${loc}" key="localization.txt.OrderStatus" var="orderStatusFmt"/>
 <fmt:message bundle="${loc}" key="localization.txt.OrderDate" var="orderDateFmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.OrderHist" var="orderHistFmt"/>
 
 <html>
 <head>
     <meta charset="UTF-8"/>
-    <title>${persInfoFmt}</title>
-    <%--    <link href="css/ordersHistory.css" rel="stylesheet">--%>
+    <title>${orderHistFmt}</title>
+    <link href="css/ordersHistory.css" rel="stylesheet">
 </head>
 <body>
 
-<div class="entry">
-    <c:if test="${ordersHistory == null}">
+<jsp:include page="/WEB-INF/jsp/header.jsp"/>
+
+<div class="title"><h1>${orderHistFmt}</h1></div>
+
+<div class="wrapper">
+    <main class="main">
+        <c:if test="${ordersHistory == null}">
         <jsp:forward page="controller">
             <jsp:param name="command" value="get_history_of_orders"/>
         </jsp:forward>
-    </c:if>
+        </c:if>
 
-    <c:if test="${ordersHistory.size() == 0}">
+        <c:if test="${ordersHistory.size() == 0}">
         <h1>${orderIsEmptyFmt}</h1>
-    </c:if>
+        </c:if>
 
-    <c:if test="${ordersHistory.size() > 0}">
-        <c:forEach items="${ordersHistory}" var="order">
-            <table>
+        <c:if test="${ordersHistory.size() > 0}">
+
+        <table>
+            <tr>
+                <td rowspan="2">№</td>
+                <td rowspan="2">${orderPriceFmt}</td>
+                <td rowspan="2">${orderDateFmt}</td>
+                <td rowspan="2">${orderStatusFmt}</td>
+                <td colspan="4">Order</td>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td>Description</td>
+                <td>Quantity</td>
+                <td>Price</td>
+            </tr>
+            <c:forEach items="${ordersHistory}" var="order">
                 <tr>
-                    <td>
+                    <td>${order.idOrder}</td>
+                    <td>${order.price} BYN</td>
+                    <td>${order.dateTime}</td>
+                    <td>${order.status}</td>
+                    <td colspan="4">
                         <table>
-                            <th>№</th>
-                            <th>${orderPriceFmt}</th>
-                            <th>${orderDateFmt}</th>
-                            <th>${orderStatusFmt}</th>
-                            <c:if test="${user.idRole == 2}">
-                                <th>id user</th>
-                            </c:if>
-                            <th>order</th>
-                            <tr>
-                                <td>${order.idOrder}</td>
-                                <td>${order.price} BYN</td>
-                                <td>${order.dateTime}</td>
-                                <td>${order.status}</td>
-                                <c:if test="${user.idRole == 2}">
-                                <td>${order.idUser}</td>
-                                </c:if>
+                            <c:forEach items="${order.orderList.keySet()}" var="dish">
+                                <tr>
+                                    <td>${dish.name}</td>
+                                    <td>${dish.description}</td>
+                                    <td>${order.orderList.get(dish)}</td>
+                                    <td>${dish.price} BYN</td>
+                                </tr>
+                            </c:forEach>
                         </table>
-                    </td>
-                    <td>
-                        <table>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
-                            <tr>
-                                <c:forEach items="${order.orderList.keySet()}" var="dish">
-
-                                <td>${dish.name}</td>
-                                <td>${dish.description}</td>
-                                <td>${order.orderList.get(dish)}</td>
-                                <td>${dish.price} BYN</td>
-                            </tr>
-                        </table>
-                        </c:forEach>
                     </td>
                 </tr>
-            </table>
-        </c:forEach>
-    </c:if>
-    </form>
+            </c:forEach>
+        </table>
+        </c:if>
+</div>
+</main>
 </div>
 
 <jsp:include page="/WEB-INF/jsp/footer.jsp"/>
