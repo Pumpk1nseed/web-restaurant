@@ -105,7 +105,7 @@
         <tr>
             <td class="card">
                 <c:if test="${user.idRole == 2}">
-                    <a href="listOfUsers"><strong>${usersInfoFmt}</strong></a>
+                    <a href="/web_restaurant_war/controller?command=get_user"><strong>${usersInfoFmt}</strong></a>
                 </c:if>
                 <c:if test="${user.idRole != 2}">
                     <a href="editInfo"><strong>${changePersInfoFmt}</strong></a>

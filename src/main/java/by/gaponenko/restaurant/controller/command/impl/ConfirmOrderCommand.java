@@ -35,7 +35,6 @@ public class ConfirmOrderCommand implements Command {
         }
 
         removeOrder(req, orderIdForConfirm);
-        req.getSession().removeAttribute(RequestParameterName.REQ_PARAM_ORDERS);
 
         try {
             resp.sendRedirect(JSPPageName.CONFIRM_PAGE);

@@ -18,6 +18,7 @@
 <fmt:message bundle="${loc}" key="localization.txt.OrderDate" var="orderDateFmt"/>
 <fmt:message bundle="${loc}" key="localization.txt.OrderHist" var="orderHistFmt"/>
 <fmt:message bundle="${loc}" key="localization.txt.BackPh" var="backFmt"/>
+<fmt:message bundle="${loc}" key="localization.label.yourOrder" var="yourOrder_lbl"/>
 
 <html>
 <head>
@@ -33,11 +34,11 @@
 
 <div class="wrapper">
     <main class="main">
-<%--        <c:if test="${ordersHistory == null}">--%>
-<%--        <jsp:forward page="controller">--%>
-<%--            <jsp:param name="command" value="get_history_of_orders"/>--%>
-<%--        </jsp:forward>--%>
-<%--        </c:if>--%>
+        <%--        <c:if test="${ordersHistory == null}">--%>
+        <%--        <jsp:forward page="controller">--%>
+        <%--            <jsp:param name="command" value="get_history_of_orders"/>--%>
+        <%--        </jsp:forward>--%>
+        <%--        </c:if>--%>
 
         <c:if test="${ordersHistory.size() == 0}">
         <h1>${orderIsEmptyFmt}</h1>
@@ -46,30 +47,25 @@
         <c:if test="${ordersHistory.size() > 0}">
 
         <table>
-            <tr>
-                <td rowspan="2">№</td>
-                <td rowspan="2">${orderPriceFmt}</td>
-                <td rowspan="2">${orderDateFmt}</td>
-                <td rowspan="2">${orderStatusFmt}</td>
-                <td colspan="4">Order</td>
-            </tr>
-            <tr>
-                <td>Name</td>
-                <td>Description</td>
-                <td>Quantity</td>
-                <td>Price</td>
+            <tr class="thread">
+                <strong>
+                <td>№</td>
+                <td>${orderDateFmt}</td>
+                <td>${orderStatusFmt}</td>
+                <td colspan="4">${yourOrder_lbl}</td>
+                <td>${orderPriceFmt}</td>
+                </strong>
             </tr>
             <c:forEach items="${ordersHistory}" var="order">
                 <tr>
                     <td>${order.idOrder}</td>
-                    <td>${order.price} BYN</td>
                     <td>${order.dateTime}</td>
                     <td>${order.status}</td>
                     <td colspan="4">
                         <table>
                             <c:forEach items="${order.orderList.keySet()}" var="dish">
                                 <tr class="dish">
-                                    <td class="dish">${dish.name}</td>
+                                    <td class="dish" style="width: 300px">${dish.name}</td>
                                     <td class="dish">${dish.description}</td>
                                     <td class="dish">x ${order.orderList.get(dish)} x</td>
                                     <td class="dish">${dish.price} BYN</td>
@@ -77,6 +73,7 @@
                             </c:forEach>
                         </table>
                     </td>
+                    <td>${order.price} BYN</td>
                 </tr>
             </c:forEach>
         </table>

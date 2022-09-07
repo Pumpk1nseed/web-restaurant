@@ -26,3 +26,17 @@
     width: 90px;
     text-align: center;
 }
+
+.container {
+    margin-left: 30%;
+    margin-top: 10%;
+    background: #FFFFFF;
+    box-shadow: 0px 6px 50px rgba(217, 229, 255, 0.7);
+    border-radius: 20px;
+    padding-right: 30px;
+    padding-left: 30px;
+    padding-top: 38px;
+    padding-bottom: 38px;
+    width: 600px;
+    text-align: center;
+}

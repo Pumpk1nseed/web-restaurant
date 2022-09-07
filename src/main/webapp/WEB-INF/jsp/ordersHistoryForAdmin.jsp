@@ -42,14 +42,14 @@
 <div class="wrapper">
     <main class="main">
         <table>
-            <th>№</th>
-            <th>${orderPriceFmt}</th>
-            <th>${orderDateFmt}</th>
-            <th>${orderStatusFmt}</th>
-            <th>${nameFmt}</th>
-            <th>${surnameFmt}</th>
-            <th>${addressFmt}</th>
-            <th>${phoneFmt}</th>
+                <th>№</th>
+                <th>${orderPriceFmt}</th>
+                <th>${orderDateFmt}</th>
+                <th>${orderStatusFmt}</th>
+                <th>${nameFmt}</th>
+                <th>${surnameFmt}</th>
+                <th>${addressFmt}</th>
+                <th>${phoneFmt}</th>
 
             <c:forEach items="${orders.keySet()}" var="order">
                 <tr>

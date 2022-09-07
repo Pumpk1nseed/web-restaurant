@@ -15,6 +15,7 @@
 <fmt:message bundle="${loc}" key="localization.txt.finishOrder" var="finishOrdFmt"/>
 <fmt:message bundle="${loc}" key="localization.link.MenuLower" var="menuLower_link"/>
 <fmt:message bundle="${loc}" key="localization.link.Account" var="account_link"/>
+<fmt:message bundle="${loc}" key="localization.txt.BackPh" var="backFmt"/>
 
 <html>
 <head>
@@ -26,9 +27,11 @@
 
 <div class="titleFinishOrder"><h1>${checkoutFmt}</h1></div>
 
-<div style="margin-top: 6%">
-        ${finishOrdFmt}
+<div class="container">
+       <h1 style="color: darkorange">${finishOrdFmt}</h1>
 </div>
+
+<a href="menu" class="backBtn">${backFmt}</a>
 
 <div class="account"><a href="account"><span>${account_link}</span></a></div>
 <div class="menu"><a href="menu"><span>${menuLower_link}</span></a></div>

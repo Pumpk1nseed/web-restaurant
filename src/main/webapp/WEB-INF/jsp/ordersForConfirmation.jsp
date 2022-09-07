@@ -40,14 +40,16 @@
     <main class="main">
 
         <table>
-            <th>№</th>
-            <th>${orderPriceFmt}</th>
-            <th>${orderDateFmt}</th>
-            <th>${nameFmt}</th>
-            <th>${surnameFmt}</th>
-            <th>${addressFmt}</th>
-            <th>${phoneFmt}</th>
-            <th>${orderConfirmFmt}</th>
+            <div class="thread">
+                <th>№</th>
+                <th>${orderPriceFmt}</th>
+                <th>${orderDateFmt}</th>
+                <th>${nameFmt}</th>
+                <th>${surnameFmt}</th>
+                <th>${addressFmt}</th>
+                <th>${phoneFmt}</th>
+                <th>${orderConfirmFmt}</th>
+            </div>
 
             <c:forEach items="${ordersForConfirmation.keySet()}" var="order">
                 <tr>

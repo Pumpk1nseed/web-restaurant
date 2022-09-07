@@ -1,10 +1,12 @@
 body {
     font-family: sans-serif;
 }
+/*
 
 .wrapper {
     flex: 1 0 auto;
 }
+*/
 
 .main {
     padding: 1em;
@@ -32,7 +34,6 @@ th {
     border: 1px solid;
     background-color: #dbf2d5;
     height: 30px;
-    position: sticky;
 }
 
 td {

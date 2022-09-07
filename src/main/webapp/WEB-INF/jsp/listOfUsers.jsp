@@ -30,11 +30,11 @@
 <body>
 <jsp:include page="/WEB-INF/jsp/header.jsp"/>
 
-<c:if test="${users == null}">
+<%--<c:if test="${users == null}">
     <jsp:forward page="controller">
         <jsp:param name="command" value="get_user"/>
     </jsp:forward>
-</c:if>
+</c:if>--%>
 
 <c:if test="${users.size() > 0}">
     <div class="wrapper">

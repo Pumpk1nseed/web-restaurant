@@ -34,3 +34,14 @@ h3 {
     width: 90px;
     text-align: center;
 }
+
+.container {
+    border-spacing: 10px;
+    width: 800px;
+    text-align: left;
+    border: 2px solid #FF8C00;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-top: 10px;
+    text-align: left;
+}

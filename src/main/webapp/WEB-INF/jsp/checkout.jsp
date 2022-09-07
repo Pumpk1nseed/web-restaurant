@@ -48,42 +48,46 @@
     <div style="margin-top: 6%">
         <form id="makeOrder" action="controller" method="get">
             <input type="hidden" name="command" value="make_order">
-
-            <h2>${paymentMethodFmt}</h2>
-            <c:forEach items="${paymentMethods}" var="paymentMethod">
+            <div class="container">
+                <h2>${paymentMethodFmt}</h2>
+                <c:forEach items="${paymentMethods}" var="paymentMethod">
                 <div>
                     <label for="${paymentMethod.getName()}">
                             ${paymentMethod.getName()}
                     </label>
                     <div>
-                    <div>
-                        <input type="radio" id="${paymentMethod.getName()}" name="paymentBy"
-                               value="${paymentMethod.getIdPaymentMethod()}" checked><br>
+                        <div>
+                            <input type="radio" id="${paymentMethod.getName()}" name="paymentBy"
+                                   value="${paymentMethod.getIdPaymentMethod()}" checked><br>
+                        </div>
+                    </div>
+                    </c:forEach>
+                </div>
+                <div class="container">
+                    <h2>${addressDelivFmt}</h2>
+                        ${toDeliverFmt}: ${sessionScope.user_info.address}
+                    <br>
+                        ${newAddressFmt}:
+                    <div class="form-field">
+                        <input type="text" name="address" placeholder="${addressFmt}" value=""/>
                     </div>
                 </div>
-            </c:forEach>
-            <h2>${addressDelivFmt}</h2>
-                ${toDeliverFmt}: ${sessionScope.user_info.address}
-            <br>
-                ${newAddressFmt}:
-            <div class="form-field">
-                <input type="text" name="address" placeholder="${addressFmt}" value=""/>
-            </div>
-            <br>
-            <fieldset>
-                <legend>${legOrderFmt}</legend>
-                <c:forEach items="${order.getOrderList().keySet()}" var="orderedDish">
-                    <label class="dishName">${orderedDish.name}
-                        x${order.getOrderList().get(orderedDish)}</label>
-                    <label class="dishPrice">${orderedDish.price}</label>
-                    <br>
-                </c:forEach>
-                <hr>
-                <label>${totalPriceFmt}: ${order.getPrice()}</label>
-            </fieldset>
+                <br>
+                <fieldset>
+                    <legend>${legOrderFmt}</legend>
+                    <c:forEach items="${order.getOrderList().keySet()}" var="orderedDish">
+                        <label class="dishName">${orderedDish.name}
+                            x${order.getOrderList().get(orderedDish)}</label>
+                        <label class="dishPrice">${orderedDish.price}</label>
+                        <br>
+                    </c:forEach>
+                    <hr>
+                    <label>${totalPriceFmt}: ${order.getPrice()}</label>
+                </fieldset>
 
-            <input id="makeOrderBtn" type="submit" value="${makeOrderFmt}">
-
+                <br>
+                <input id="makeOrderBtn" type="submit" value="${makeOrderFmt}">
+                <br>
         </form>
     </div>
 </c:if>

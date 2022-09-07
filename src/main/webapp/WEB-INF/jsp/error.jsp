@@ -16,15 +16,20 @@
 
 <html>
 <head>
-    <title>Error</title>
+    <title>${errorFmt}</title>
+    <link href="css/error.css" rel="stylesheet">
 </head>
 <body>
-<h1>${errorFmt}</h1>
-${errorFmt}${errorMsg}
-<br>
-<br>
+<jsp:include page="/WEB-INF/jsp/header.jsp"/>
+
+<div class="container">
+    <h1>${errorTxtFmt}</h1>
+    ${errorFmt}${errorMsg}
+</div>
+
+<img src="images/error.png" class="errorImg">
+
 <jsp:include page="/WEB-INF/jsp/footer.jsp"/>
 <br>
-<a href="home">на главную</a>
 </body>
 </html>

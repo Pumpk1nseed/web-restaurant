@@ -22,15 +22,14 @@
 <fmt:message bundle="${loc}" key="localization.link.SignIn" var="signIn_link"/>
 
 
-<jsp:include page="/WEB-INF/jsp/header.jsp"/>
-
 <html>
 <head>
     <meta charset="utf-8">
     <title>${basketFmt}</title>
-    <link rel="stylesheet" href="css/basket.css">
+    <link href="css/basket.css" rel="stylesheet">
 </head>
 <body>
+<jsp:include page="/WEB-INF/jsp/header.jsp"/>
 
 <div class="titleBasket"><h1>${basketFmt}</h1></div>
 
@@ -42,42 +41,50 @@
     <form action="controller" method="post" id="placeOrderForm">
         <input type="hidden" name="command" value="checkout">
 
-        <table>
-            <h1 style="margin-top: 6%">${yourOrder_lbl}</h1>
+        <h1 style="margin-top: 6%; color: darkorange">${yourOrder_lbl}</h1>
 
-            <c:forEach items="${order.getOrderList().keySet()}" var="orderedDish">
+        <c:forEach items="${order.getOrderList().keySet()}" var="orderedDish">
+            <table>
                 <tr>
-                    <td>
+                    <td colspan="4">
                         <h3 class="DishName">
                             <li/>
                                 ${orderedDish.name}
                         </h3>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                             ${orderedDish.description}
                     </td>
                     <td>
-                            ${orderedDish.price}
+                            ${orderedDish.price} BYN
                     </td>
-                    <td id="tdWithForm">
+                    <td id="tdWithForm" class="counter">
                         <input type="hidden" name="idDish" value="${orderedDish.idDish}">
 
                         <button onclick="reduceOne(event)">-</button>
-                        <input type="text" name="quantity"
+                        <input type="text" name="quantity" class="quantity"
                                value="${order.getOrderList().get(orderedDish)}" required>
                         <button onclick="addOne(event)">+</button>
-                        <br>
                     </td>
                     <td>
                         <a href="/web_restaurant_war/controller?command=remove_dish_from_order&&idDish=${orderedDish.idDish}">
-                                ${deletefmt}
+                            <img src="images/delete.png" alt="${deletefmt}" class="delete">
                         </a>
                     </td>
                 </tr>
-            </c:forEach>
-        </table>
+            </table>
+            <br>
+        </c:forEach>
+
+        <br>
         <input type="submit" value="${cleanOrder_btn}" form="cleanOrderForm"
-               id="cleanOrderBtn">
+               id="cleanOrderBtn" class="orderBtn">
+        <br>
+        <hr>
         <input type="submit" value="${checkout_btn}" form="placeOrderForm"
-               id="placeOrderBtn">
+               id="placeOrderBtn" class="orderBtn">
     </form>
 
     <form action="controller" method="get" id="cleanOrderForm">
@@ -105,7 +112,6 @@
 </c:if>
 
 <div class="menu"><a href="menu"><span>${menuLower_link}</span></a></div>
-<jsp:include page="/WEB-INF/jsp/footer.jsp"/>
 
 </body>
 

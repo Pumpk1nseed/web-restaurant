@@ -46,6 +46,10 @@
                     <label for="surname">${surnameFmt} </label>
                     <input id="surname" type="text" class="inputUserData" name="surname" value="${sessionScope.user_info.surname}">
                 </div>
+            <div class="form-field">
+                <label for="lastname">${lastNameFmt} </label>
+                <input id="lastname" type="text" class="inputUserData" name="last_name" value="${sessionScope.user_info.lastName}">
+            </div>
                 <div class="form-field">
                     <label for="email">${emailFmt}<span class="required">*</span> </label>
                     <input required id="email" type="email" class="inputUserData" name="email" value="${sessionScope.user_info.email}"

@@ -13,14 +13,19 @@
 
 <fmt:message bundle="${loc}" key="localization.txt.SuccessEditInfo" var="successEditFmt"/>
 <fmt:message bundle="${loc}" key="localization.txt.ChangePersInfo" var="changePersInfoFmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.BackPh" var="backFmt"/>
 
 <html>
 <head>
     <title>${changePersInfoFmt}</title>
+    <link href="css/error.css" rel="stylesheet">
 </head>
 <body>
 <jsp:include page="/WEB-INF/jsp/header.jsp"/>
 
-<p style="margin-top: 10%">${successEditFmt}</p>
+<div class="container">
+    <h1 style="color: darkorange">${successEditFmt}</h1>
+</div>
+<a href="account" class="backBtn">${backFmt}</a>
 </body>
 </html>
