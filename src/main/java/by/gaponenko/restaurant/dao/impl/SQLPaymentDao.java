@@ -16,18 +16,19 @@ import java.util.List;
 
 public class SQLPaymentDao implements PaymentDao {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
+    ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     private static final String GET_PAYMENT_METHODS = "SELECT * FROM payment_methods";
 
-    private Connection connection;
     @Override
     public List<PaymentMethod> getPaymentMethods() throws DaoException {
-        PreparedStatement preparedStatement;
-        ResultSet resultSet;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
         List<PaymentMethod> methods = null;
 
         try{
-            connection = connectToDataBase();
+            connection = connectToDataBase(connection);
 
             preparedStatement = connection.prepareStatement(GET_PAYMENT_METHODS);
             resultSet = preparedStatement.executeQuery();
@@ -46,19 +47,22 @@ public class SQLPaymentDao implements PaymentDao {
                 methods.add(method);
             }
 
-            resultSet.close();
-            preparedStatement.close();
-            connection.close();
+            return methods;
 
         } catch (DaoException e) {
             throw new RuntimeException(e);
         } catch (SQLException e) {
             throw new DaoException("Error when trying to create a methods of payment query", e);
+        } finally {
+            try {
+                connectionPool.closeConnection(connection, preparedStatement, resultSet);
+            } catch (SQLException e) {
+                log.error("Error while close connection...", e);
+            }
         }
-        return methods;
     }
 
-    private Connection connectToDataBase() throws DaoException {
+    private Connection connectToDataBase(Connection connection) throws DaoException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         try {
             connection = connectionPool.takeConnection();

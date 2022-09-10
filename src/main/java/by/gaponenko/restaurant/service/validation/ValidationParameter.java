@@ -1,4 +1,4 @@
-package by.gaponenko.restaurant.service.Validation;
+package by.gaponenko.restaurant.service.validation;
 
 public class ValidationParameter {
 

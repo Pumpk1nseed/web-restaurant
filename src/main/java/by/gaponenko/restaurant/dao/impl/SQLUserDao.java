@@ -18,6 +18,7 @@ import java.util.Map;
 
 public class SQLUserDao implements UserDao {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
+    ConnectionPool connectionPool = ConnectionPool.getInstance();
     private static final String STATUS = "status";
 
     private static final String FIND_AUTHORIZED_USER = "SELECT * FROM users WHERE login = ? AND password = ?;";
@@ -33,16 +34,17 @@ public class SQLUserDao implements UserDao {
     private static final String REGISTER_USER_INFO = "INSERT INTO users_details(id_user, name, surname, last_name, date_of_birth, telephone_number, email, address) VALUES(?,?,?,?,?,?,?,?)";
 
     private static final String AND = "AND ";
-    private Connection connection;
 
     @Override
     public User authorization(String login, String pass) throws DaoException {
-        PreparedStatement preparedStatement;
-        ResultSet resultSet;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
         User user = new User();
 
         try {
-            connection = connectToDataBase();
+            connection = connectToDataBase(connection);
 
             preparedStatement = connection.prepareStatement(FIND_AUTHORIZED_USER);
             preparedStatement.setString(1, login);
@@ -64,26 +66,30 @@ public class SQLUserDao implements UserDao {
             user.setPassword(resultSet.getString(3));
             user.setIdRole(resultSet.getInt(4));
 
-            resultSet.close();
-            preparedStatement.close();
-            connection.close();
+            return user;
+
         } catch (SQLException e) {
             log.error("Error working with statements while sign in", e);
             throw new DaoException("Error while working with database while sign in", e);
+        } finally {
+            try {
+                connectionPool.closeConnection(connection, preparedStatement, resultSet);
+            } catch (SQLException e) {
+                log.error("Error while close connection...", e);
+            }
         }
-        return user;
     }
 
     @Override
     public boolean registration(RegistrationUserData userData) throws DaoException {
-        PreparedStatement preparedStatementForUser;
-        PreparedStatement preparedStatementForUserInfo;
-/*        PreparedStatement preparedStatementForRole;*/
-        ResultSet resultSet;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        /*        PreparedStatement preparedStatementForRole;*/
         int idRole;
 
         try {
-            connection = connectToDataBase();
+            connection = connectToDataBase(connection);
             connection.setAutoCommit(false);
 
             resultSet = findUserByLogin(connection, userData.getLogin());
@@ -100,32 +106,30 @@ public class SQLUserDao implements UserDao {
             resultSet.next();
             idRole = resultSet.getInt(1);*/
 
-            preparedStatementForUser = connection.prepareStatement(ADD_NEW_USER);
-            preparedStatementForUser.setString(1, userData.getLogin());
-            preparedStatementForUser.setString(2, userData.getPassword());
-            preparedStatementForUser.setInt(3, 1);
-            preparedStatementForUser.setString(4, "active");
-            preparedStatementForUser.executeUpdate();
+            preparedStatement = connection.prepareStatement(ADD_NEW_USER);
+            preparedStatement.setString(1, userData.getLogin());
+            preparedStatement.setString(2, userData.getPassword());
+            preparedStatement.setInt(3, 1);
+            preparedStatement.setString(4, "active");
+            preparedStatement.executeUpdate();
 
             resultSet = findUserByLogin(connection, userData.getLogin());
             resultSet.next();
 
-            preparedStatementForUserInfo = connection.prepareStatement(REGISTER_USER_INFO);
-            preparedStatementForUserInfo.setInt(1, resultSet.getInt(1));
-            preparedStatementForUserInfo.setString(2, userData.getName());
-            preparedStatementForUserInfo.setString(3, userData.getSurname());
-            preparedStatementForUserInfo.setString(4, userData.getLastName());
-            preparedStatementForUserInfo.setString(5, userData.getDateOfBirth());
-            preparedStatementForUserInfo.setString(6, userData.getTelephoneNumber());
-            preparedStatementForUserInfo.setString(7, userData.getEmail());
-            preparedStatementForUserInfo.setString(8, userData.getAddress());
-            preparedStatementForUserInfo.executeUpdate();
+            preparedStatement = connection.prepareStatement(REGISTER_USER_INFO);
+            preparedStatement.setInt(1, resultSet.getInt(1));
+            preparedStatement.setString(2, userData.getName());
+            preparedStatement.setString(3, userData.getSurname());
+            preparedStatement.setString(4, userData.getLastName());
+            preparedStatement.setString(5, userData.getDateOfBirth());
+            preparedStatement.setString(6, userData.getTelephoneNumber());
+            preparedStatement.setString(7, userData.getEmail());
+            preparedStatement.setString(8, userData.getAddress());
+            preparedStatement.executeUpdate();
 
             connection.commit();
-            resultSet.close();
-            preparedStatementForUser.close();
-            preparedStatementForUserInfo.close();
-            connection.close();
+            return true;
+
         } catch (SQLException e) {
             try {
                 connection.rollback();
@@ -135,18 +139,23 @@ public class SQLUserDao implements UserDao {
             }
             log.error("Error working with statements while register new User", e);
             throw new DaoException("Error while register new User", e);
+        } finally {
+            try {
+                connectionPool.closeConnection(connection, preparedStatement, resultSet);
+            } catch (SQLException e) {
+                log.error("Error while close connection...", e);
+            }
         }
-        return true;
     }
 
     public RegistrationUserData loadUserDataByLogin(String login) throws DaoException {
-
+        Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         RegistrationUserData userData = null;
 
         try {
-            connection = connectToDataBase();
+            connection = connectToDataBase(connection);
 
             resultSet = findUserByLogin(connection, login);
 
@@ -171,27 +180,32 @@ public class SQLUserDao implements UserDao {
                 userData.setLastName(resultSet.getString(8));
                 userData.setRole(idRole);
             }
-            resultSet.close();
-            preparedStatement.close();
-            connection.close();
+
+            return userData;
 
         } catch (SQLException e) {
             log.error("Error working with statements while loading user info");
             throw new DaoException("Error when trying to create a statement user find query", e);
+        } finally {
+            try {
+                connectionPool.closeConnection(connection, preparedStatement, resultSet);
+            } catch (SQLException e) {
+                log.error("Error while close connection...", e);
+            }
         }
-        return userData;
     }
 
     @Override
     public List<RegistrationUserData> find(Criteria criteria) throws DaoException {
-        PreparedStatement preparedStatement;
-        ResultSet resultSet;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
 
         Map<String, Object> criteriaMap = criteria.getCriteria();
         List<RegistrationUserData> usersData = null;
 
         try {
-            connection = connectToDataBase();
+            connection = connectToDataBase(connection);
 
             StringBuilder queryUserDataBuilder = new StringBuilder(FIND_USER_DETAILS_BY_CRITERIA);
             for (String criteriaName : criteriaMap.keySet()) {
@@ -228,27 +242,30 @@ public class SQLUserDao implements UserDao {
                 usersData.add(userData);
             }
 
-            resultSet.close();
-            preparedStatement.close();
-            connection.close();
+            return usersData;
 
         } catch (SQLException e) {
             log.error("Error working with statements while find usersData by criteria");
             throw new DaoException("Error when trying to create a statement user find query", e);
+        } finally {
+            try {
+                connectionPool.closeConnection(connection, preparedStatement, resultSet);
+            } catch (SQLException e) {
+                log.error("Error while close connection...", e);
+            }
         }
-
-        return usersData;
     }
 
     @Override
     public List<RegistrationUserData> getUsers() throws DaoException {
-        PreparedStatement preparedStatement;
-        ResultSet resultSet;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
 
         List<RegistrationUserData> usersData = null;
 
         try {
-            connection = connectToDataBase();
+            connection = connectToDataBase(connection);
             preparedStatement = connection.prepareStatement(GET_USERS_DETAILS);
             resultSet = preparedStatement.executeQuery();
 
@@ -266,49 +283,52 @@ public class SQLUserDao implements UserDao {
                 usersData.add(userData);
             }
 
-            resultSet.close();
-            preparedStatement.close();
-            connection.close();
+            return usersData;
 
         } catch (SQLException e) {
             log.error("Error working with statements while find usersData by criteria");
             throw new DaoException("Error when trying to create a statement user find query", e);
+        } finally {
+            try {
+                connectionPool.closeConnection(connection, preparedStatement, resultSet);
+            } catch (SQLException e) {
+                log.error("Error while close connection...", e);
+            }
         }
 
-        return usersData;
     }
 
     @Override
     public boolean updateUserData(RegistrationUserData newUserData, String newPassword) throws DaoException {
-        PreparedStatement preparedStatementForUser;
-        PreparedStatement preparedStatementForUserInfo;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
 
         try {
-            connection = connectToDataBase();
+            connection = connectToDataBase(connection);
             connection.setAutoCommit(false);
 
             if (newPassword != "") {
-                preparedStatementForUser = connection.prepareStatement(UPDATE_USER_PASSWORD);
-                preparedStatementForUser.setString(1, newPassword);
-                preparedStatementForUser.setInt(2, newUserData.getIdUser());
-                preparedStatementForUser.executeUpdate();
+                preparedStatement = connection.prepareStatement(UPDATE_USER_PASSWORD);
+                preparedStatement.setString(1, newPassword);
+                preparedStatement.setInt(2, newUserData.getIdUser());
+                preparedStatement.executeUpdate();
 
-                preparedStatementForUser.close();
+                preparedStatement.close();
             }
 
-            preparedStatementForUserInfo = connection.prepareStatement(UPDATE_USER_DETAILS);
-            preparedStatementForUserInfo.setString(1, newUserData.getName());
-            preparedStatementForUserInfo.setString(2, newUserData.getSurname());
-            preparedStatementForUserInfo.setString(3, newUserData.getLastName());
-            preparedStatementForUserInfo.setString(4, newUserData.getTelephoneNumber());
-            preparedStatementForUserInfo.setString(5, newUserData.getEmail());
-            preparedStatementForUserInfo.setString(6, newUserData.getAddress());
-            preparedStatementForUserInfo.setInt(7, newUserData.getIdUser());
-            preparedStatementForUserInfo.executeUpdate();
+            preparedStatement = connection.prepareStatement(UPDATE_USER_DETAILS);
+            preparedStatement.setString(1, newUserData.getName());
+            preparedStatement.setString(2, newUserData.getSurname());
+            preparedStatement.setString(3, newUserData.getLastName());
+            preparedStatement.setString(4, newUserData.getTelephoneNumber());
+            preparedStatement.setString(5, newUserData.getEmail());
+            preparedStatement.setString(6, newUserData.getAddress());
+            preparedStatement.setInt(7, newUserData.getIdUser());
+            preparedStatement.executeUpdate();
 
-            connection.commit();
-            preparedStatementForUserInfo.close();
-            connection.close();
+            return true;
+
         } catch (SQLException e) {
             try {
                 connection.rollback();
@@ -318,8 +338,14 @@ public class SQLUserDao implements UserDao {
             }
             log.error("Error working with statements while update user info", e);
             throw new DaoException("Error while update user info", e);
+        } finally {
+            try {
+                connectionPool.closeConnection(connection, preparedStatement, resultSet);
+            } catch (SQLException e) {
+                log.error("Error while close connection...", e);
+            }
         }
-        return true;
+
     }
 
     private ResultSet findUserByLogin(Connection connection, String login) throws DaoException {
@@ -338,7 +364,7 @@ public class SQLUserDao implements UserDao {
         }
     }
 
-    private Connection connectToDataBase() throws DaoException {
+    private Connection connectToDataBase(Connection connection) throws DaoException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         try {
             connection = connectionPool.takeConnection();

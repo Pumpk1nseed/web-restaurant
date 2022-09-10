@@ -16,6 +16,7 @@ import java.sql.Timestamp;
 
 public class SQLOrderDao implements OrderDao {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
+    ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     private static final String ADD_NEW_ORDER = "INSERT INTO orders (date, id_user, status) VALUES (?, ?, ?)";
     private static final String ADD_ORDER_DETAILS = "INSERT INTO order_details (id_order, id_dish, quantity, id_payment_method) VALUES (?, ?, ?, ?)";
@@ -40,16 +41,16 @@ public class SQLOrderDao implements OrderDao {
     private static final String IN_PROCESSING = "in processing";
     private static final int GENERATED_KEYS = 1;
     private static final String AND = "AND ";
-    private Connection connection;
 
     @Override
     public int createOrder(Order order, int idUser) throws DaoException {
-        PreparedStatement preparedStatement;
-        ResultSet resultSet;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
         int idOrder;
 
         try {
-            connection = connectToDataBase();
+            connection = connectToDataBase(connection);
             connection.setAutoCommit(false);
 
             preparedStatement = connection.prepareStatement(ADD_NEW_ORDER, Statement.RETURN_GENERATED_KEYS);
@@ -64,23 +65,28 @@ public class SQLOrderDao implements OrderDao {
             idOrder = resultSet.getInt(GENERATED_KEYS);
 
             connection.commit();
-            resultSet.close();
-            preparedStatement.close();
-            connection.close();
+            return idOrder;
 
         } catch (SQLException e) {
             log.error("Error working with statements while create order", e);
             throw new DaoException("Error while working with database while create order", e);
+        } finally {
+            try {
+                connectionPool.closeConnection(connection, preparedStatement, resultSet);
+            } catch (SQLException e) {
+                log.error("Error while close connection...", e);
+            }
         }
-        return idOrder;
     }
 
     @Override
     public boolean createOrderDetails(int idOrder, int idDish, Integer quantity, int idPaymentMethod) throws DaoException {
-        PreparedStatement preparedStatement;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
 
         try {
-            connection = connectToDataBase();
+            connection = connectToDataBase(connection);
             connection.setAutoCommit(false);
 
             preparedStatement = connection.prepareStatement(ADD_ORDER_DETAILS);
@@ -91,25 +97,30 @@ public class SQLOrderDao implements OrderDao {
             preparedStatement.executeUpdate();
 
             connection.commit();
-            preparedStatement.close();
-            connection.close();
+            return true;
 
         } catch (SQLException e) {
             log.error("Error occurred while create order details", e);
             throw new DaoException("Error while working with database while create order details", e);
+        } finally {
+            try {
+                connectionPool.closeConnection(connection, preparedStatement, resultSet);
+            } catch (SQLException e) {
+                log.error("Error while close connection...", e);
+            }
         }
-        return true;
     }
 
     @Override
     public List<Order> getOrdersHistory(int idUser) throws DaoException {
-        PreparedStatement preparedStatement;
-        ResultSet resultSet;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
 
         List<Order> orders;
 
         try {
-            connection = connectToDataBase();
+            connection = connectToDataBase(connection);
 
             preparedStatement = connection.prepareStatement(GET_ORDERS);
             preparedStatement.setInt(1, idUser);
@@ -128,27 +139,30 @@ public class SQLOrderDao implements OrderDao {
                 orders.add(order);
             }
 
-            resultSet.close();
-            preparedStatement.close();
-            connection.close();
-
             return orders;
 
         } catch (SQLException e) {
             log.error("Error occurred while get orders history", e);
             throw new DaoException("Error while working with database while get orders history", e);
+        } finally {
+            try {
+                connectionPool.closeConnection(connection, preparedStatement, resultSet);
+            } catch (SQLException e) {
+                log.error("Error while close connection...", e);
+            }
         }
     }
 
     @Override
     public Map<Order, RegistrationUserData> findOrdersByUsersInfo(Criteria criteria) throws DaoException {
-        PreparedStatement preparedStatement;
-        ResultSet resultSet;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
 
         Map<Order, RegistrationUserData> orderUsedDataMap;
 
         try {
-            connection = connectToDataBase();
+            connection = connectToDataBase(connection);
 
             Map<String, Object> criterias = criteria.getCriteria();
 
@@ -184,37 +198,45 @@ public class SQLOrderDao implements OrderDao {
                 orderUsedDataMap.put(order, userData);
             }
 
-            resultSet.close();
-            preparedStatement.close();
-            connection.close();
+            return orderUsedDataMap;
 
         } catch (SQLException e) {
             log.error("Error occurred while find orders by criteria", e);
             throw new DaoException("Error while working with database while find orders by users info", e);
+        } finally {
+            try {
+                connectionPool.closeConnection(connection, preparedStatement, resultSet);
+            } catch (SQLException e) {
+                log.error("Error while close connection...", e);
+            }
         }
-        return orderUsedDataMap;
     }
 
     @Override
     public boolean updateOrderStatus(int idOrder, String status) throws DaoException {
-        PreparedStatement preparedStatement;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
 
         try {
-            connection = connectToDataBase();
+            connection = connectToDataBase(connection);
 
             preparedStatement = connection.prepareStatement(UPDATE_ORDER_STATUS);
             preparedStatement.setString(1, status);
             preparedStatement.setInt(2, idOrder);
             preparedStatement.executeUpdate();
 
-            preparedStatement.close();
-            connection.close();
-
             return true;
 
         } catch (SQLException e) {
             log.error("Error occurred while updating order status", e);
             throw new DaoException("Error while working with database while updating order status", e);
+        } finally {
+            try {
+                connectionPool.closeConnection(connection, preparedStatement, resultSet);
+            } catch (SQLException e) {
+                log.error("Error while close connection...", e);
+            }
         }
     }
 
@@ -245,7 +267,7 @@ public class SQLOrderDao implements OrderDao {
         }
     }
 
-    private Connection connectToDataBase() throws DaoException {
+    private Connection connectToDataBase(Connection connection) throws DaoException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         try {
             connection = connectionPool.takeConnection();

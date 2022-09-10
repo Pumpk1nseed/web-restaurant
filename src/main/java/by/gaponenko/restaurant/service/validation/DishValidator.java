@@ -1,7 +1,5 @@
-package by.gaponenko.restaurant.service.Validation;
+package by.gaponenko.restaurant.service.validation;
 
-import by.gaponenko.restaurant.bean.Dish;
-import by.gaponenko.restaurant.bean.Menu;
 import by.gaponenko.restaurant.bean.criteria.Criteria;
 import by.gaponenko.restaurant.bean.criteria.SearchCriteria;
 

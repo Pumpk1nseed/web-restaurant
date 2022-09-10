@@ -40,14 +40,14 @@ public class RegistrationCommand implements Command {
         try {
             userService.registration(userData);
 
-            req.getSession().setAttribute("user", new User(userData.getLogin(), userData.getPassword()));
+            req.getSession().setAttribute(RequestParameterName.REQ_PARAM_USER, new User(userData.getLogin(), userData.getPassword()));
 
             resp.sendRedirect(JSPPageName.USER_AUTHORIZATION_PAGE);
         } catch (IOException e ) {
-            log.error("Invalid address to forward in authorization command", e);
+            log.error("Invalid address to forward in registration command", e);
             throw new ControllerException(e);
         } catch (ServiceException e){
-            log.error("Error occurred while authorization", e);
+            log.error("Error occurred while registration", e);
             throw new ControllerException(e);
         }
     }

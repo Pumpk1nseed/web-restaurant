@@ -1,6 +1,5 @@
-package by.gaponenko.restaurant.service.Validation;
+package by.gaponenko.restaurant.service.validation;
 
-import java.math.BigDecimal;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

@@ -8,12 +8,11 @@ import by.gaponenko.restaurant.dao.DaoProvider;
 import by.gaponenko.restaurant.dao.UserDao;
 import by.gaponenko.restaurant.service.ServiceException;
 import by.gaponenko.restaurant.service.UserService;
-import by.gaponenko.restaurant.service.Validation.UserDataValidator;
-import by.gaponenko.restaurant.service.Validation.ValidationException;
+import by.gaponenko.restaurant.service.validation.UserDataValidator;
+import by.gaponenko.restaurant.service.validation.ValidationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class UserServiceImpl implements UserService {

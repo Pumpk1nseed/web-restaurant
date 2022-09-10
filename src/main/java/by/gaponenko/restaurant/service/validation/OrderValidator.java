@@ -1,4 +1,4 @@
-package by.gaponenko.restaurant.service.Validation;
+package by.gaponenko.restaurant.service.validation;
 
 import by.gaponenko.restaurant.bean.Order;
 import by.gaponenko.restaurant.bean.criteria.Criteria;

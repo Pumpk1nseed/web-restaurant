@@ -69,23 +69,29 @@ public class ConnectionPool {
         }
     }
 
-    public void closeConnection(final Connection connection,
-                                final Statement statement,
-                                final ResultSet resultSet) {
-        try {
-            resultSet.close();
-        } catch (SQLException e) {
-            log.error("Error while closing resultSet object", e);
+    public void closeConnection(Connection connection,
+                                Statement statement,
+                                ResultSet resultSet) throws SQLException {
+        if (resultSet != null) {
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                log.error("Error while closing resultSet object", e);
+            }
         }
-        try {
-            statement.close();
-        } catch (SQLException e) {
-            log.error("Error while closing statement object", e);
+        if (statement != null) {
+            try {
+                statement.close();
+            } catch (SQLException e) {
+                log.error("Error while closing statement object", e);
+            }
         }
-        try {
-            connection.close();
-        } catch (SQLException e) {
-            log.error("Error while closing connection object", e);
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                log.error("Error while closing connection object", e);
+            }
         }
     }
 

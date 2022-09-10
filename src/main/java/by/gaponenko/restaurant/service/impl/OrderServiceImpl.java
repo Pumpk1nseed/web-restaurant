@@ -10,7 +10,7 @@ import by.gaponenko.restaurant.dao.OrderDao;
 import by.gaponenko.restaurant.dao.UserDao;
 import by.gaponenko.restaurant.service.OrderService;
 import by.gaponenko.restaurant.service.ServiceException;
-import by.gaponenko.restaurant.service.Validation.OrderValidator;
+import by.gaponenko.restaurant.service.validation.OrderValidator;
 
 import java.util.List;
 import java.util.Map;

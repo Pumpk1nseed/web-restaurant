@@ -1,6 +1,4 @@
-package by.gaponenko.restaurant.service.Validation;
-
-import by.gaponenko.restaurant.dao.pool.DBResourceManager;
+package by.gaponenko.restaurant.service.validation;
 
 import java.util.ResourceBundle;
 

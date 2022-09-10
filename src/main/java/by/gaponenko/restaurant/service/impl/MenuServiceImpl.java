@@ -9,7 +9,7 @@ import by.gaponenko.restaurant.dao.DaoProvider;
 import by.gaponenko.restaurant.dao.MenuDao;
 import by.gaponenko.restaurant.service.MenuService;
 import by.gaponenko.restaurant.service.ServiceException;
-import by.gaponenko.restaurant.service.Validation.DishValidator;
+import by.gaponenko.restaurant.service.validation.DishValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

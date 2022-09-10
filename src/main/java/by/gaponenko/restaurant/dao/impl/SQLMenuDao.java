@@ -21,24 +21,23 @@ import java.util.Map;
 public class SQLMenuDao implements MenuDao {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
+    ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     private static final String GET_MENU = "SELECT * FROM menu where status = ?;";
     private static final String GET_DISH_CATEGORIES = "SELECT * FROM dish_categories";
     private static final String GET_DISH_BY_CRITERIA = "SELECT * FROM menu WHERE ";
     private static final String AND = "AND ";
 
-    ConnectionPool connectionPool = ConnectionPool.getInstance();
-    private Connection connection;
-
     @Override
     public Menu getMenu() throws DaoException {
-        PreparedStatement preparedStatement;
-        ResultSet resultSet;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
 
         Menu menu = null;
 
         try {
-            connection = connectToDataBase();
+            connection = connectToDataBase(connection);
 
             preparedStatement = connection.prepareStatement(GET_MENU);
             preparedStatement.setString(1, "active");
@@ -62,31 +61,36 @@ public class SQLMenuDao implements MenuDao {
                 menu.add(dish);
             }
 
-            resultSet.close();
-            preparedStatement.close();
-            connection.close();
+            return menu;
+
         } catch (SQLException e) {
             log.error("Error working with statements while getting menu", e);
             throw new DaoException("Error while getting menu", e);
+        } finally {
+            try {
+                connectionPool.closeConnection(connection, preparedStatement, resultSet);
+            } catch (SQLException e) {
+                log.error("Error while close connection...", e);
+            }
         }
-        return menu;
     }
 
     @Override
     public List<DishCategory> getDishCategories() throws DaoException {
-        PreparedStatement preparedStatement;
-        ResultSet resultSet;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
 
         List<DishCategory> categories = null;
 
         try {
-            connection = connectToDataBase();
+            connection = connectToDataBase(connection);
 
             preparedStatement = connection.prepareStatement(GET_DISH_CATEGORIES);
             resultSet = preparedStatement.executeQuery();
 
             if (!resultSet.isBeforeFirst()) {
-                return categories;
+                return null;
             }
 
             categories = new ArrayList<>();
@@ -98,18 +102,22 @@ public class SQLMenuDao implements MenuDao {
                 categories.add(category);
             }
 
-            resultSet.close();
-            preparedStatement.close();
-            connection.close();
+            return categories;
         } catch (SQLException e) {
             log.error("Error working with statements while getting dish categories", e);
             throw new DaoException("Error while getting dish categories", e);
+        } finally {
+            try {
+                connectionPool.closeConnection(connection, preparedStatement, resultSet);
+            } catch (SQLException e) {
+                log.error("Error while close connection...", e);
+            }
         }
-        return categories;
     }
 
     @Override
     public List<Dish> find(Criteria criteria) throws DaoException {
+        Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
 
@@ -117,7 +125,7 @@ public class SQLMenuDao implements MenuDao {
         List<Dish> dishes = null;
 
         try {
-            connection = connectToDataBase();
+            connection = connectToDataBase(connection);
 
             StringBuilder queryDishBuilder = new StringBuilder(GET_DISH_BY_CRITERIA);
             for (String criteriaName : criteriaMap.keySet()) {
@@ -151,17 +159,21 @@ public class SQLMenuDao implements MenuDao {
                 dishes.add(dish);
             }
 
-            resultSet.close();
-            preparedStatement.close();
-            connection.close();
+            return dishes;
+
         } catch (SQLException e) {
             log.error("Error working with statements while getting dish by criteria", e);
             throw new DaoException("Error while getting dish", e);
+        } finally {
+            try {
+                connectionPool.closeConnection(connection, preparedStatement, resultSet);
+            } catch (SQLException e) {
+                log.error("Error while close connection...", e);
+            }
         }
-        return dishes;
     }
 
-    private Connection connectToDataBase() throws DaoException {
+    private Connection connectToDataBase(Connection connection) throws DaoException {
         try {
             connection = connectionPool.takeConnection();
         } catch (InterruptedException e) {
