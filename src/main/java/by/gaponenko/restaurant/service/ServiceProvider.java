@@ -1,6 +1,5 @@
 package by.gaponenko.restaurant.service;
 
-import by.gaponenko.restaurant.dao.DaoProvider;
 import by.gaponenko.restaurant.service.impl.MenuServiceImpl;
 import by.gaponenko.restaurant.service.impl.OrderServiceImpl;
 import by.gaponenko.restaurant.service.impl.PaymentServiceImpl;

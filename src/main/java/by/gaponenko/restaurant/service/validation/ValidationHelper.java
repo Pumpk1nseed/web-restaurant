@@ -22,6 +22,8 @@ public class ValidationHelper {
     private final String idErrorMsg;
     private final String priceErrorMsg;
     private final String statusErrorMsg;
+    private final String descriptionErrorMsg;
+    private final String photoUrlErrorMsg;
     private static final ValidationHelper instance = new ValidationHelper();
     ValidationResourceManager validationResourceManager = new ValidationResourceManager();
 
@@ -47,6 +49,8 @@ public class ValidationHelper {
         this.idErrorMsg = validationResourceManager.getValue(ValidationParameter.VALIDATION_ERRORMSG_ID);
         this.priceErrorMsg = validationResourceManager.getValue(ValidationParameter.VALIDATION_ERRORMSG_PRICE);
         this.statusErrorMsg = validationResourceManager.getValue(ValidationParameter.VALIDATION_ERRORMSG_STATUS);
+        this.descriptionErrorMsg = validationResourceManager.getValue(ValidationParameter.VALIDATION_ERRORMSG_DESCRIPTION);
+        this.photoUrlErrorMsg = validationResourceManager.getValue(ValidationParameter.VALIDATION_ERRORMSG_PHOTO_URL);
     }
 
     public void validateName(String nameInput) throws ValidationException {
@@ -72,7 +76,7 @@ public class ValidationHelper {
     }
 
     public void validateLastName(String lastName) throws ValidationException {
-        if (lastName !="" && lastName != null) {
+        if (lastName != "" && lastName != null) {
             pattern = pattern.compile(name);
             matcher = pattern.matcher(lastName);
 
@@ -134,6 +138,18 @@ public class ValidationHelper {
             if (matcher.find() || Integer.valueOf(idInput) <= 0) {
                 throw new ValidationException(idErrorMsg);
             }
+        }
+    }
+
+    public void validateDescription(String description) throws ValidationException {
+        if (description == "" && description == null) {
+            throw new ValidationException(descriptionErrorMsg);
+        }
+    }
+
+    public void validatePhotoUrl(String photoUrl) throws ValidationException {
+        if (photoUrl == "" && photoUrl == null) {
+            throw new ValidationException(photoUrlErrorMsg);
         }
     }
 

@@ -101,7 +101,7 @@
 
     <servlet>
         <servlet-name>success</servlet-name>
-        <jsp-file>/WEB-INF/jsp/editInfoSuccess.jsp</jsp-file>
+        <jsp-file>/WEB-INF/jsp/editSuccess.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
         <servlet-name>success</servlet-name>
@@ -115,6 +115,15 @@
     <servlet-mapping>
         <servlet-name>editInfo</servlet-name>
         <url-pattern>/editInfo</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>editDish</servlet-name>
+        <jsp-file>/WEB-INF/jsp/editDish.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>editDish</servlet-name>
+        <url-pattern>/editDish</url-pattern>
     </servlet-mapping>
 
     <servlet>

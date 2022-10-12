@@ -22,5 +22,6 @@ public class ValidationParameter {
     public static final String VALIDATION_ERRORMSG_ROLE = "validation.errormsg.role";
     public static final String VALIDATION_ERRORMSG_NULL = "validation.errormsg.null";
     public static final String VALIDATION_ERRORMSG_STATUS = "validation.errormsg.status";
-
+    public static final String VALIDATION_ERRORMSG_DESCRIPTION = "validation.errormsg.description";
+    public static final String VALIDATION_ERRORMSG_PHOTO_URL = "validation.errormsg.photoUrl";
 }

@@ -15,4 +15,6 @@ public interface MenuDao {
 
     List<Dish> find(Criteria criteria) throws DaoException;
 
+    boolean editDish(Dish dish) throws DaoException;
+
 }

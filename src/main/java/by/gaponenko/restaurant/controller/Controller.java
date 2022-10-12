@@ -43,7 +43,7 @@ public class Controller extends HttpServlet {
         String commandName;
         Command command;
 
-        commandName = req.getParameter(RequestParameterName.REQ_PARAM_COMAND_NAME);
+        commandName = req.getParameter(RequestParameterName.REQ_PARAM_COMMAND_NAME);
         command = helper.getCommand(commandName);
 
         try {

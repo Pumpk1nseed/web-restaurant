@@ -18,6 +18,8 @@ public enum CommandName {
     GO_TO_ORDER_CONFIRMATION,
     CONFIRM_ORDER,
     DELETE_ORDER,
+    FIND_DISHES_BY,
+    EDIT_DISH,
     NO_SUCH_COMMAND
 
 }

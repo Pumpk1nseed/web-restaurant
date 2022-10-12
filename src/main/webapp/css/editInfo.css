@@ -10,7 +10,7 @@ a {
     text-decoration: none
 }
 
-.inputUserData {
+.inputData {
     font-size: 17px;
     height: 45px;
     width: 100%;
@@ -21,7 +21,7 @@ a {
     padding-left: 25px;
 }
 
-.inputUserData:focus {
+.inputData:focus {
     outline: none;
     border: 2px solid #fce7c7;
 }
@@ -48,7 +48,7 @@ a {
     margin-bottom: 38px;
 }
 
-.register-form-container {
+.form-container {
     position: relative;
     z-index: 2;
     max-width: 415px;

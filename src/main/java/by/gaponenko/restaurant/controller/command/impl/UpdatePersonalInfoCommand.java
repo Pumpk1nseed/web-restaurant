@@ -47,7 +47,7 @@ public class UpdatePersonalInfoCommand implements Command {
             currentUser.setPassword(newPassword);
 
             userService.updateUserData(currentUserData, newPassword);
-            resp.sendRedirect(JSPPageName.EDIT_USERINFO_SUCCESS_PAGE);
+            resp.sendRedirect(JSPPageName.EDIT_SUCCESS_PAGE);
 
         } catch (IOException e) {
             log.error("Invalid address to redirect while updating user data", e);

@@ -11,7 +11,7 @@
 <fmt:setLocale value="${sessionScope.localization}"/>
 <fmt:setBundle basename="localization" var="loc"/>
 
-<fmt:message bundle="${loc}" key="localization.txt.SuccessEditInfo" var="successEditFmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.SuccessEdit" var="successEditFmt"/>
 <fmt:message bundle="${loc}" key="localization.txt.ChangePersInfo" var="changePersInfoFmt"/>
 <fmt:message bundle="${loc}" key="localization.txt.BackPh" var="backFmt"/>
 
@@ -26,6 +26,6 @@
 <div class="container">
     <h1 style="color: darkorange">${successEditFmt}</h1>
 </div>
-<a href="account" class="backBtn">${backFmt}</a>
+<input class="backBtn" type="button" onclick="history.back();" value="${backFmt}"/>
 </body>
 </html>

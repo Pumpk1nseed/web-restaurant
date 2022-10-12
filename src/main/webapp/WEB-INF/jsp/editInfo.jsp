@@ -35,39 +35,39 @@
 <div class="title"><h1>${changePersInfoFmt}</h1></div>
 
 <div class="entity">
-    <div class="register-form-container">
+    <div class="form-container">
         <form action="controller" method="post">
                 <input type="hidden" name="command" value="update_personal_info">
                 <div class="form-field">
                     <label for="name">${nameFmt} </label>
-                    <input autofocus id="name" class="inputUserData" type="text" name="name" value="${sessionScope.user_info.name}">
+                    <input autofocus id="name" class="inputData" type="text" name="name" value="${sessionScope.user_info.name}">
                 </div>
                 <div class="form-field">
                     <label for="surname">${surnameFmt} </label>
-                    <input id="surname" type="text" class="inputUserData" name="surname" value="${sessionScope.user_info.surname}">
+                    <input id="surname" type="text" class="inputData" name="surname" value="${sessionScope.user_info.surname}">
                 </div>
             <div class="form-field">
                 <label for="lastname">${lastNameFmt} </label>
-                <input id="lastname" type="text" class="inputUserData" name="last_name" value="${sessionScope.user_info.lastName}">
+                <input id="lastname" type="text" class="inputData" name="last_name" value="${sessionScope.user_info.lastName}">
             </div>
                 <div class="form-field">
                     <label for="email">${emailFmt}<span class="required">*</span> </label>
-                    <input required id="email" type="email" class="inputUserData" name="email" value="${sessionScope.user_info.email}"
+                    <input required id="email" type="email" class="inputData" name="email" value="${sessionScope.user_info.email}"
                            placeholder="example@gmail.com">
                 </div>
                 <div class="form-field">
                     <label for="address">${addressFmt} </label>
-                    <input id="address" type="text" name="address" class="inputUserData" value="${sessionScope.user_info.address}">
+                    <input id="address" type="text" name="address" class="inputData" value="${sessionScope.user_info.address}">
                 </div>
                 <div class="form-field">
                     <label for="phonenumber">${phoneFmt} </label>
-                    <input id="phonenumber" type="tel" class="inputUserData" name="telephone_number"
+                    <input id="phonenumber" type="tel" class="inputData" name="telephone_number"
                            value="${sessionScope.user_info.telephoneNumber}"
                            placeholder="+375123456789">
                 </div>
                 <div class="form-field">
                     <label for="password">New password</label>
-                    <input id="password" type="password" class="inputUserData" name="password" value=""
+                    <input id="password" type="password" class="inputData" name="password" value=""
                            autocomplete="new-password">
 
                 </div>

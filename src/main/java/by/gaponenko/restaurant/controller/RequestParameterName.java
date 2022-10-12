@@ -1,5 +1,6 @@
 package by.gaponenko.restaurant.controller;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public final class RequestParameterName {
@@ -7,7 +8,7 @@ public final class RequestParameterName {
     private RequestParameterName() {
     }
 
-    public static final String REQ_PARAM_COMAND_NAME = "command";
+    public static final String REQ_PARAM_COMMAND_NAME = "command";
     public static final String REQ_PARAM_USER_DATA = "user_info";
     public static final String REQ_PARAM_LOGIN = "login";
     public static final String REQ_PARAM_PASSWORD = "password";
@@ -24,8 +25,15 @@ public final class RequestParameterName {
     public static final String REQ_PARAM_QUANTITY_OF_DISHES = "quantityDish";
     public static final String REQ_PARAM_QUANTITY = "quantity";
     public static final String REQ_PARAM_ID_DISH = "idDish";
+    public static final String REQ_PARAM_DISHES= "dishes";
     public static final String REQ_PARAM_MENU = "menu";
     public static final String REQ_PARAM_DISH_CATEGORIES= "dish_categories";
+    public static final String REQ_PARAM_ID_CATEGORY = "id_category";
+    public static final String REQ_PARAM_DISH_NAME = "dishName";
+    public static final String REQ_PARAM_ID_EDITED_DISH = "idEditedDish";
+    public static final String REQ_PARAM_DISH_DESCRIPTION = "dishDescription";
+    public static final String REQ_PARAM_DISH_PRICE = "dishPrice";
+    public static final String REQ_PARAM_PHOTO_URL = "photoUrl";
     public static final String REQ_PARAM_PAYMENT_METHODS = "paymentMethods";
     public static final String REQ_PARAM_PAYMENT_BY = "paymentBy";
     public static final String REQ_PARAM_USER = "user";

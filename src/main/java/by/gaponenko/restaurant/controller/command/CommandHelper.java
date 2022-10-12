@@ -27,6 +27,8 @@ public class CommandHelper {
         commands.put(CommandName.SIGN_OUT, new SignOutCommand());
         commands.put(CommandName.GET_USER, new GetUserCommand());
         commands.put(CommandName.GET_ORDERS, new GetOrdersCommand());
+        commands.put(CommandName.FIND_DISHES_BY, new FindDishesByCommand());
+        commands.put(CommandName.EDIT_DISH, new EditDishCommand());
         commands.put(CommandName.NO_SUCH_COMMAND, new NoSuchCommand());
     }
 

@@ -1,8 +1,10 @@
 package by.gaponenko.restaurant.service.validation;
 
+import by.gaponenko.restaurant.bean.Dish;
 import by.gaponenko.restaurant.bean.criteria.Criteria;
 import by.gaponenko.restaurant.bean.criteria.SearchCriteria;
 
+import java.math.BigDecimal;
 import java.util.Map;
 
 public class DishValidator {
@@ -10,7 +12,8 @@ public class DishValidator {
     private static final DishValidator instance = new DishValidator();
     private static final ValidationHelper helper = ValidationHelper.getInstance();
 
-    private DishValidator(){}
+    private DishValidator() {
+    }
 
     public static void validate(Criteria criteria) throws ValidationException {
         if (criteria == null) {
@@ -35,7 +38,16 @@ public class DishValidator {
         }
     }
 
-    public static DishValidator getInstance(){
+    public static void validate(Dish dish) throws ValidationException {
+        helper.validateId(Integer.toString(dish.getIdDish()));
+       // helper.validateName(dish.getName());
+        helper.validateDescription(dish.getDescription());
+        helper.validatePrice(dish.getPrice().toString());
+        helper.validatePhotoUrl(dish.getPhotoUrl());
+    }
+
+
+    public static DishValidator getInstance() {
         return instance;
     }
 }

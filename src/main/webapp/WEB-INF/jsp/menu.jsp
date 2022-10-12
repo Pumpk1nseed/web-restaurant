@@ -1,3 +1,4 @@
+<%@ page import="by.gaponenko.restaurant.bean.Dish" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -34,11 +35,10 @@
 
         <div class="menu">
             <table>
-
                 <tr id="imagesRow">
                     <c:forEach items="${menu.getDishes()}" var="dish">
                         <c:if test="${dish.idCategory == category.idCategory}">
-                            <td>
+                            <td id="dish${dish.idDish}col">
                                 <img id="photoUrl${dish.idDish}_${category.idCategory}" src="${dish.photoUrl}"
                                      alt="photo of ${dish.name}" class="dish">
                             </td>
@@ -49,7 +49,8 @@
                 <tr id="namesRow">
                     <c:forEach items="${menu.getDishes()}" var="dish">
                         <c:if test="${dish.idCategory == category.idCategory}">
-                            <td><strong id="name${dish.idDish}_${category.idCategory}">${dish.name}</strong></td>
+                            <td id="dish${dish.idDish}col"><strong
+                                    id="name${dish.idDish}_${category.idCategory}">${dish.name}</strong></td>
                         </c:if>
                     </c:forEach>
                 </tr>
@@ -65,7 +66,8 @@
                 <tr id="pricesRow">
                     <c:forEach items="${menu.getDishes()}" var="dish">
                         <c:if test="${dish.idCategory == category.idCategory}">
-                            <td><br><strong id="price${dish.idDish}_${category.idCategory}"><p>${dish.price} BYN</p>
+                            <td id="dish${dish.idDish}col"><br><strong id="price${dish.idDish}_${category.idCategory}">
+                                <p>${dish.price} BYN</p>
                             </strong></td>
                         </c:if>
                     </c:forEach>
@@ -86,6 +88,18 @@
                                     <input type="submit" value="${btnAddFmt}" class="addDishToOrderBtn"
                                            id="addDishToOrder${dish.idDish}_${category.idCategory}"
                                            onclick="addDishToOrder(this,`${category.idCategory}`, `${dish.idDish}`)">
+                                </td>
+                            </c:if>
+                        </c:forEach>
+                    </tr>
+                </c:if>
+                <c:if test="${user.idRole == 2}">
+                    <tr id="editRow">
+                        <c:forEach items="${menu.getDishes()}" var="dish">
+                            <c:if test="${dish.idCategory == category.idCategory}">
+                                <td>
+                                    <a href="editDish?idEditedDish=${dish.idDish}&dishName=${dish.name}&dishDescription=${dish.description}&dishPrice=${dish.price}&photoUrl=${dish.photoUrl}"
+                                       class="editDish"> <img src="images/edit.png" style="width: 20px" class="imgInTd"></a>
                                 </td>
                             </c:if>
                         </c:forEach>

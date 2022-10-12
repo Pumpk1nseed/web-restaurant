@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-public class MenuServiceImpl implements MenuService{
+public class MenuServiceImpl implements MenuService {
     private static final DishValidator validator = DishValidator.getInstance();
     private final Logger log = LoggerFactory.getLogger(this.getClass());
     private static final MenuDao menuDao = DaoProvider.getInstance().getMenuDao();
@@ -42,6 +42,17 @@ public class MenuServiceImpl implements MenuService{
 
         try {
             return menuDao.find(criteria);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public boolean editDish(Dish dish) throws ServiceException {
+        DishValidator.validate(dish);
+
+        try {
+            return menuDao.editDish(dish);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
