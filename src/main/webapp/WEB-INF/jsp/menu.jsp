@@ -12,6 +12,7 @@
 <fmt:message bundle="${loc}" key="localization.link.Account" var="account_link"/>
 <fmt:message bundle="${loc}" key="localization.link.Basket" var="basket_link"/>
 <fmt:message bundle="${loc}" key="localization.link.SignIn" var="signIn_link"/>
+<fmt:message bundle="${loc}" key="localization.txt.removeDish" var="deletefmt"/>
 
 <link href="css/menu.css" rel="stylesheet">
 
@@ -44,6 +45,11 @@
                             </td>
                         </c:if>
                     </c:forEach>
+                    <c:if test="${user.idRole == 2}">
+                        <td rowspan="5">
+                            <a href="addNewDish?idCategory=${category.idCategory}" class="addNewDish"> <img src="images/add.png" style="width: 70px"></a>
+                        </td>
+                    </c:if>
                 </tr>
 
                 <tr id="namesRow">
@@ -100,6 +106,9 @@
                                 <td>
                                     <a href="editDish?idEditedDish=${dish.idDish}&dishName=${dish.name}&dishDescription=${dish.description}&dishPrice=${dish.price}&photoUrl=${dish.photoUrl}"
                                        class="editDish"> <img src="images/edit.png" style="width: 20px" class="imgInTd"></a>
+                                    <a href="/web_restaurant_war/controller?command=remove_dish_from_menu&&idDish=${dish.idDish}">
+                                        <img src="images/delete.png" alt="${deletefmt}" style="width: 20px">
+                                    </a>
                                 </td>
                             </c:if>
                         </c:forEach>

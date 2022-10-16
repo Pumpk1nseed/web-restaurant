@@ -10,6 +10,7 @@ import by.gaponenko.restaurant.dao.MenuDao;
 import by.gaponenko.restaurant.service.MenuService;
 import by.gaponenko.restaurant.service.ServiceException;
 import by.gaponenko.restaurant.service.validation.DishValidator;
+import com.oracle.wls.shaded.org.apache.bcel.generic.ATHROW;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -55,6 +56,28 @@ public class MenuServiceImpl implements MenuService {
             return menuDao.editDish(dish);
         } catch (DaoException e) {
             throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public int removeDish(Criteria criteria) throws ServiceException {
+        DishValidator.validate(criteria);
+
+        try {
+            return menuDao.removeDish(criteria);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public int addDish(Dish dish) throws ServiceException {
+        DishValidator.validate(dish);
+
+        try {
+            return menuDao.addDish(dish);
+        } catch (DaoException e) {
+            throw new ServiceException();
         }
     }
 

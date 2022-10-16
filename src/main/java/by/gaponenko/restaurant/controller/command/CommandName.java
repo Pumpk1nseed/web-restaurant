@@ -20,6 +20,8 @@ public enum CommandName {
     DELETE_ORDER,
     FIND_DISHES_BY,
     EDIT_DISH,
+    REMOVE_DISH_FROM_MENU,
+    ADD_DISH_TO_MENU,
     NO_SUCH_COMMAND
 
 }

@@ -28,7 +28,7 @@ public final class RequestParameterName {
     public static final String REQ_PARAM_DISHES= "dishes";
     public static final String REQ_PARAM_MENU = "menu";
     public static final String REQ_PARAM_DISH_CATEGORIES= "dish_categories";
-    public static final String REQ_PARAM_ID_CATEGORY = "id_category";
+    public static final String REQ_PARAM_ID_CATEGORY = "idCategory";
     public static final String REQ_PARAM_DISH_NAME = "dishName";
     public static final String REQ_PARAM_ID_EDITED_DISH = "idEditedDish";
     public static final String REQ_PARAM_DISH_DESCRIPTION = "dishDescription";

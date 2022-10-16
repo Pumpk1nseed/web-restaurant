@@ -54,12 +54,12 @@ public class EditDishCommand implements Command {
         }
     }
 
-    private void editDishInSession(HttpServletRequest req, Dish editedDish){
+    private void editDishInSession(HttpServletRequest req, Dish editedDish) {
         Menu menu = (Menu) req.getSession().getAttribute(RequestParameterName.REQ_PARAM_MENU);
         List<Dish> dishes = menu.getDishes();
 
-        for (Dish dish : dishes){
-            if (dish.getIdDish() == editedDish.getIdDish()){
+        for (Dish dish : dishes) {
+            if (dish.getIdDish() == editedDish.getIdDish()) {
                 dish.setName(editedDish.getName());
                 dish.setDescription(editedDish.getDescription());
                 dish.setPrice(editedDish.getPrice());

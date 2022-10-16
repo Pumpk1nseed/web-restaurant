@@ -39,7 +39,7 @@ public class DishValidator {
     }
 
     public static void validate(Dish dish) throws ValidationException {
-        helper.validateId(Integer.toString(dish.getIdDish()));
+       // helper.validateId(Integer.toString(dish.getIdDish()));
        // helper.validateName(dish.getName());
         helper.validateDescription(dish.getDescription());
         helper.validatePrice(dish.getPrice().toString());

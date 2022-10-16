@@ -14,8 +14,6 @@ import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Map;
 
 public class AddDishToOrderCommand implements Command {
@@ -25,13 +23,11 @@ public class AddDishToOrderCommand implements Command {
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws ControllerException {
         HttpSession session = req.getSession();
-        PrintWriter writer;
         Criteria criteria;
         Order order = (Order) session.getAttribute(RequestParameterName.REQ_PARAM_ORDER);
 
         order = checkExistance(session, order);
         try {
-            writer = resp.getWriter();
 
             criteria = new Criteria();
             criteria.add(SearchCriteria.Dish.ID_DISH.toString(), req.getParameter(RequestParameterName.REQ_PARAM_ID_DISH));
@@ -50,7 +46,7 @@ public class AddDishToOrderCommand implements Command {
 
             setDishQuantitySession(order.getOrderList(), session);
 
-        } catch (ServiceException | IOException e) {
+        } catch (ServiceException e) {
             log.error("Error occurred while trying to add dish to order", e);
             throw new ControllerException(e);
         }

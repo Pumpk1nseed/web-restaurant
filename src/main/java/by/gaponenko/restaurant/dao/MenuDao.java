@@ -17,4 +17,8 @@ public interface MenuDao {
 
     boolean editDish(Dish dish) throws DaoException;
 
+    int removeDish(Criteria criteria) throws DaoException;
+
+    int addDish(Dish dish) throws DaoException;
+
 }

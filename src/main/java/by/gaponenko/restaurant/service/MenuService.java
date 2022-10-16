@@ -16,4 +16,8 @@ public interface MenuService {
     List<Dish> find(Criteria criteria) throws ServiceException;
 
     boolean editDish (Dish dish) throws ServiceException;
+
+    int removeDish (Criteria criteria) throws ServiceException;
+
+    int addDish (Dish dish) throws ServiceException;
 }

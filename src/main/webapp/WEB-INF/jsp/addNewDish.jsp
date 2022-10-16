@@ -20,36 +20,35 @@
 <html>
 
 <head>
-    <title>Edit dish</title>
+    <title>Add new dish</title>
   <link href="css/editInfo.css" rel="stylesheet">
 </head>
 <body>
 
-<div class="title"><h1>Edit dish</h1></div>
+<div class="title"><h1>Add new dish</h1></div>
 
 <div class="entity">
   <div class="form-container">
     <form action="controller" method="post">
-      <input type="hidden" name="command" value="edit_dish">
-      <input id="idDish" class="inputData" type="hidden" name="idEditedDish" value="${param.idEditedDish}">
+      <input type="hidden" name="command" value="add_dish_to_menu">
+      <input id="idCategory" class="inputData" type="hidden" name="idCategory" value="${param.idCategory}">
       <div class="form-field">
         <label for="dishName">Блюдо</label>
-        <input autofocus id="dishName" class="inputData" type="text" name="dishName" value="${param.dishName}">
+        <input autofocus id="dishName" class="inputData" type="text" name="dishName" value="введите название">
       </div>
       <div class="form-field">
         <label for="dishDescription">Описание</label>
-        <input id="dishDescription" type="text" class="inputData" name="dishDescription" value="${param.dishDescription}">
+        <input id="dishDescription" type="text" class="inputData" name="dishDescription" value="введите вес в граммах">
       </div>
       <div class="form-field">
         <label for="dishPrice">Цена</label>
-        <input id="dishPrice" type="text" class="inputData" name="dishPrice" value="${param.dishPrice}">
+        <input id="dishPrice" type="text" class="inputData" name="dishPrice" value="введите цену">
       </div>
       <div class="form-field">
         <label for="photoUrl">Фото</label>
-        <input id="photoUrl" type="text" class="inputData" name="photoUrl" value="${param.photoUrl}">
-        <img src="${param.photoUrl}" alt="photo of ${param.dishName}" style="width: 300px">
+        <input id="photoUrl" type="text" class="inputData" name="photoUrl" value="путь к фото">
       </div>
-      <input id="login-submit" type="submit" class="submit" value="${changeFmt}">
+      <input id="login-submit" type="submit" class="submit" value="сохранить">
     </form>
   </div>
 </div>

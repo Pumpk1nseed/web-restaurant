@@ -25,7 +25,10 @@ public class SQLMenuDao implements MenuDao {
 
     private static final String GET_MENU = "SELECT * FROM menu where status = ?;";
     private static final String GET_DISH_CATEGORIES = "SELECT * FROM dish_categories";
+    private static final String GET_DISH_ID_BY_NAME = "SELECT id_dish FROM menu WHERE name=?";
     private static final String GET_DISH_BY_CRITERIA = "SELECT * FROM menu WHERE ";
+    private static final String ADD_DISH = "INSERT INTO menu (name, price, description, photo, id_category, status) VALUES(?,?,?,?,?,'active')";
+    private static final String REMOVE_DISH_BY_CRITERIA = "UPDATE menu SET status='removed' WHERE ";
     private static final String EDIT_DISH = "UPDATE menu SET name=?, price=?, description=?, photo=? where id_dish=?";
     private static final String AND = "AND ";
 
@@ -198,6 +201,80 @@ public class SQLMenuDao implements MenuDao {
         } finally {
             try {
                 connectionPool.closeConnection(connection, preparedStatement, null);
+            } catch (SQLException e) {
+                log.error("Error while close connection...", e);
+            }
+        }
+    }
+
+    @Override
+    public int removeDish(Criteria criteria) throws DaoException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        Map<String, Object> criteriaMap = criteria.getCriteria();
+
+        try {
+            connection = connectToDataBase(connection);
+
+            StringBuilder queryDishBuilder = new StringBuilder(REMOVE_DISH_BY_CRITERIA);
+            for (String criteriaName : criteriaMap.keySet()) {
+                queryDishBuilder.append(String.format("%s=? %s", criteriaName.toLowerCase(), AND));
+            }
+            queryDishBuilder = new StringBuilder(queryDishBuilder.substring(0, queryDishBuilder.length() - AND.length()));
+
+            preparedStatement = connection.prepareStatement(queryDishBuilder.toString());
+            int i = 1;
+            for (Object value : criteriaMap.values()){
+                preparedStatement.setString(i, value.toString());
+                i++;
+            }
+
+            return preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            log.error("Error when working with statements while removing dish from menu", e);
+            throw new DaoException("Error while removing dish from menu", e);
+        } finally {
+            try {
+                connectionPool.closeConnection(connection, preparedStatement, null);
+            } catch (SQLException e) {
+                log.error("Error while close connection...", e);
+            }
+        }
+    }
+
+    @Override
+    public int addDish(Dish dish) throws DaoException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = connectToDataBase(connection);
+
+            preparedStatement = connection.prepareStatement(ADD_DISH);
+            preparedStatement.setString(1, dish.getName());
+            preparedStatement.setBigDecimal(2, dish.getPrice());
+            preparedStatement.setString(3, dish.getDescription());
+            preparedStatement.setString(4, dish.getPhotoUrl());
+            preparedStatement.setInt(5, dish.getIdCategory());
+            preparedStatement.executeUpdate();
+
+            preparedStatement = connection.prepareStatement(GET_DISH_ID_BY_NAME);
+            preparedStatement.setString(1, dish.getName());
+            resultSet = preparedStatement.executeQuery();
+
+            resultSet.next();
+            int idNewDish = resultSet.getInt(1);
+            return idNewDish;
+
+        } catch (SQLException e) {
+            log.error("Error when working with statements while adding dish to menu", e);
+            throw new DaoException("Error while adding dish to menu", e);
+        } finally {
+            try {
+                connectionPool.closeConnection(connection, preparedStatement, resultSet);
             } catch (SQLException e) {
                 log.error("Error while close connection...", e);
             }
