@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="css/confirmationOfOrders.css">
 </head>
 <body>
-<div class="title"><h1>${orderConfirmFmt}</h1></div>
+<div class="title"><h1>Orders for cooking</h1></div>
 
 <div class="wrapper">
     <main class="main">
