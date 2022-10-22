@@ -145,6 +145,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>kitchen</servlet-name>
+        <jsp-file>/WEB-INF/jsp/kitchen.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>kitchen</servlet-name>
+        <url-pattern>/kitchen</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>main</servlet-name>
         <jsp-file>/WEB-INF/jsp/main.jsp</jsp-file>
     </servlet>

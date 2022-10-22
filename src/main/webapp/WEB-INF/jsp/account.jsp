@@ -85,19 +85,25 @@
                 <c:if test="${user.idRole == 2}">
                     <a href="/web_restaurant_war/controller?command=go_to_order_confirmation"><strong>${ordersForConfFmt}</strong></a>
                 </c:if>
-                <c:if test="${user.idRole != 2}">
+                <c:if test="${user.idRole == 1}">
                     <a href="/web_restaurant_war/controller?command=get_history_of_orders"><strong>${histTitleFmt}</strong></a>
-<%--                    <a href="ordersHistory"><strong>${histTitleFmt}</strong></a>--%>
+                    <%--                    <a href="ordersHistory"><strong>${histTitleFmt}</strong></a>--%>
                 </c:if>
-
+                <c:if test="${user.idRole == 3}">
+                    <a href="/web_restaurant_war/controller?command=go_to_order_cooking"><strong>orders for
+                        cooking</strong></a>
+                </c:if>
             </td>
             <td class="card">
                 <p>
                     <c:if test="${user.idRole == 2}">
                         <a href="/web_restaurant_war/controller?command=get_orders"><strong>${histTitleFmt}</strong></a>
                     </c:if>
-                    <c:if test="${user.idRole != 2}">
+                    <c:if test="${user.idRole == 1}">
                         <a href="basket"><strong>${basket_link}</strong></a>
+                    </c:if>
+                    <c:if test="${user.idRole == 3}">
+                        <a href="menu"><strong>${menuLower_link}</strong></a>
                     </c:if>
                 </p>
             </td>
@@ -111,9 +117,11 @@
                     <a href="editInfo"><strong>${changePersInfoFmt}</strong></a>
                 </c:if>
             </td>
-            <td class="card">
-                <a href="menu"><strong>${menuLower_link}</strong></a>
-            </td>
+            <c:if test="${user.idRole != 3}">
+                <td class="card">
+                    <a href="menu"><strong>${menuLower_link}</strong></a>
+                </td>
+            </c:if>
         </tr>
     </table>
 

@@ -1,6 +1,7 @@
 package by.gaponenko.restaurant.service;
 
 import by.gaponenko.restaurant.bean.Order;
+import by.gaponenko.restaurant.bean.OrderForCooking;
 import by.gaponenko.restaurant.bean.RegistrationUserData;
 import by.gaponenko.restaurant.bean.criteria.Criteria;
 import by.gaponenko.restaurant.dao.DaoException;
@@ -19,5 +20,7 @@ public interface OrderService {
     Map<Order, RegistrationUserData> findOrderByUsersInfo(Criteria criteria) throws ServiceException;
 
     boolean updateOrderStatus(int idOrder, String status) throws ServiceException;
+
+    List<OrderForCooking> findOrderByDishInfo(Criteria criteria) throws ServiceException;
 
 }

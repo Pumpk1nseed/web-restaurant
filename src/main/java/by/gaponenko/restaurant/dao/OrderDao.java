@@ -1,6 +1,7 @@
 package by.gaponenko.restaurant.dao;
 
 import by.gaponenko.restaurant.bean.Order;
+import by.gaponenko.restaurant.bean.OrderForCooking;
 import by.gaponenko.restaurant.bean.RegistrationUserData;
 import by.gaponenko.restaurant.bean.criteria.Criteria;
 
@@ -18,5 +19,7 @@ public interface OrderDao {
     Map<Order, RegistrationUserData> findOrdersByUsersInfo(Criteria criteria) throws DaoException;
 
     boolean updateOrderStatus(int idOrder, String status) throws DaoException;
+
+    List<OrderForCooking> findOrdersByDishInfo(Criteria criteria) throws DaoException;
 
 }

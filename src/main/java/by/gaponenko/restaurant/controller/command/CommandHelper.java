@@ -22,7 +22,9 @@ public class CommandHelper {
         commands.put(CommandName.DELETE_ORDER, new DeleteOrderCommand());
         commands.put(CommandName.MAKE_ORDER, new MakeOrderCommand());
         commands.put(CommandName.GO_TO_ORDER_CONFIRMATION, new GoToOrderConfirmationCommand());
+        commands.put(CommandName.GO_TO_ORDER_COOKING, new GoToOrderCookingCommand());
         commands.put(CommandName.CONFIRM_ORDER, new ConfirmOrderCommand());
+        commands.put(CommandName.COOK_ORDER, new CookOrderCommand());
         commands.put(CommandName.GET_HISTORY_OF_ORDERS, new GetHistoryOfOrdersCommand());
         commands.put(CommandName.SIGN_OUT, new SignOutCommand());
         commands.put(CommandName.GET_USER, new GetUserCommand());

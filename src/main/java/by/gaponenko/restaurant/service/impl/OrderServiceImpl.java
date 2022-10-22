@@ -1,6 +1,7 @@
 package by.gaponenko.restaurant.service.impl;
 
 import by.gaponenko.restaurant.bean.Order;
+import by.gaponenko.restaurant.bean.OrderForCooking;
 import by.gaponenko.restaurant.bean.RegistrationUserData;
 import by.gaponenko.restaurant.bean.criteria.Criteria;
 import by.gaponenko.restaurant.bean.criteria.SearchCriteria;
@@ -77,6 +78,17 @@ public class OrderServiceImpl implements OrderService {
         try {
             return orderDao.updateOrderStatus(idOrder, status);
         } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public List<OrderForCooking> findOrderByDishInfo(Criteria criteria) throws ServiceException {
+        validator.validate(criteria);
+
+        try {
+            return orderDao.findOrdersByDishInfo(criteria);
+        } catch (DaoException e){
             throw new ServiceException(e);
         }
     }

@@ -2,6 +2,7 @@ package by.gaponenko.restaurant.dao.impl;
 
 import by.gaponenko.restaurant.bean.Dish;
 import by.gaponenko.restaurant.bean.Order;
+import by.gaponenko.restaurant.bean.OrderForCooking;
 import by.gaponenko.restaurant.bean.RegistrationUserData;
 import by.gaponenko.restaurant.bean.criteria.Criteria;
 import by.gaponenko.restaurant.dao.DaoException;
@@ -36,6 +37,12 @@ public class SQLOrderDao implements OrderDao {
             "            LEFT JOIN users_details ud on ord.id_user = ud.id_user\n" +
             "            LEFT JOIN menu m on ordd.id_dish = m.id_dish\n" +
             "            where %s group by ord.id_order;";
+
+    private static final String GET_ORDERS_BY_DISH_INFO = "SELECT ord.id_order,  m.name, pm.name, quantity \n" +
+            "FROM orders ord \n" +
+            "LEFT JOIN order_details ordd on ordd.id_order = ord.id_order\n" +
+            "LEFT JOIN payment_methods pm on ordd.id_payment_method = pm.id_payment_methods\n" +
+            "LEFT JOIN menu m on ordd.id_dish = m.id_dish where %s;";
 
     private static final String UPDATE_ORDER_STATUS = "UPDATE orders SET status=? where id_order=?;";
     private static final String IN_PROCESSING = "in processing";
@@ -231,6 +238,56 @@ public class SQLOrderDao implements OrderDao {
         } catch (SQLException e) {
             log.error("Error occurred while updating order status", e);
             throw new DaoException("Error while working with database while updating order status", e);
+        } finally {
+            try {
+                connectionPool.closeConnection(connection, preparedStatement, resultSet);
+            } catch (SQLException e) {
+                log.error("Error while close connection...", e);
+            }
+        }
+    }
+
+    @Override
+    public List<OrderForCooking> findOrdersByDishInfo(Criteria criteria) throws DaoException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = connectToDataBase(connection);
+
+            Map<String, Object> criterias = criteria.getCriteria();
+
+            StringBuilder sqlBuilder = new StringBuilder("");
+            for (String criteriaName : criterias.keySet()) {
+                sqlBuilder.append("ord.").append(String.format("%s=? %s", criteriaName.toLowerCase(), AND));
+            }
+            sqlBuilder = new StringBuilder(sqlBuilder.substring(0, sqlBuilder.length() - AND.length()));
+            String queryBuilder = String.format(GET_ORDERS_BY_DISH_INFO, sqlBuilder);
+
+            preparedStatement = connection.prepareStatement(queryBuilder);
+            int i = 1;
+            for (Object value : criterias.values()) {
+                preparedStatement.setString(i, value.toString());
+                i++;
+            }
+            resultSet = preparedStatement.executeQuery();
+
+            List<OrderForCooking> ordersForCooking = new ArrayList<>();
+            while (resultSet.next()) {
+                OrderForCooking order = new OrderForCooking();
+                order.setIdOrder(resultSet.getInt(1));
+                order.setDishName(resultSet.getString(2));
+                order.setPaymentMethod(resultSet.getString(3));
+                order.setQuantity(resultSet.getInt(4));
+                ordersForCooking.add(order);
+            }
+
+            return ordersForCooking;
+
+        } catch (SQLException e) {
+            log.error("Error occurred while find orders by criteria", e);
+            throw new DaoException("Error while working with database while find orders by dish info", e);
         } finally {
             try {
                 connectionPool.closeConnection(connection, preparedStatement, resultSet);

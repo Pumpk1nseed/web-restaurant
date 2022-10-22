@@ -78,7 +78,7 @@
                         </c:if>
                     </c:forEach>
                 </tr>
-                <c:if test="${user.idRole != 2}">
+                <c:if test="${user.idRole == 1}">
                     <tr id="orderRow">
                         <c:forEach items="${menu.getDishes()}" var="dish">
                             <c:if test="${dish.idCategory == category.idCategory}">
@@ -99,7 +99,7 @@
                         </c:forEach>
                     </tr>
                 </c:if>
-                <c:if test="${user.idRole == 2}">
+                <c:if test="${user.idRole == 1}">
                     <tr id="editRow">
                         <c:forEach items="${menu.getDishes()}" var="dish">
                             <c:if test="${dish.idCategory == category.idCategory}">
@@ -118,7 +118,7 @@
         </div>
     </c:forEach>
 </div>
-<c:if test="${user.idRole != 2}">
+<c:if test="${user.idRole == 1}">
     <div class="basket"><a href="basket"><span>${basket_link}</span></a></div>
 </c:if>
 <c:if test="${sessionScope.user != null}">

@@ -85,8 +85,8 @@ public class SQLUserDao implements UserDao {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        /*        PreparedStatement preparedStatementForRole;*/
-        int idRole;
+        /*        PreparedStatement preparedStatementForRole;
+        int idRole; */
 
         try {
             connection = connectToDataBase(connection);
@@ -313,8 +313,6 @@ public class SQLUserDao implements UserDao {
                 preparedStatement.setString(1, newPassword);
                 preparedStatement.setInt(2, newUserData.getIdUser());
                 preparedStatement.executeUpdate();
-
-                preparedStatement.close();
             }
 
             preparedStatement = connection.prepareStatement(UPDATE_USER_DETAILS);
@@ -327,6 +325,7 @@ public class SQLUserDao implements UserDao {
             preparedStatement.setInt(7, newUserData.getIdUser());
             preparedStatement.executeUpdate();
 
+            connection.commit();
             return true;
 
         } catch (SQLException e) {
