@@ -99,7 +99,7 @@
                         </c:forEach>
                     </tr>
                 </c:if>
-                <c:if test="${user.idRole == 1}">
+                <c:if test="${user.idRole == 2}">
                     <tr id="editRow">
                         <c:forEach items="${menu.getDishes()}" var="dish">
                             <c:if test="${dish.idCategory == category.idCategory}">

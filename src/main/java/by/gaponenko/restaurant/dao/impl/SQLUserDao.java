@@ -24,15 +24,18 @@ public class SQLUserDao implements UserDao {
     private static final String FIND_AUTHORIZED_USER = "SELECT * FROM users WHERE login = ? AND password = ?;";
     private static final String FIND_USER_BY_LOGIN = "SELECT * FROM users WHERE login = ?;";
     private static final String FIND_USER_DETAILS_BY_CRITERIA = "SELECT * FROM users_details WHERE ";
-    private static final String GET_USERS_DETAILS = "SELECT * FROM users_details";
+    private static final String GET_USERS_DETAILS = "SELECT ud.id_user, u.login, ud.name, ud.surname, ud.last_name, ud.telephone_number, ud.address, ud.email, ud.date_of_birth, r.title, u.password\n" +
+            "FROM users_details ud LEFT JOIN users u on ud.id_user = u.id_user\n" +
+            "LEFT JOIN roles r on u.id_role = r.id_role\n" +
+            "where u.status = \"active\";";
     private static final String FIND_ROLE = "SELECT * FROM roles WHERE title = ?;";
-
     private static final String UPDATE_USER_PASSWORD = "UPDATE users SET password = ? WHERE id_user=?;";
+    private static final String UPDATE_USER = "UPDATE users SET login = ?, id_role = ? WHERE id_user=?;";
     private static final String UPDATE_USER_DETAILS = "UPDATE users_details SET name = ?, surname = ?, last_name = ?, telephone_number = ?, email = ?, address = ? WHERE id_user=?;";
     private static final String FIND_USERDATA_BY_ID = "SELECT * FROM users_details WHERE id_user = ?;";
     private static final String ADD_NEW_USER = "INSERT INTO users (login, password, id_role, status) VALUES(?,?,?,?);";
+    private static final String REMOVE_USER_BY_CRITERIA = "UPDATE users SET status='removed' WHERE ";
     private static final String REGISTER_USER_INFO = "INSERT INTO users_details(id_user, name, surname, last_name, date_of_birth, telephone_number, email, address) VALUES(?,?,?,?,?,?,?,?)";
-
     private static final String AND = "AND ";
 
     @Override
@@ -85,8 +88,7 @@ public class SQLUserDao implements UserDao {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        /*        PreparedStatement preparedStatementForRole;
-        int idRole; */
+        PreparedStatement preparedStatementForRole;
 
         try {
             connection = connectToDataBase(connection);
@@ -100,16 +102,17 @@ public class SQLUserDao implements UserDao {
             }
 
             //если введена роль
-/*            preparedStatementForRole = connection.prepareStatement(FIND_ROLE);
+            int idRole;
+            preparedStatementForRole = connection.prepareStatement(FIND_ROLE);
             preparedStatementForRole.setString(1, userData.getRole());
             resultSet = preparedStatementForRole.executeQuery();
             resultSet.next();
-            idRole = resultSet.getInt(1);*/
+            idRole = resultSet.getInt(1);
 
             preparedStatement = connection.prepareStatement(ADD_NEW_USER);
             preparedStatement.setString(1, userData.getLogin());
             preparedStatement.setString(2, userData.getPassword());
-            preparedStatement.setInt(3, 1);
+            preparedStatement.setInt(3, idRole);
             preparedStatement.setString(4, "active");
             preparedStatement.executeUpdate();
 
@@ -156,6 +159,7 @@ public class SQLUserDao implements UserDao {
 
         try {
             connection = connectToDataBase(connection);
+
 
             resultSet = findUserByLogin(connection, login);
 
@@ -268,18 +272,20 @@ public class SQLUserDao implements UserDao {
             connection = connectToDataBase(connection);
             preparedStatement = connection.prepareStatement(GET_USERS_DETAILS);
             resultSet = preparedStatement.executeQuery();
-
             usersData = new ArrayList<>();
             while (resultSet.next()) {
                 RegistrationUserData userData = new RegistrationUserData();
                 userData.setIdUser(resultSet.getInt(1));
-                userData.setName(resultSet.getString(2));
-                userData.setDateOfBirth(resultSet.getString(3));
-                userData.setTelephoneNumber(resultSet.getString(4));
-                userData.setAddress(resultSet.getString(5));
-                userData.setEmail(resultSet.getString(6));
-                userData.setSurname(resultSet.getString(7));
-                userData.setLastName(resultSet.getString(8));
+                userData.setLogin(resultSet.getString(2));
+                userData.setName(resultSet.getString(3));
+                userData.setSurname(resultSet.getString(4));
+                userData.setLastName(resultSet.getString(5));
+                userData.setTelephoneNumber(resultSet.getString(6));
+                userData.setAddress(resultSet.getString(7));
+                userData.setEmail(resultSet.getString(8));
+                userData.setDateOfBirth(resultSet.getString(9));
+                userData.setRole(resultSet.getString(10));
+                userData.setPassword(resultSet.getString(11));
                 usersData.add(userData);
             }
 
@@ -299,7 +305,7 @@ public class SQLUserDao implements UserDao {
     }
 
     @Override
-    public boolean updateUserData(RegistrationUserData newUserData, String newPassword) throws DaoException {
+    public boolean updateUserData(RegistrationUserData newUserData) throws DaoException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -308,9 +314,24 @@ public class SQLUserDao implements UserDao {
             connection = connectToDataBase(connection);
             connection.setAutoCommit(false);
 
-            if (newPassword != "") {
+            if (newUserData.getLogin() != null && newUserData.getRole() != null) {
+                int idRole;
+                preparedStatement = connection.prepareStatement(FIND_ROLE);
+                preparedStatement.setString(1, newUserData.getRole());
+                resultSet = preparedStatement.executeQuery();
+                resultSet.next();
+                idRole = resultSet.getInt(1);
+
+                preparedStatement = connection.prepareStatement(UPDATE_USER);
+                preparedStatement.setString(1, newUserData.getLogin());
+                preparedStatement.setInt(2, idRole);
+                preparedStatement.setInt(3, newUserData.getIdUser());
+                preparedStatement.executeUpdate();
+            }
+
+            if (newUserData.getPassword() != "" && newUserData.getPassword() != null) {
                 preparedStatement = connection.prepareStatement(UPDATE_USER_PASSWORD);
-                preparedStatement.setString(1, newPassword);
+                preparedStatement.setString(1, newUserData.getPassword());
                 preparedStatement.setInt(2, newUserData.getIdUser());
                 preparedStatement.executeUpdate();
             }
@@ -345,6 +366,43 @@ public class SQLUserDao implements UserDao {
             }
         }
 
+    }
+
+    @Override
+    public int removeUser(Criteria criteria) throws DaoException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        Map<String, Object> criteriaMap = criteria.getCriteria();
+
+        try {
+            connection = connectToDataBase(connection);
+
+            StringBuilder queryDishBuilder = new StringBuilder(REMOVE_USER_BY_CRITERIA);
+            for (String criteriaName : criteriaMap.keySet()) {
+                queryDishBuilder.append(String.format("%s=? %s", criteriaName.toLowerCase(), AND));
+            }
+            queryDishBuilder = new StringBuilder(queryDishBuilder.substring(0, queryDishBuilder.length() - AND.length()));
+
+            preparedStatement = connection.prepareStatement(queryDishBuilder.toString());
+            int i = 1;
+            for (Object value : criteriaMap.values()){
+                preparedStatement.setString(i, value.toString());
+                i++;
+            }
+
+            return preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            log.error("Error when working with statements while removing user", e);
+            throw new DaoException("Error while removing user", e);
+        } finally {
+            try {
+                connectionPool.closeConnection(connection, preparedStatement, null);
+            } catch (SQLException e) {
+                log.error("Error while close connection...", e);
+            }
+        }
     }
 
     private ResultSet findUserByLogin(Connection connection, String login) throws DaoException {

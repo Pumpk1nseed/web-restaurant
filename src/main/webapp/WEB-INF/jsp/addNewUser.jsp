@@ -41,7 +41,7 @@
 <div class="entity">
     <div class="register-form-container">
         <form action="controller" method="post">
-            <input type="hidden" name="command" value="registration"/>
+            <input type="hidden" name="command" value="add_new_user"/>
             <div class="form-field">
                 <input type="text" class="inputUserData" name="login" placeholder="${loginPhFmt}*" value=""/>
             </div>
@@ -67,19 +67,16 @@
                 <input type="text" class="inputUserData" name="address" placeholder="${addressFmt}*" value=""/>
             </div>
             <div class="form-field">
-                <input class="inputData" type="hidden" name="role" placeholder="${roleFmt}*" value="user"/>
-            </div>
-            <div class="form-field">
                 <input type="password" class="inputUserData" name="password" placeholder="${passwordFmt}*" value=""/>
             </div>
-            <button class="button">${regTitleFmt}</button>
+            <div class="form-field">
+                <input type="text" class="inputUserData" name="role" placeholder="${roleFmt}*" value="user"/>
+            </div>
+            <button class="button">add new User</button>
         </form>
     </div>
 </div>
 
-
-<div class="menu"><a href="menu"><span>${menuLower_link}</span></a></div>
-<div class="catharsisinfo"><a href="catharsisinfo"><span>${about_link}</span></a></div>
 <jsp:include page="/WEB-INF/jsp/footer.jsp"/>
 </body>
 </html>

@@ -8,6 +8,7 @@ import by.gaponenko.restaurant.dao.DaoProvider;
 import by.gaponenko.restaurant.dao.UserDao;
 import by.gaponenko.restaurant.service.ServiceException;
 import by.gaponenko.restaurant.service.UserService;
+import by.gaponenko.restaurant.service.validation.DishValidator;
 import by.gaponenko.restaurant.service.validation.UserDataValidator;
 import by.gaponenko.restaurant.service.validation.ValidationException;
 import org.slf4j.Logger;
@@ -90,7 +91,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean updateUserData(RegistrationUserData newUserData, String newPassword) throws ServiceException {
+    public boolean updateUserData(RegistrationUserData newUserData) throws ServiceException {
         if (newUserData.getSurname() == null || newUserData.getName() == null
                 || newUserData.getTelephoneNumber() == null){
             log.info("Smth in user data is null");
@@ -101,11 +102,22 @@ public class UserServiceImpl implements UserService {
 
         boolean updated = false;
         try {
-            updated = userDao.updateUserData(newUserData, newPassword);
+            updated = userDao.updateUserData(newUserData);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
         return updated;
+    }
+
+    @Override
+    public int removeUser(Criteria criteria) throws ServiceException {
+        validator.validate(criteria);
+
+        try {
+            return userDao.removeUser(criteria);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
     }
 
 }

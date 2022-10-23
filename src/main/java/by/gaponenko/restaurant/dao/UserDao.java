@@ -18,8 +18,11 @@ public interface UserDao {
     RegistrationUserData loadUserDataByLogin(String login) throws DaoException;
 
     List<RegistrationUserData> find(Criteria criteria) throws DaoException;
+
     List<RegistrationUserData> getUsers() throws DaoException;
 
-    boolean updateUserData(RegistrationUserData newUserData, String newPassword) throws DaoException;
+    boolean updateUserData(RegistrationUserData newUserData) throws DaoException;
+
+    int removeUser(Criteria criteria) throws DaoException;
 
 }

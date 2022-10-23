@@ -16,9 +16,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-
-public class UpdatePersonalInfoCommand implements Command {
-
+public class EditUserCommand implements Command {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
     UserService userService = ServiceProvider.getInstance().getUserService();
 
@@ -31,22 +29,24 @@ public class UpdatePersonalInfoCommand implements Command {
         String email = req.getParameter(RequestParameterName.REQ_PARAM_EMAIL);
         String address = req.getParameter(RequestParameterName.REQ_PARAM_ADDRESS);
         String newPassword = req.getParameter(RequestParameterName.REQ_PARAM_PASSWORD);
+        String role = req.getParameter(RequestParameterName.REQ_PARAM_ROLE);
+        String login = req.getParameter(RequestParameterName.REQ_PARAM_LOGIN);
+        int idUser = Integer.parseInt(req.getParameter(RequestParameterName.REQ_PARAM_ID_EDITED_USER));
 
-        User currentUser = (User) req.getSession().getAttribute(RequestParameterName.REQ_PARAM_USER);
-        RegistrationUserData currentUserData = (RegistrationUserData) req.getSession().getAttribute(RequestParameterName.REQ_PARAM_USER_DATA);
+        RegistrationUserData newUserData = new RegistrationUserData();
+        newUserData.setIdUser(idUser);
+        newUserData.setLogin(login);
+        newUserData.setName(userName);
+        newUserData.setSurname(surName);
+        newUserData.setLastName(lastName);
+        newUserData.setPassword(newPassword);
+        newUserData.setRole(role);
+        newUserData.setTelephoneNumber(telephoneNumber);
+        newUserData.setAddress(address);
+        newUserData.setEmail(email);
 
         try {
-            currentUserData.setName(userName);
-            currentUserData.setSurname(surName);
-            currentUserData.setLastName(lastName);
-            currentUserData.setTelephoneNumber(telephoneNumber);
-            currentUserData.setEmail(email);
-            currentUserData.setAddress(address);
-            currentUserData.setPassword(newPassword);
-
-            currentUser.setPassword(newPassword);
-
-            userService.updateUserData(currentUserData);
+            userService.updateUserData(newUserData);
             resp.sendRedirect(JSPPageName.EDIT_SUCCESS_PAGE);
 
         } catch (IOException e) {

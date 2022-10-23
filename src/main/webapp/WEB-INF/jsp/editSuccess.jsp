@@ -27,5 +27,6 @@
     <h1 style="color: darkorange">${successEditFmt}</h1>
 </div>
 <input class="backBtn" type="button" onclick="history.back();" value="${backFmt}"/>
+<a href="account"><span>account</span></a>
 </body>
 </html>

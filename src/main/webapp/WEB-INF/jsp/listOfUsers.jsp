@@ -29,33 +29,48 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/jsp/header.jsp"/>
-
+<div class="title"><h1>List of Users</h1></div>
 <%--<c:if test="${users == null}">
     <jsp:forward page="controller">
         <jsp:param name="command" value="get_user"/>
     </jsp:forward>
 </c:if>--%>
-
 <c:if test="${users.size() > 0}">
     <div class="wrapper">
         <main class="main">
+            <a href="addNewUser" class="addNewUser"> <img src="images/add.png" style="width: 50px; margin-left: 0px"></a>
+            <br>
             <table>
                 <th>№</th>
+                <th>login</th>
                 <th>${nameFmt}</th>
                 <th>${surnameFmt}</th>
                 <th>${lastNameFmt}</th>
                 <th>${addressFmt}</th>
                 <th>${phoneFmt}</th>
                 <th>${mailFmt}</th>
+                <th>role</th>
+                <th>Edit user</th>
                 <c:forEach items="${users}" var="user">
                     <tr>
                         <td>${user.idUser}</td>
+                        <td>${user.login}</td>
                         <td>${user.name}</td>
                         <td>${user.surname}</td>
                         <td>${user.lastName}</td>
                         <td>${user.address}</td>
                         <td>${user.telephoneNumber}</td>
                         <td>${user.email}</td>
+                        <td>${user.role}</td>
+                        <td>
+                            <a href="editUser?idEditedUser=${user.idUser}&name=${user.name}&surname=${user.surname}&last_name=${user.lastName}&address=${user.address}&telephone_number=${user.telephoneNumber}&email=${user.email}&role=${user.role}&login=${user.login}&password=${user.password}"
+                               class="editUser"> <img src="images/edit.png" style="width: 20px"
+                                                      class="imgInTd"></a>
+                            <a href="/web_restaurant_war/controller?command=remove_user&&idUserToRemove=${user.idUser}">
+                                <img src="images/delete.png" alt="${deletefmt}" style="width: 20px">
+                            </a>
+
+                        </td>
                     </tr>
                 </c:forEach>
             </table>

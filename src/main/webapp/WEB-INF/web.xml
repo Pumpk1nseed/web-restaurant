@@ -118,6 +118,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>editUser</servlet-name>
+        <jsp-file>/WEB-INF/jsp/editUser.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>editUser</servlet-name>
+        <url-pattern>/editUser</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>editDish</servlet-name>
         <jsp-file>/WEB-INF/jsp/editDish.jsp</jsp-file>
     </servlet>
@@ -133,6 +142,15 @@
     <servlet-mapping>
         <servlet-name>addNewDish</servlet-name>
         <url-pattern>/addNewDish</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>addNewUser</servlet-name>
+        <jsp-file>/WEB-INF/jsp/addNewUser.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>addNewUser</servlet-name>
+        <url-pattern>/addNewUser</url-pattern>
     </servlet-mapping>
 
     <servlet>

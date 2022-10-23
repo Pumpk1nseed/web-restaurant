@@ -28,6 +28,9 @@ public class CommandHelper {
         commands.put(CommandName.GET_HISTORY_OF_ORDERS, new GetHistoryOfOrdersCommand());
         commands.put(CommandName.SIGN_OUT, new SignOutCommand());
         commands.put(CommandName.GET_USER, new GetUserCommand());
+        commands.put(CommandName.EDIT_USER, new EditUserCommand());
+        commands.put(CommandName.ADD_NEW_USER, new AddNewUserCommand());
+        commands.put(CommandName.REMOVE_USER, new RemoveUserCommand());
         commands.put(CommandName.GET_ORDERS, new GetOrdersCommand());
         commands.put(CommandName.FIND_DISHES_BY, new FindDishesByCommand());
         commands.put(CommandName.EDIT_DISH, new EditDishCommand());

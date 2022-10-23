@@ -10,6 +10,7 @@ public final class RequestParameterName {
 
     public static final String REQ_PARAM_COMMAND_NAME = "command";
     public static final String REQ_PARAM_USER_DATA = "user_info";
+    public static final String REQ_PARAM_ID_EDITED_USER = "idEditedUser";
     public static final String REQ_PARAM_LOGIN = "login";
     public static final String REQ_PARAM_PASSWORD = "password";
     public static final String REQ_PARAM_NAME = "name";
@@ -37,6 +38,7 @@ public final class RequestParameterName {
     public static final String REQ_PARAM_PAYMENT_METHODS = "paymentMethods";
     public static final String REQ_PARAM_PAYMENT_BY = "paymentBy";
     public static final String REQ_PARAM_USER = "user";
+    public static final String REQ_PARAM_ID_USER_TO_REMOVE = "idUserToRemove";
     public static final String REQ_PARAM_USERS = "users";
     public static final String REQ_PARAM_ORDERS_HISTORY = "ordersHistory";
     public static final String REQ_PARAM_CONFIRMED_ORDER_ID = "confirmedOrderId";
