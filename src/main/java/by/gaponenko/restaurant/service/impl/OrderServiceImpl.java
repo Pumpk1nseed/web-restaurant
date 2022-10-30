@@ -63,6 +63,15 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public Map<Order, RegistrationUserData> getOrdersHistory() throws ServiceException {
+        try {
+            return orderDao.getOrdersHistory();
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
     public Map<Order, RegistrationUserData> findOrderByUsersInfo(Criteria criteria) throws ServiceException {
         validator.validate(criteria);
 
@@ -88,7 +97,7 @@ public class OrderServiceImpl implements OrderService {
 
         try {
             return orderDao.findOrdersByDishInfo(criteria);
-        } catch (DaoException e){
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }

@@ -19,11 +19,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kitchen</title>
+    <title>Orders for delivering</title>
     <link rel="stylesheet" href="css/confirmationOfOrders.css">
 </head>
 <body>
-<div class="title"><h1>Orders for cooking</h1></div>
+<div class="title"><h1>Orders for delivering</h1></div>
 
 <div class="wrapper">
     <main class="main">
@@ -34,20 +34,22 @@
                 <th>name of dish</th>
                 <th>payment method</th>
                 <th>quantity</th>
+                <th>payment</th>
                 <th>status</th>
             </div>
 
-            <c:forEach items="${ordersForCooking}" var="order">
+            <c:forEach items="${ordersForDelivering}" var="order">
                 <tr>
                     <td>${order.idOrder}</td>
                     <td>${order.dishName}</td>
                     <td>${order.paymentMethod}</td>
                     <td>${order.quantity}</td>
+                    <td>оплата</td>
                     <td>
                         <form action="controller" method="post">
-                            <input type="hidden" name="command" value="cook_order">
-                            <input type="hidden" name="cookedOrderId" value="${order.idOrder}">
-                            <input type="submit" value="Cooked &#10004;" id="cookBtn">
+                            <input type="hidden" name="command" value="deliver_order">
+                            <input type="hidden" name="deliveredOrderId" value="${order.idOrder}">
+                            <input type="submit" value="Delivered &#10004;" id="deliverBtn">
                         </form>
                     </td>
                 </tr>

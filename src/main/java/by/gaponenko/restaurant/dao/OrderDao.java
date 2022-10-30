@@ -16,6 +16,8 @@ public interface OrderDao {
 
     List<Order> getOrdersHistory(int idUser) throws DaoException;
 
+    Map<Order, RegistrationUserData>  getOrdersHistory() throws DaoException;
+
     Map<Order, RegistrationUserData> findOrdersByUsersInfo(Criteria criteria) throws DaoException;
 
     boolean updateOrderStatus(int idOrder, String status) throws DaoException;

@@ -21,14 +21,16 @@ public class SQLOrderDao implements OrderDao {
 
     private static final String ADD_NEW_ORDER = "INSERT INTO orders (date, id_user, status) VALUES (?, ?, ?)";
     private static final String ADD_ORDER_DETAILS = "INSERT INTO order_details (id_order, id_dish, quantity, id_payment_method) VALUES (?, ?, ?, ?)";
-    private static final String GET_ORDERS = "SELECT ord.id_order, SUM(ordd.quantity * m.price) as 'total',  ord.date, ord.status\n" +
+    private static final String GET_ORDERS_BY_USER_ID = "SELECT ord.id_order, SUM(ordd.quantity * m.price) as 'total',  ord.date, ord.status\n" +
             "FROM orders ord LEFT JOIN order_details ordd on ordd.id_order = ord.id_order \n" +
             "LEFT JOIN menu m on ordd.id_dish = m.id_dish \n" +
             "where id_user=? group by ord.id_order;";
 
-    private static final String GET_ALL_ORDERS = "SELECT ord.id_order, SUM(ordd.quantity * m.price) as 'total',  ord.date, id_user, ord.status\n" +
+    private static final String GET_ALL_ORDERS = "SELECT ord.id_order, SUM(ordd.quantity * m.price) as 'total',  ord.date, ord.status, ud.name, ud.surname, ud.address, ud.telephone_number\n" +
             "            FROM orders ord LEFT JOIN order_details ordd on ordd.id_order = ord.id_order\n" +
-            "            LEFT JOIN menu m on ordd.id_dish = m.id_dish group by ord.id_order;";
+            "            LEFT JOIN users_details ud on ord.id_user = ud.id_user\n" +
+            "            LEFT JOIN menu m on ordd.id_dish = m.id_dish\n" +
+            "            group by ord.id_order;";
 
     private static final String GET_DISH_LIST_BY_ORDER_ID = "SELECT m.name, m.description, m.price, ordd.quantity FROM order_details ordd LEFT JOIN menu m on ordd.id_dish = m.id_dish where id_order=?;";
 
@@ -129,7 +131,7 @@ public class SQLOrderDao implements OrderDao {
         try {
             connection = connectToDataBase(connection);
 
-            preparedStatement = connection.prepareStatement(GET_ORDERS);
+            preparedStatement = connection.prepareStatement(GET_ORDERS_BY_USER_ID);
             preparedStatement.setInt(1, idUser);
             resultSet = preparedStatement.executeQuery();
 
@@ -147,6 +149,51 @@ public class SQLOrderDao implements OrderDao {
             }
 
             return orders;
+
+        } catch (SQLException e) {
+            log.error("Error occurred while get orders history", e);
+            throw new DaoException("Error while working with database while get orders history", e);
+        } finally {
+            try {
+                connectionPool.closeConnection(connection, preparedStatement, resultSet);
+            } catch (SQLException e) {
+                log.error("Error while close connection...", e);
+            }
+        }
+    }
+
+    @Override
+    public Map<Order, RegistrationUserData> getOrdersHistory() throws DaoException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        Map<Order, RegistrationUserData> orderUsedDataMap;
+
+        try {
+            connection = connectToDataBase(connection);
+
+            preparedStatement = connection.prepareStatement(GET_ALL_ORDERS);
+            resultSet = preparedStatement.executeQuery();
+
+            orderUsedDataMap = new LinkedHashMap<>();
+            while (resultSet.next()) {
+                Order order = new Order();
+                order.setIdOrder(resultSet.getInt(1));
+                order.setPrice(resultSet.getBigDecimal(2));
+                order.setDateTime(resultSet.getTimestamp(3));
+                order.setStatus(resultSet.getString(4));
+
+                RegistrationUserData userData = new RegistrationUserData();
+                userData.setName(resultSet.getString(5));
+                userData.setSurname(resultSet.getString(6));
+                userData.setAddress(resultSet.getString(7));
+                userData.setTelephoneNumber(resultSet.getString(8));
+
+                orderUsedDataMap.put(order, userData);
+            }
+
+            return orderUsedDataMap;
 
         } catch (SQLException e) {
             log.error("Error occurred while get orders history", e);

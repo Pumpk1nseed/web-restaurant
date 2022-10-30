@@ -19,16 +19,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GoToOrderCookingCommand implements Command {
+public class GoToOrderDeliveringCommand implements Command {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
     OrderService orderService = ServiceProvider.getInstance().getOrderService();
 
-    private static final String STATUS_CONFIRMED = "confirmed";
+    private static final String STATUS_COOKED = "cooked";
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws ControllerException {
         Criteria criteria = new Criteria();
-        criteria.add(SearchCriteria.Order.STATUS.name(), STATUS_CONFIRMED);
+        criteria.add(SearchCriteria.Order.STATUS.name(), STATUS_COOKED);
 
         try {
             List<OrderForCooking> ordersForCooking = orderService.findOrderByDishInfo(criteria);
@@ -52,15 +52,15 @@ public class GoToOrderCookingCommand implements Command {
                 }
             }
 
-            req.getSession().setAttribute(RequestParameterName.REQ_PARAM_ORDERS_FOR_COOKING, ordersForCookingGroupByDish);
+            req.getSession().setAttribute(RequestParameterName.REQ_PARAM_ORDERS_FOR_DELIVERING, ordersForCookingGroupByDish);
 
-            resp.sendRedirect(JSPPageName.KITCHEN_PAGE);
+            resp.sendRedirect(JSPPageName.DELIVERING_PAGE);
 
         } catch (ServiceException e) {
-            log.error("Error while getting orders for cooking", e);
+            log.error("Error while getting orders for delivering", e);
             throw new ControllerException(e);
         } catch (IOException e) {
-            log.error("Invalid address redirect while getting orders for cooking", e);
+            log.error("Invalid address redirect while getting orders for delivering", e);
             throw new ControllerException(e);
         }
     }

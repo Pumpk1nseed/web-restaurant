@@ -12,6 +12,7 @@ public class JSPPageName {
     public static final String CHECKOUT_PAGE = "checkout";
     public static final String CONFIRM_PAGE = "confirmation";
     public static final String KITCHEN_PAGE = "kitchen";
+    public static final String DELIVERING_PAGE = "delivering";
     public static final String HOME_PAGE = "home";
     public static final String ORDERS_HISTORY_PAGE = "ordersHistory";
     public static final String ORDERS_HISTORY_FOR_ADMIN_PAGE= "ordersHistoryForAdmin";

@@ -22,18 +22,18 @@ import java.util.Map;
 public class GetOrdersCommand implements Command {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
     private static final ServiceProvider serviceProvider = ServiceProvider.getInstance();
-    private static final String SQL_PREFIX = "ord.";
-    private static final String CONFIRMED= "confirmed";
+/*    private static final String SQL_PREFIX = "ord.";
+    private static final String CONFIRMED= "cooked";*/
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws ControllerException {
         OrderService orderService = serviceProvider.getOrderService();
 
-        Criteria criteria = new Criteria();
-        criteria.add(SQL_PREFIX + SearchCriteria.Order.STATUS.toString(), CONFIRMED);
+/*        Criteria criteria = new Criteria();
+        criteria.add(SQL_PREFIX + SearchCriteria.Order.STATUS.toString(), CONFIRMED);*/
 
         Map<Order, RegistrationUserData> orderUsedDataMap = null;
         try {
-            orderUsedDataMap = orderService.findOrderByUsersInfo(criteria);
+            orderUsedDataMap = orderService.getOrdersHistory();
         } catch (ServiceException e) {
             log.error("Error while getting all orders", e);
             throw new ControllerException(e);

@@ -93,20 +93,26 @@
                     <a href="/web_restaurant_war/controller?command=go_to_order_cooking"><strong>orders for
                         cooking</strong></a>
                 </c:if>
+                <c:if test="${user.idRole == 4}">
+                    <a href="/web_restaurant_war/controller?command=go_to_order_delivering"><strong>orders for
+                        delivering</strong></a>
+                </c:if>
             </td>
-            <td class="card">
-                <p>
-                    <c:if test="${user.idRole == 2}">
-                        <a href="/web_restaurant_war/controller?command=get_orders"><strong>${histTitleFmt}</strong></a>
-                    </c:if>
-                    <c:if test="${user.idRole == 1}">
-                        <a href="basket"><strong>${basket_link}</strong></a>
-                    </c:if>
-                    <c:if test="${user.idRole == 3}">
-                        <a href="menu"><strong>${menuLower_link}</strong></a>
-                    </c:if>
-                </p>
-            </td>
+            <c:if test="${user.idRole != 4}">
+                <td class="card">
+                    <p>
+                        <c:if test="${user.idRole == 1}">
+                            <a href="basket"><strong>${basket_link}</strong></a>
+                        </c:if>
+                        <c:if test="${user.idRole == 2}">
+                            <a href="/web_restaurant_war/controller?command=get_orders"><strong>${histTitleFmt}</strong></a>
+                        </c:if>
+                        <c:if test="${user.idRole == 3}">
+                            <a href="menu"><strong>${menuLower_link}</strong></a>
+                        </c:if>
+                    </p>
+                </td>
+            </c:if>
         </tr>
         <tr>
             <td class="card">
@@ -118,9 +124,11 @@
                 </c:if>
             </td>
             <c:if test="${user.idRole != 3}">
-                <td class="card">
-                    <a href="menu"><strong>${menuLower_link}</strong></a>
-                </td>
+                <c:if test="${user.idRole != 4}">
+                    <td class="card">
+                        <a href="menu"><strong>${menuLower_link}</strong></a>
+                    </td>
+                </c:if>
             </c:if>
         </tr>
     </table>

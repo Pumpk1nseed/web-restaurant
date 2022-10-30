@@ -17,6 +17,8 @@ public interface OrderService {
 
     List<Order> getOrdersHistory (int idUser) throws ServiceException;
 
+    Map<Order, RegistrationUserData> getOrdersHistory() throws ServiceException;
+
     Map<Order, RegistrationUserData> findOrderByUsersInfo(Criteria criteria) throws ServiceException;
 
     boolean updateOrderStatus(int idOrder, String status) throws ServiceException;
