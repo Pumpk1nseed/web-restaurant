@@ -25,6 +25,8 @@
 <fmt:message bundle="${loc}" key="localization.button.UpdateBtn" var="updateBtn"/>
 <fmt:message bundle="${loc}" key="localization.txt.Change" var="changeFmt"/>
 <fmt:message bundle="${loc}" key="localization.txt.OrdersForConf" var="ordersForConfFmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.OrdersForCook" var="ordersForCookFmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.OrdersForDel" var="ordersForDelFmt"/>
 <fmt:message bundle="${loc}" key="localization.txt.UsersInfo" var="usersInfoFmt"/>
 <fmt:message bundle="${loc}" key="localization.txt.ChangePersInfo" var="changePersInfoFmt"/>
 <fmt:message bundle="${loc}" key="localization.txt.BackPh" var="backFmt"/>
@@ -87,15 +89,12 @@
                 </c:if>
                 <c:if test="${user.idRole == 1}">
                     <a href="/web_restaurant_war/controller?command=get_history_of_orders"><strong>${histTitleFmt}</strong></a>
-                    <%--                    <a href="ordersHistory"><strong>${histTitleFmt}</strong></a>--%>
                 </c:if>
                 <c:if test="${user.idRole == 3}">
-                    <a href="/web_restaurant_war/controller?command=go_to_order_cooking"><strong>orders for
-                        cooking</strong></a>
+                    <a href="/web_restaurant_war/controller?command=go_to_order_cooking"><strong>${ordersForCookFmt}</strong></a>
                 </c:if>
                 <c:if test="${user.idRole == 4}">
-                    <a href="/web_restaurant_war/controller?command=go_to_order_delivering"><strong>orders for
-                        delivering</strong></a>
+                    <a href="/web_restaurant_war/controller?command=go_to_order_delivering"><strong>${ordersForDelFmt}</strong></a>
                 </c:if>
             </td>
             <c:if test="${user.idRole != 4}">

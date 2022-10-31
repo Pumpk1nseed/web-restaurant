@@ -12,6 +12,16 @@
 <fmt:setBundle basename="localization" var="loc"/>
 
 <fmt:message bundle="${loc}" key="localization.txt.Change" var="changeFmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.EntName" var="entNameFmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.AddDish" var="addDishFmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.EntDescr" var="entDescrFmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.EntPrice" var="entPriceFmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.EntUrl" var="entUrlFmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.Dish" var="dishFmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.Description" var="weightFmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.Price" var="priceFmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.Photo" var="photoFmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.Save" var="saveFmt"/>
 <fmt:message bundle="${loc}" key="localization.link.MenuLower" var="menuLower_link"/>
 <fmt:message bundle="${loc}" key="localization.link.Basket" var="basket_link"/>
 
@@ -20,12 +30,12 @@
 <html>
 
 <head>
-    <title>Add new dish</title>
+    <title>${addDishFmt}</title>
   <link href="css/editInfo.css" rel="stylesheet">
 </head>
 <body>
 
-<div class="title"><h1>Add new dish</h1></div>
+<div class="title"><h1>${addDishFmt}</h1></div>
 
 <div class="entity">
   <div class="form-container">
@@ -33,22 +43,22 @@
       <input type="hidden" name="command" value="add_dish_to_menu">
       <input id="idCategory" class="inputData" type="hidden" name="idCategory" value="${param.idCategory}">
       <div class="form-field">
-        <label for="dishName">Блюдо</label>
-        <input autofocus id="dishName" class="inputData" type="text" name="dishName" value="введите название">
+        <label for="dishName">${dishFmt}</label>
+        <input autofocus id="dishName" class="inputData" type="text" name="dishName" value="${entNameFmt}">
       </div>
       <div class="form-field">
-        <label for="dishDescription">Описание</label>
-        <input id="dishDescription" type="text" class="inputData" name="dishDescription" value="введите вес в граммах">
+        <label for="dishDescription">${weightFmt}</label>
+        <input id="dishDescription" type="text" class="inputData" name="dishDescription" value="${entDescrFmt}">
       </div>
       <div class="form-field">
-        <label for="dishPrice">Цена</label>
-        <input id="dishPrice" type="text" class="inputData" name="dishPrice" value="введите цену">
+        <label for="dishPrice">${priceFmt}</label>
+        <input id="dishPrice" type="text" class="inputData" name="dishPrice" value="${entPriceFmt}">
       </div>
       <div class="form-field">
-        <label for="photoUrl">Фото</label>
-        <input id="photoUrl" type="text" class="inputData" name="photoUrl" value="путь к фото">
+        <label for="photoUrl">${photoFmt}</label>
+        <input id="photoUrl" type="text" class="inputData" name="photoUrl" value="${entUrlFmtFmt}">
       </div>
-      <input id="login-submit" type="submit" class="submit" value="сохранить">
+      <input id="login-submit" type="submit" class="submit" value="${saveFmt}">
     </form>
   </div>
 </div>

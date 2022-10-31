@@ -21,6 +21,7 @@
 <fmt:message bundle="${loc}" key="localization.txt.DateBirthPh" var="dateBirthFmt"/>
 <fmt:message bundle="${loc}" key="localization.txt.MailPh" var="mailFmt"/>
 <fmt:message bundle="${loc}" key="localization.txt.AddressPh" var="addressFmt"/>
+<fmt:message bundle="${loc}" key="localization.button.AddUser" var="addUserFmt"/>
 <fmt:message bundle="${loc}" key="localization.txt.RolePh" var="roleFmt"/>
 <fmt:message bundle="${loc}" key="localization.txt.RegistrationTitlePh" var="regTitleFmt"/>
 <fmt:message bundle="${loc}" key="localization.txt.BackPh" var="backFmt"/>
@@ -31,12 +32,12 @@
 
 <html>
 <head>
-    <title>${regTitleFmt}</title>
+    <title>${addUserFmt}</title>
     <link href="css/registration.css" rel="stylesheet">
 </head>
 <body>
 
-<div class="titleReg"><h1>${regTitleFmt}</h1></div>
+<div class="titleReg"><h1>${addUserFmt}</h1></div>
 
 <div class="entity">
     <div class="register-form-container">
@@ -72,7 +73,7 @@
             <div class="form-field">
                 <input type="text" class="inputUserData" name="role" placeholder="${roleFmt}*" value="user"/>
             </div>
-            <button class="button">add new User</button>
+            <button class="button">${addUserFmt}</button>
         </form>
     </div>
 </div>

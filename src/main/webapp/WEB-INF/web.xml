@@ -173,7 +173,7 @@
 
     <servlet>
         <servlet-name>kitchen</servlet-name>
-        <jsp-file>/WEB-INF/jsp/kitchen.jsp</jsp-file>
+        <jsp-file>/WEB-INF/jsp/ordersForCooking.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
         <servlet-name>kitchen</servlet-name>

@@ -31,12 +31,6 @@
 <body>
 <jsp:include page="/WEB-INF/jsp/header.jsp"/>
 
-<%--<c:if test="${orders == null}">
-    <jsp:forward page="controller">
-        <jsp:param name="command" value="get_orders"/>
-    </jsp:forward>
-</c:if>--%>
-
 <div class="title"><h1>${orderHistFmt}</h1></div>
 
 <div class="wrapper">

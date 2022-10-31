@@ -17,6 +17,10 @@
 <fmt:message bundle="${loc}" key="localization.txt.Phone" var="phoneFmt"/>
 <fmt:message bundle="${loc}" key="localization.txt.Mail" var="emailFmt"/>
 <fmt:message bundle="${loc}" key="localization.txt.Address" var="addressFmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.EditUser" var="editUserFmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.Role" var="roleFmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.NewPassword" var="newPassFmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.Login" var="loginFmt"/>
 <fmt:message bundle="${loc}" key="localization.txt.BackPh" var="backFmt"/>
 <fmt:message bundle="${loc}" key="localization.txt.Change" var="changeFmt"/>
 <fmt:message bundle="${loc}" key="localization.txt.ChangePersInfo" var="changePersInfoFmt"/>
@@ -27,12 +31,12 @@
 
 <html>
 <head>
-    <title>Edit info</title>
+    <title>${editUserFmt}</title>
     <link href="css/editInfo.css" rel="stylesheet">
 </head>
 <body>
 
-<div class="title"><h1>Edit user</h1></div>
+<div class="title"><h1>${editUserFmt}</h1></div>
 
 <div class="entity">
     <div class="form-container">
@@ -44,7 +48,7 @@
                        value="${param.idEditedUser}">
             </div>
             <div class="form-field">
-                <label for="login">Login</label>
+                <label for="login">${loginFmt}</label>
                 <input autofocus id="login" class="inputData" type="text" name="login" value="${param.login}">
             </div>
             <div class="form-field">
@@ -74,11 +78,11 @@
                        value="${param.telephone_number}">
             </div>
             <div class="form-field">
-                <label for="password">New password</label>
+                <label for="password">${newPassFmt}</label>
                 <input id="password" type="text" class="inputData" name="password" value="${param.password}">
             </div>
             <div class="form-field">
-                <label for="role">Role </label>
+                <label for="role">${roleFmt}</label>
                 <input id="role" type="text" name="role" class="inputData" value="${param.role}">
             </div>
             <input id="login-submit" type="submit" class="submit" value="${changeFmt}">

@@ -11,6 +11,14 @@
 <fmt:setLocale value="${sessionScope.localization}"/>
 <fmt:setBundle basename="localization" var="loc"/>
 
+<fmt:message bundle="${loc}" key="localization.txt.OrdersForDel" var="ordersForDelFmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.paymentMethod" var="paymentMethodFmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.OrderStatus" var="orderStatusFmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.Dish" var="dishFmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.Quantity" var="quantityFmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.AddressPh" var="addressFmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.Payment" var="paymentFmt"/>
+
 <jsp:include page="/WEB-INF/jsp/header.jsp"/>
 
 <!DOCTYPE html>
@@ -19,11 +27,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orders for delivering</title>
+    <title>${ordersForDelFmt}</title>
     <link rel="stylesheet" href="css/confirmationOfOrders.css">
 </head>
 <body>
-<div class="title"><h1>Orders for delivering</h1></div>
+<div class="title"><h1>${ordersForDelFmt}</h1></div>
 
 <div class="wrapper">
     <main class="main">
@@ -31,19 +39,21 @@
         <table>
             <div class="thread">
                 <th>№</th>
-                <th>name of dish</th>
-                <th>payment method</th>
-                <th>quantity</th>
-                <th>payment</th>
-                <th>status</th>
+                <th>${dishFmt}</th>
+                <th>${quantityFmt}</th>
+                <th>${addressFmt}</th>
+                <th>${paymentMethodFmt}</th>
+                <th>${paymentFmt}</th>
+                <th>${orderStatusFmt}</th>
             </div>
 
             <c:forEach items="${ordersForDelivering}" var="order">
                 <tr>
                     <td>${order.idOrder}</td>
                     <td>${order.dishName}</td>
-                    <td>${order.paymentMethod}</td>
                     <td>${order.quantity}</td>
+                    <td>адрес</td>
+                    <td>${order.paymentMethod}</td>
                     <td>оплата</td>
                     <td>
                         <form action="controller" method="post">

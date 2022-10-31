@@ -12,6 +12,11 @@
 <fmt:setBundle basename="localization" var="loc"/>
 
 <fmt:message bundle="${loc}" key="localization.txt.Change" var="changeFmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.Dish" var="dishFmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.Description" var="weightFmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.EditDish" var="editDishFmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.Price" var="priceFmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.Photo" var="photoFmt"/>
 <fmt:message bundle="${loc}" key="localization.link.MenuLower" var="menuLower_link"/>
 <fmt:message bundle="${loc}" key="localization.link.Basket" var="basket_link"/>
 
@@ -20,12 +25,12 @@
 <html>
 
 <head>
-    <title>Edit dish</title>
+    <title>${editDishFmt}</title>
   <link href="css/editInfo.css" rel="stylesheet">
 </head>
 <body>
 
-<div class="title"><h1>Edit dish</h1></div>
+<div class="title"><h1>${editDishFmt}</h1></div>
 
 <div class="entity">
   <div class="form-container">
@@ -33,19 +38,19 @@
       <input type="hidden" name="command" value="edit_dish">
       <input id="idDish" class="inputData" type="hidden" name="idEditedDish" value="${param.idEditedDish}">
       <div class="form-field">
-        <label for="dishName">Блюдо</label>
+        <label for="dishName">${dishFmt}</label>
         <input autofocus id="dishName" class="inputData" type="text" name="dishName" value="${param.dishName}">
       </div>
       <div class="form-field">
-        <label for="dishDescription">Описание</label>
+        <label for="dishDescription">${weightFmt}</label>
         <input id="dishDescription" type="text" class="inputData" name="dishDescription" value="${param.dishDescription}">
       </div>
       <div class="form-field">
-        <label for="dishPrice">Цена</label>
+        <label for="dishPrice">${priceFmt}</label>
         <input id="dishPrice" type="text" class="inputData" name="dishPrice" value="${param.dishPrice}">
       </div>
       <div class="form-field">
-        <label for="photoUrl">Фото</label>
+        <label for="photoUrl">${photoFmt}</label>
         <input id="photoUrl" type="text" class="inputData" name="photoUrl" value="${param.photoUrl}">
         <img src="${param.photoUrl}" alt="photo of ${param.dishName}" style="width: 300px">
       </div>

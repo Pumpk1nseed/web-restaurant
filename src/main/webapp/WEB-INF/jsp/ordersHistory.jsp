@@ -34,11 +34,6 @@
 
 <div class="wrapper">
     <main class="main">
-        <%--        <c:if test="${ordersHistory == null}">--%>
-        <%--        <jsp:forward page="controller">--%>
-        <%--            <jsp:param name="command" value="get_history_of_orders"/>--%>
-        <%--        </jsp:forward>--%>
-        <%--        </c:if>--%>
 
         <c:if test="${ordersHistory.size() == 0}">
         <h1>${orderIsEmptyFmt}</h1>

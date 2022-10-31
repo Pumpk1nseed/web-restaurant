@@ -11,7 +11,7 @@
 <fmt:setLocale value="${sessionScope.localization}"/>
 <fmt:setBundle basename="localization" var="loc"/>
 
-<fmt:message bundle="${loc}" key="localization.txt.SuccessEdit" var="successEditFmt"/>
+<fmt:message bundle="${loc}" key="localization.txt.SuccessSave" var="successSaveFmt"/>
 <fmt:message bundle="${loc}" key="localization.txt.ChangePersInfo" var="changePersInfoFmt"/>
 <fmt:message bundle="${loc}" key="localization.txt.BackPh" var="backFmt"/>
 
@@ -24,7 +24,7 @@
 <jsp:include page="/WEB-INF/jsp/header.jsp"/>
 
 <div class="container">
-    <h1 style="color: darkorange">${successEditFmt}</h1>
+    <h1 style="color: darkorange">${successSaveFmt}</h1>
 </div>
 <input class="backBtn" type="button" onclick="history.back();" value="${backFmt}"/>
 <a href="account"><span>account</span></a>
