@@ -37,7 +37,7 @@ public class CommandHelper {
         commands.put(CommandName.FIND_DISHES_BY, new FindDishesByCommand());
         commands.put(CommandName.EDIT_DISH, new EditDishCommand());
         commands.put(CommandName.REMOVE_DISH_FROM_MENU, new RemoveDishFromMenuCommand());
-        commands.put(CommandName.ADD_DISH_TO_MENU, new AddDishToMenuCommand());
+        commands.put(CommandName.CREATE_BILL, new CreateBillCommand());
         commands.put(CommandName.NO_SUCH_COMMAND, new NoSuchCommand());
     }
 

@@ -47,7 +47,9 @@ public final class RequestParameterName {
     public static final String REQ_PARAM_ORDERS_FOR_CONFIRMATION = "ordersForConfirmation";
     public static final String REQ_PARAM_ORDERS_FOR_COOKING = "ordersForCooking";
     public static final String REQ_PARAM_ORDERS_FOR_DELIVERING = "ordersForDelivering";
+    public static final String REQ_PARAM_ID_ORDER_FOR_BILL = "idOrderForBill";
     public static final String REQ_PARAM_ORDERS = "orders";
+    public static final String REQ_PARAM_BILL= "bill";
     public static final String REQ_PARAM_ERROR_MSG = "errorMsg";
 
 

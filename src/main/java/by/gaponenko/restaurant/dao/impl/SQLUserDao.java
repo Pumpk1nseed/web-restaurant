@@ -37,6 +37,7 @@ public class SQLUserDao implements UserDao {
     private static final String REMOVE_USER_BY_CRITERIA = "UPDATE users SET status='removed' WHERE ";
     private static final String REGISTER_USER_INFO = "INSERT INTO users_details(id_user, name, surname, last_name, date_of_birth, telephone_number, email, address) VALUES(?,?,?,?,?,?,?,?)";
     private static final String AND = "AND ";
+    private static final String REMOVED = "removed";
 
     @Override
     public User authorization(String login, String pass) throws DaoException {
@@ -59,7 +60,7 @@ public class SQLUserDao implements UserDao {
                 throw new DaoException("Wrong login or password");
             }
 
-            if (resultSet.getString(STATUS) == "inactive") {
+            if (resultSet.getString(STATUS) == REMOVED) {
                 log.info("Attempt to log in from deleted user. Login :{}", login);
                 throw new DaoException("Sorry, your profile was deleted.");
             }

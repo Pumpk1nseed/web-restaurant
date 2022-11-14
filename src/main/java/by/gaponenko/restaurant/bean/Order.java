@@ -9,7 +9,7 @@ import java.util.Objects;
 
 public class Order implements Serializable {
     private Integer idOrder;
-    private Map<Dish, Integer> orderList = new HashMap<>(); // dish-amount
+    private Map<Dish, Integer> orderList = new HashMap<>();
     private Integer idUser;
     private Timestamp dateTime;
     private String status;

@@ -54,7 +54,18 @@
                     <td>${order.quantity}</td>
                     <td>адрес</td>
                     <td>${order.paymentMethod}</td>
-                    <td>оплата</td>
+                    <c:if test="${order.paymentMethod == 'upon receipt'}">
+                        <td>
+                            <form action="controller" method="post">
+                                <input type="hidden" name="command" value="create_bill">
+                                <input id="idOrderForBill" class="inputData" type="hidden" name="idOrderForBill" value="${order.idOrder}">
+                                <input id="submit" type="submit" class="submit" value="Bill">
+                            </form>
+                        </td>
+                    </c:if>
+                    <c:if test="${order.paymentMethod != 'upon receipt'}">
+                        <td style="color: green">paid</td>
+                    </c:if>
                     <td>
                         <form action="controller" method="post">
                             <input type="hidden" name="command" value="deliver_order">

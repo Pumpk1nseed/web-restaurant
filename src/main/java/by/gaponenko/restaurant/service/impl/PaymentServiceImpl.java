@@ -1,5 +1,6 @@
 package by.gaponenko.restaurant.service.impl;
 
+import by.gaponenko.restaurant.bean.Bill;
 import by.gaponenko.restaurant.bean.PaymentMethod;
 import by.gaponenko.restaurant.dao.DaoException;
 import by.gaponenko.restaurant.dao.DaoProvider;
@@ -18,6 +19,15 @@ public class PaymentServiceImpl implements PaymentService {
     public List<PaymentMethod> getPaymentMethods() throws ServiceException {
         try {
             return paymentDao.getPaymentMethods();
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public Bill createBill(int orderIdForBill) throws ServiceException {
+        try {
+            return paymentDao.createBill(orderIdForBill);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

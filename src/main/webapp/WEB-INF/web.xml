@@ -181,6 +181,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>bill</servlet-name>
+        <jsp-file>/WEB-INF/jsp/bill.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>bill</servlet-name>
+        <url-pattern>/bill</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>main</servlet-name>
         <jsp-file>/WEB-INF/jsp/main.jsp</jsp-file>
     </servlet>

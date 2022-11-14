@@ -37,8 +37,8 @@ public class AuthorizationCommand implements Command {
             user = userService.authorization(login, password);
             userData = userService.loadUserDataByLogin(login);
 
-            req.getSession().setAttribute("user", user);
-            req.getSession().setAttribute("user_info", userData);
+            req.getSession().setAttribute(RequestParameterName.REQ_PARAM_USER, user);
+            req.getSession().setAttribute(RequestParameterName.REQ_PARAM_USER_DATA, userData);
 
             RequestDispatcher dispatcher = req.getRequestDispatcher(JSPPageName.USER_AUTHORIZED_PAGE);
             dispatcher.forward(req, resp);

@@ -18,6 +18,7 @@ public class JSPPageName {
     public static final String ORDERS_HISTORY_FOR_ADMIN_PAGE= "ordersHistoryForAdmin";
     public static final String USERS_LIST_PAGE = "listOfUsers";
     public static final String EDIT_SUCCESS_PAGE = "success";
+    public static final String BILL_PAGE = "bill";
     public static final String ERROR_PAGE = "/error";
 
 }
