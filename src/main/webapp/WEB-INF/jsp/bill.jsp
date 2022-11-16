@@ -13,6 +13,20 @@
     <title>Bill</title>
 </head>
 <body>
-успех
+<c:forEach items="${orderForBill.keySet()}" var="order">
+    <table>
+        <td>
+            <tr>счет № ${idBill}</tr>
+            <tr>price: ${order.price}</tr>
+            <tr>
+                <form action="controller" method="post">
+                    <input type="hidden" name="command" value="pay_bill">
+                    <input type="hidden" name="idBill" value="${idBill}">
+                    <input type="submit" value="Pay &#10004;" id="payBtn">
+                </form>
+            </tr>
+        </td>
+    </table>
+</c:forEach>
 </body>
 </html>

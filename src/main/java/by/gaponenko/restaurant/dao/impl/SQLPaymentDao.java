@@ -1,6 +1,5 @@
 package by.gaponenko.restaurant.dao.impl;
 
-import by.gaponenko.restaurant.bean.Bill;
 import by.gaponenko.restaurant.bean.PaymentMethod;
 import by.gaponenko.restaurant.dao.DaoException;
 import by.gaponenko.restaurant.dao.PaymentDao;
@@ -19,6 +18,8 @@ public class SQLPaymentDao implements PaymentDao {
     private static final String GET_PAYMENT_METHODS = "SELECT * FROM payment_methods";
     private static final String FIND_BILL_BY_ORDER_ID = "SELECT * FROM bill WHERE id_order = ?;";
     private static final String CREATE_BILL= "INSERT INTO bill (id_order, date, status) VALUES(?,?,?);";
+
+    private static final String UPDATE_BILL_STATUS = "UPDATE bill SET date=?, status=? where id_bill=?;";
     private static final String UNPAID = "unpaid";
 
     @Override
@@ -64,12 +65,10 @@ public class SQLPaymentDao implements PaymentDao {
     }
 
     @Override
-    public Bill createBill(int orderIdForBill) throws DaoException {
+    public int createBill(int orderIdForBill) throws DaoException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-
-        Bill bill = new Bill();
 
         try {
             connection = connectToDataBase(connection);
@@ -79,7 +78,7 @@ public class SQLPaymentDao implements PaymentDao {
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                return bill;
+                return resultSet.getInt(1);
             }
 
             preparedStatement = connection.prepareStatement(CREATE_BILL);
@@ -88,6 +87,12 @@ public class SQLPaymentDao implements PaymentDao {
             preparedStatement.setString(3, UNPAID);
             preparedStatement.executeUpdate();
 
+            preparedStatement = connection.prepareStatement(FIND_BILL_BY_ORDER_ID);
+            preparedStatement.setInt(1, orderIdForBill);
+            resultSet = preparedStatement.executeQuery();
+
+            resultSet.next();
+            return resultSet.getInt(1);
 
         } catch (DaoException e) {
             throw new RuntimeException(e);
@@ -100,7 +105,35 @@ public class SQLPaymentDao implements PaymentDao {
                 log.error("Error while close connection...", e);
             }
         }
-        return null;
+    }
+
+    @Override
+    public boolean updateBillStatus(int idBill, String status) throws DaoException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = connectToDataBase(connection);
+
+            preparedStatement = connection.prepareStatement(UPDATE_BILL_STATUS);
+            preparedStatement.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
+            preparedStatement.setString(2, status);
+            preparedStatement.setInt(3, idBill);
+            preparedStatement.executeUpdate();
+
+            return true;
+
+        } catch (SQLException e) {
+            log.error("Error occurred while updating bill status", e);
+            throw new DaoException("Error while working with database while updating bill status", e);
+        } finally {
+            try {
+                connectionPool.closeConnection(connection, preparedStatement, resultSet);
+            } catch (SQLException e) {
+                log.error("Error while close connection...", e);
+            }
+        }
     }
 
     private Connection connectToDataBase(Connection connection) throws DaoException {

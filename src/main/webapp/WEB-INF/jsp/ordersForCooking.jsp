@@ -39,7 +39,6 @@
                 <th>№</th>
                 <th>${orderFmt}</th>
                 <th>${paymentMethodFmt}</th>
-                <th>${quantityFmt}</th>
                 <th>${orderStatusFmt}</th>
             </div>
 
@@ -48,7 +47,6 @@
                     <td>${order.idOrder}</td>
                     <td>${order.dishName}</td>
                     <td>${order.paymentMethod}</td>
-                    <td>${order.quantity}</td>
                     <td>
                         <form action="controller" method="post">
                             <input type="hidden" name="command" value="cook_order">

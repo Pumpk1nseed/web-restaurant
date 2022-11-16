@@ -40,7 +40,7 @@ public class SQLOrderDao implements OrderDao {
             "            LEFT JOIN menu m on ordd.id_dish = m.id_dish\n" +
             "            where %s group by ord.id_order;";
 
-    private static final String GET_ORDERS_BY_DISH_INFO = "SELECT ord.id_order,  m.name, pm.name, quantity \n" +
+    private static final String GET_ORDERS_BY_DISH_INFO = "SELECT ord.id_order, m.name, pm.name, quantity, m.price \n" +
             "FROM orders ord \n" +
             "LEFT JOIN order_details ordd on ordd.id_order = ord.id_order\n" +
             "LEFT JOIN payment_methods pm on ordd.id_payment_method = pm.id_payment_methods\n" +
@@ -307,7 +307,7 @@ public class SQLOrderDao implements OrderDao {
 
             StringBuilder sqlBuilder = new StringBuilder("");
             for (String criteriaName : criterias.keySet()) {
-                sqlBuilder.append("ord.").append(String.format("%s=? %s", criteriaName.toLowerCase(), AND));
+                sqlBuilder.append(String.format("%s=? %s", criteriaName.toLowerCase(), AND));
             }
             sqlBuilder = new StringBuilder(sqlBuilder.substring(0, sqlBuilder.length() - AND.length()));
             String queryBuilder = String.format(GET_ORDERS_BY_DISH_INFO, sqlBuilder);
@@ -327,6 +327,7 @@ public class SQLOrderDao implements OrderDao {
                 order.setDishName(resultSet.getString(2));
                 order.setPaymentMethod(resultSet.getString(3));
                 order.setQuantity(resultSet.getInt(4));
+                order.setPrice(resultSet.getBigDecimal(5));
                 ordersForCooking.add(order);
             }
 

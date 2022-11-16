@@ -72,7 +72,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Map<Order, RegistrationUserData> findOrderByUsersInfo(Criteria criteria) throws ServiceException {
+    public Map<Order, RegistrationUserData> findOrdersByUsersInfo(Criteria criteria) throws ServiceException {
         validator.validate(criteria);
 
         try {

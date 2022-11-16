@@ -38,6 +38,7 @@ public class CommandHelper {
         commands.put(CommandName.EDIT_DISH, new EditDishCommand());
         commands.put(CommandName.REMOVE_DISH_FROM_MENU, new RemoveDishFromMenuCommand());
         commands.put(CommandName.CREATE_BILL, new CreateBillCommand());
+        commands.put(CommandName.PAY_BILL, new PayBillCommand());
         commands.put(CommandName.NO_SUCH_COMMAND, new NoSuchCommand());
     }
 

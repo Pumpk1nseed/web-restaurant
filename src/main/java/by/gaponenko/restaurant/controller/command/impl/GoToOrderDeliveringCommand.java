@@ -23,12 +23,13 @@ public class GoToOrderDeliveringCommand implements Command {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
     OrderService orderService = ServiceProvider.getInstance().getOrderService();
 
+    private static final String SQL_PREFIX = "ord.";
     private static final String STATUS_COOKED = "cooked";
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws ControllerException {
         Criteria criteria = new Criteria();
-        criteria.add(SearchCriteria.Order.STATUS.name(), STATUS_COOKED);
+        criteria.add(SQL_PREFIX + SearchCriteria.Order.STATUS.name(), STATUS_COOKED);
 
         try {
             List<OrderForCooking> ordersForCooking = orderService.findOrderByDishInfo(criteria);

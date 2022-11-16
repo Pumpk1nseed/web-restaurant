@@ -40,7 +40,7 @@
             <div class="thread">
                 <th>№</th>
                 <th>${dishFmt}</th>
-                <th>${quantityFmt}</th>
+                <th>Цена</th>
                 <th>${addressFmt}</th>
                 <th>${paymentMethodFmt}</th>
                 <th>${paymentFmt}</th>
@@ -51,7 +51,7 @@
                 <tr>
                     <td>${order.idOrder}</td>
                     <td>${order.dishName}</td>
-                    <td>${order.quantity}</td>
+                    <td>${order.quantity}*${order.price}</td>
                     <td>адрес</td>
                     <td>${order.paymentMethod}</td>
                     <c:if test="${order.paymentMethod == 'upon receipt'}">

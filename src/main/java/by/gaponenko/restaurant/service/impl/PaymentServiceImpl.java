@@ -1,11 +1,9 @@
 package by.gaponenko.restaurant.service.impl;
 
-import by.gaponenko.restaurant.bean.Bill;
 import by.gaponenko.restaurant.bean.PaymentMethod;
 import by.gaponenko.restaurant.dao.DaoException;
 import by.gaponenko.restaurant.dao.DaoProvider;
 import by.gaponenko.restaurant.dao.PaymentDao;
-import by.gaponenko.restaurant.dao.UserDao;
 import by.gaponenko.restaurant.service.PaymentService;
 import by.gaponenko.restaurant.service.ServiceException;
 
@@ -25,9 +23,18 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public Bill createBill(int orderIdForBill) throws ServiceException {
+    public int createBill(int orderIdForBill) throws ServiceException {
         try {
             return paymentDao.createBill(orderIdForBill);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public boolean updateBillStatus(int idBill, String status) throws ServiceException {
+        try {
+            return paymentDao.updateBillStatus(idBill, status);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

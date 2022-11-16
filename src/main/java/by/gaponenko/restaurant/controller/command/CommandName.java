@@ -26,6 +26,7 @@ public enum CommandName {
     DELIVER_ORDER,
     DELETE_ORDER,
     CREATE_BILL,
+    PAY_BILL,
     FIND_DISHES_BY,
     EDIT_DISH,
     REMOVE_DISH_FROM_MENU,

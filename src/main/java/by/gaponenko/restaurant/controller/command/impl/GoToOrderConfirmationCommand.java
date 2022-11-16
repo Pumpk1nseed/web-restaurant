@@ -34,7 +34,7 @@ public class GoToOrderConfirmationCommand implements Command {
 
         Map<Order, RegistrationUserData> orderUsedDataMap = null;
         try {
-            orderUsedDataMap = orderService.findOrderByUsersInfo(criteria);
+            orderUsedDataMap = orderService.findOrdersByUsersInfo(criteria);
         } catch (ServiceException e) {
             log.error("Error while getting orders for confirmation", e);
             throw new ControllerException(e);
