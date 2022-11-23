@@ -40,6 +40,14 @@ public class SQLOrderDao implements OrderDao {
             "            LEFT JOIN menu m on ordd.id_dish = m.id_dish\n" +
             "            where %s group by ord.id_order;";
 
+    private static final String GET_ORDERS_USERS_BY_DISH_INFO = "SELECT ord.id_order, m.name, pm.name, quantity, m.price, ud.name, ud.surname, ud.address, ud.telephone_number, b.status\n" +
+            "            FROM orders ord\n" +
+            "            LEFT JOIN order_details ordd on ordd.id_order = ord.id_order\n" +
+            "            LEFT JOIN payment_methods pm on ordd.id_payment_method = pm.id_payment_methods\n" +
+            "            LEFT JOIN users_details ud on ord.id_user = ud.id_user\n" +
+            "            LEFT JOIN bill b on ord.id_order = b.id_order\n" +
+            "            LEFT JOIN menu m on ordd.id_dish = m.id_dish where %s;";
+
     private static final String GET_ORDERS_BY_DISH_INFO = "SELECT ord.id_order, m.name, pm.name, quantity, m.price \n" +
             "FROM orders ord \n" +
             "LEFT JOIN order_details ordd on ordd.id_order = ord.id_order\n" +
@@ -332,6 +340,66 @@ public class SQLOrderDao implements OrderDao {
             }
 
             return ordersForCooking;
+
+        } catch (SQLException e) {
+            log.error("Error occurred while find orders by criteria", e);
+            throw new DaoException("Error while working with database while find orders by dish info", e);
+        } finally {
+            try {
+                connectionPool.closeConnection(connection, preparedStatement, resultSet);
+            } catch (SQLException e) {
+                log.error("Error while close connection...", e);
+            }
+        }
+    }
+
+    public Map<OrderForCooking, RegistrationUserData> findOrdersUsersByDishInfo(Criteria criteria) throws DaoException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        Map<OrderForCooking, RegistrationUserData> ordersUserDataMap;
+
+        try {
+            connection = connectToDataBase(connection);
+
+            Map<String, Object> criterias = criteria.getCriteria();
+
+            StringBuilder sqlBuilder = new StringBuilder("");
+            for (String criteriaName : criterias.keySet()) {
+                sqlBuilder.append(String.format("%s=? %s", criteriaName.toLowerCase(), AND));
+            }
+            sqlBuilder = new StringBuilder(sqlBuilder.substring(0, sqlBuilder.length() - AND.length()));
+            String queryBuilder = String.format(GET_ORDERS_USERS_BY_DISH_INFO, sqlBuilder);
+
+            preparedStatement = connection.prepareStatement(queryBuilder);
+            int i = 1;
+            for (Object value : criterias.values()) {
+                preparedStatement.setString(i, value.toString());
+                i++;
+            }
+            resultSet = preparedStatement.executeQuery();
+
+            ordersUserDataMap = new LinkedHashMap<>();
+            while (resultSet.next()) {
+                OrderForCooking order = new OrderForCooking();
+                order.setIdOrder(resultSet.getInt(1));
+                order.setDishName(resultSet.getString(2));
+                order.setPaymentMethod(resultSet.getString(3));
+                order.setQuantity(resultSet.getInt(4));
+                order.setPrice(resultSet.getBigDecimal(5));
+                order.setStatus(resultSet.getString(10));
+
+                RegistrationUserData userData = new RegistrationUserData();
+                userData.setName(resultSet.getString(6));
+                userData.setSurname(resultSet.getString(7));
+                userData.setAddress(resultSet.getString(8));
+                userData.setTelephoneNumber(resultSet.getString(9));
+
+                ordersUserDataMap.put(order, userData);
+            }
+
+            return ordersUserDataMap;
 
         } catch (SQLException e) {
             log.error("Error occurred while find orders by criteria", e);

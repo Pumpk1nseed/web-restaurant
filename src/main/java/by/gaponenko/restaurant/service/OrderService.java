@@ -24,4 +24,7 @@ public interface OrderService {
     boolean updateOrderStatus(int idOrder, String status) throws ServiceException;
 
     List<OrderForCooking> findOrderByDishInfo(Criteria criteria) throws ServiceException;
+
+    Map<OrderForCooking, RegistrationUserData> findOrdersUsersByDishInfo(Criteria criteria) throws ServiceException;
+
 }

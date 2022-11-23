@@ -101,4 +101,15 @@ public class OrderServiceImpl implements OrderService {
             throw new ServiceException(e);
         }
     }
+
+    @Override
+    public Map<OrderForCooking, RegistrationUserData> findOrdersUsersByDishInfo(Criteria criteria) throws ServiceException {
+        validator.validate(criteria);
+
+        try {
+            return orderDao.findOrdersUsersByDishInfo(criteria);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
 }

@@ -4,6 +4,7 @@ import by.gaponenko.restaurant.bean.Order;
 import by.gaponenko.restaurant.bean.OrderForCooking;
 import by.gaponenko.restaurant.bean.RegistrationUserData;
 import by.gaponenko.restaurant.bean.criteria.Criteria;
+import by.gaponenko.restaurant.controller.RequestParameterName;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -23,5 +24,7 @@ public interface OrderDao {
     boolean updateOrderStatus(int idOrder, String status) throws DaoException;
 
     List<OrderForCooking> findOrdersByDishInfo(Criteria criteria) throws DaoException;
+
+    Map<OrderForCooking, RegistrationUserData> findOrdersUsersByDishInfo(Criteria criteria) throws DaoException;
 
 }

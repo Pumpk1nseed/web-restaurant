@@ -9,19 +9,28 @@ public class OrderForCooking implements Serializable {
     private Integer idOrder;
     private String dishName;
     private String paymentMethod;
+    private String status;
     private int quantity;
-
     private BigDecimal price;
 
-    public OrderForCooking(Integer idOrder, String dishName, String paymentMethod, int quantity, BigDecimal price) {
+    public OrderForCooking(Integer idOrder, String dishName, String paymentMethod, int quantity, BigDecimal price, String status) {
         this.idOrder = idOrder;
         this.dishName = dishName;
         this.paymentMethod = paymentMethod;
+        this.status = status;
         this.quantity = quantity;
         this.price = price;
     }
 
     public OrderForCooking() {
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Integer getIdOrder() {
@@ -73,7 +82,7 @@ public class OrderForCooking implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getIdOrder(), getDishName(), getPaymentMethod(), getQuantity(), getPrice());
+        return Objects.hash(getIdOrder(), getDishName(), getPaymentMethod(), getStatus(), getQuantity(), getPrice());
     }
 
     @Override
@@ -82,6 +91,7 @@ public class OrderForCooking implements Serializable {
                 "idOrder=" + idOrder +
                 ", dishName='" + dishName + '\'' +
                 ", paymentMethod='" + paymentMethod + '\'' +
+                ", status'" + status + '\'' +
                 ", quantity=" + quantity +
                 ", price=" + price +
                 '}';

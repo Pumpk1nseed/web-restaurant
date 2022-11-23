@@ -39,22 +39,28 @@
         <table>
             <div class="thread">
                 <th>№</th>
-                <th>${dishFmt}</th>
+                <th>Order</th>
                 <th>Цена</th>
                 <th>${addressFmt}</th>
+                <th>Имя</th>
+                <th>Фамилия</th>
+                <th>Телефон</th>
                 <th>${paymentMethodFmt}</th>
                 <th>${paymentFmt}</th>
                 <th>${orderStatusFmt}</th>
             </div>
 
-            <c:forEach items="${ordersForDelivering}" var="order">
+            <c:forEach items="${ordersForDelivering.keySet()}" var="order">
                 <tr>
                     <td>${order.idOrder}</td>
                     <td>${order.dishName}</td>
-                    <td>${order.quantity}*${order.price}</td>
-                    <td>адрес</td>
+                    <td>${order.price}</td>
+                    <td>${ordersForDelivering.get(order).address}</td>
+                    <td>${ordersForDelivering.get(order).name}</td>
+                    <td>${ordersForDelivering.get(order).surname}</td>
+                    <td>${ordersForDelivering.get(order).telephoneNumber}</td>
                     <td>${order.paymentMethod}</td>
-                    <c:if test="${order.paymentMethod == 'upon receipt'}">
+                    <c:if test="${order.status != 'paid'}">
                         <td>
                             <form action="controller" method="post">
                                 <input type="hidden" name="command" value="create_bill">
@@ -63,8 +69,8 @@
                             </form>
                         </td>
                     </c:if>
-                    <c:if test="${order.paymentMethod != 'upon receipt'}">
-                        <td style="color: green">paid</td>
+                    <c:if test="${order.status == 'paid'}">
+                        <td style="color: green">${order.status}</td>
                     </c:if>
                     <td>
                         <form action="controller" method="post">

@@ -1,6 +1,8 @@
 package by.gaponenko.restaurant.controller.command.impl;
 
+import by.gaponenko.restaurant.bean.Order;
 import by.gaponenko.restaurant.bean.OrderForCooking;
+import by.gaponenko.restaurant.bean.RegistrationUserData;
 import by.gaponenko.restaurant.bean.criteria.Criteria;
 import by.gaponenko.restaurant.bean.criteria.SearchCriteria;
 import by.gaponenko.restaurant.controller.ControllerException;
@@ -16,8 +18,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GoToOrderDeliveringCommand implements Command {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
@@ -32,28 +37,38 @@ public class GoToOrderDeliveringCommand implements Command {
         criteria.add(SQL_PREFIX + SearchCriteria.Order.STATUS.name(), STATUS_COOKED);
 
         try {
-            List<OrderForCooking> ordersForCooking = orderService.findOrderByDishInfo(criteria);
+            Map<OrderForCooking, RegistrationUserData> ordersForDeliveryMap = orderService.findOrdersUsersByDishInfo(criteria);
 
-            List<OrderForCooking> ordersForCookingGroupByDish = new ArrayList<>();
+            Map<OrderForCooking, RegistrationUserData> ordersForDeliveryGroupByDishMap = new LinkedHashMap<>();
             long idOrderPrevious = 0;
             StringBuilder namesOfDishes = new StringBuilder("");
-            int j = -1;
-            for (OrderForCooking order : ordersForCooking) {
+            BigDecimal totalPrice;
+            for (OrderForCooking order : ordersForDeliveryMap.keySet()) {
+                RegistrationUserData userData = ordersForDeliveryMap.get(order);
                 if (idOrderPrevious != order.getIdOrder()) {
-                    j++;
 
-                    namesOfDishes = new StringBuilder(order.getDishName()).append(" (x").append(order.getQuantity()).append(")");
+                    namesOfDishes = new StringBuilder(order.getDishName()).append(" (x").append(order.getQuantity()).append(" x").append(order.getPrice()).append(")");
+                    totalPrice = order.getPrice().multiply(new BigDecimal(order.getQuantity()));
 
                     order.setDishName(namesOfDishes.toString());
-                    ordersForCookingGroupByDish.add(order);
+                    order.setPrice(totalPrice);
+                    ordersForDeliveryGroupByDishMap.put(order, userData);
                     idOrderPrevious = order.getIdOrder();
                 } else {
-                    namesOfDishes.append("<hr>").append(order.getDishName()).append(" (x").append(order.getQuantity()).append(")");
-                    ordersForCookingGroupByDish.get(j).setDishName(namesOfDishes.toString());
+                    namesOfDishes.append("<hr>").append(order.getDishName()).append(" (x").append(order.getQuantity()).append(" x").append(order.getPrice()).append(")");
+
+                    for (OrderForCooking orderForDeliver : ordersForDeliveryGroupByDishMap.keySet()) {
+                        RegistrationUserData userDataForDeliver = ordersForDeliveryGroupByDishMap.get(orderForDeliver);
+                        if (orderForDeliver.getIdOrder() == order.getIdOrder()) {
+                            totalPrice = orderForDeliver.getPrice().add(order.getPrice().multiply(new BigDecimal(order.getQuantity())));
+                            orderForDeliver.setDishName(namesOfDishes.toString());
+                            orderForDeliver.setPrice(totalPrice);
+                            break;
+                        }
+                    }
                 }
             }
-
-            req.getSession().setAttribute(RequestParameterName.REQ_PARAM_ORDERS_FOR_DELIVERING, ordersForCookingGroupByDish);
+            req.getSession().setAttribute(RequestParameterName.REQ_PARAM_ORDERS_FOR_DELIVERING, ordersForDeliveryGroupByDishMap);
 
             resp.sendRedirect(JSPPageName.DELIVERING_PAGE);
 
