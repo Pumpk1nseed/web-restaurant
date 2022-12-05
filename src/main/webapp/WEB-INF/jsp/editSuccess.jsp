@@ -24,9 +24,9 @@
 <jsp:include page="/WEB-INF/jsp/header.jsp"/>
 
 <div class="container">
-    <h1 style="color: darkorange">${successSaveFmt}</h1>
+    <h1 style="color: darkorange">Операция выполнена успешно!</h1>
 </div>
-<input class="backBtn" type="button" onclick="history.back();" value="${backFmt}"/>
 <a href="account"><span>account</span></a>
+<input class="backBtn" type="button" onclick="history.back();" value="${backFmt}"/>
 </body>
 </html>

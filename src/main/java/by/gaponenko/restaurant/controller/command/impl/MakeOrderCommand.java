@@ -29,7 +29,9 @@ public class MakeOrderCommand implements Command {
         HttpSession session = req.getSession();
         session.setAttribute(RequestParameterName.REQ_PARAM_PAYMENT_BY, idPaymentMethod);
 
-        createOrder(req);
+        int idOrder = createOrder(req);
+
+        session.setAttribute(RequestParameterName.REQ_PARAM_ID_ORDER_FOR_BILL, idOrder);
 
         try {
             session.removeAttribute(RequestParameterName.REQ_PARAM_ORDER);
@@ -37,9 +39,13 @@ public class MakeOrderCommand implements Command {
             session.removeAttribute(RequestParameterName.REQ_PARAM_PAYMENT_BY);
             session.removeAttribute(RequestParameterName.REQ_PARAM_ORDERS);
 
-            resp.sendRedirect(JSPPageName.ORDER_FINISH_PAGE);
+            if (idPaymentMethod == 1) {
+                resp.sendRedirect(JSPPageName.BILL_PAGE);
+            } else {
+                resp.sendRedirect(JSPPageName.ORDER_FINISH_PAGE);
+            }
         } catch (IOException e) {
-            log.error("Error iccured while finishing the order: invalid address for redirect");
+            log.error("Error occurred while finishing the order: invalid address for redirect");
             throw new ControllerException(e);
         }
     }

@@ -55,17 +55,21 @@ public class GoToOrderDeliveringCommand implements Command {
                     ordersForDeliveryGroupByDishMap.put(order, userData);
                     idOrderPrevious = order.getIdOrder();
                 } else {
+
                     namesOfDishes.append("<hr>").append(order.getDishName()).append(" (x").append(order.getQuantity()).append(" x").append(order.getPrice()).append(")");
 
                     for (OrderForCooking orderForDeliver : ordersForDeliveryGroupByDishMap.keySet()) {
-                        RegistrationUserData userDataForDeliver = ordersForDeliveryGroupByDishMap.get(orderForDeliver);
                         if (orderForDeliver.getIdOrder() == order.getIdOrder()) {
                             totalPrice = orderForDeliver.getPrice().add(order.getPrice().multiply(new BigDecimal(order.getQuantity())));
+                            ordersForDeliveryGroupByDishMap.remove(orderForDeliver);
+
                             orderForDeliver.setDishName(namesOfDishes.toString());
                             orderForDeliver.setPrice(totalPrice);
+                            ordersForDeliveryGroupByDishMap.put(orderForDeliver, userData);
                             break;
                         }
                     }
+                    idOrderPrevious = order.getIdOrder();
                 }
             }
             req.getSession().setAttribute(RequestParameterName.REQ_PARAM_ORDERS_FOR_DELIVERING, ordersForDeliveryGroupByDishMap);

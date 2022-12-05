@@ -13,6 +13,13 @@
     <title>Bill</title>
 </head>
 <body>
+
+<c:if test="${orderForBill == null}">
+    <jsp:forward page="controller">
+        <jsp:param name="command" value="create_bill" />
+    </jsp:forward>
+</c:if>
+
 <c:forEach items="${orderForBill.keySet()}" var="order">
     <table>
         <td>

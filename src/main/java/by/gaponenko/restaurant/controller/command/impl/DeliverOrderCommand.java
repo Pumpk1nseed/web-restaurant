@@ -1,6 +1,7 @@
 package by.gaponenko.restaurant.controller.command.impl;
 
 import by.gaponenko.restaurant.bean.OrderForCooking;
+import by.gaponenko.restaurant.bean.RegistrationUserData;
 import by.gaponenko.restaurant.controller.ControllerException;
 import by.gaponenko.restaurant.controller.JSPPageName;
 import by.gaponenko.restaurant.controller.RequestParameterName;
@@ -15,6 +16,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 public class DeliverOrderCommand implements Command {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
@@ -44,8 +46,8 @@ public class DeliverOrderCommand implements Command {
     }
 
     private void removeOrder(HttpServletRequest req, int orderIdForDelivering) {
-        List<OrderForCooking> orders = (List<OrderForCooking>) req.getSession().getAttribute(RequestParameterName.REQ_PARAM_ORDERS_FOR_DELIVERING);
-        for (OrderForCooking order : orders) {
+        Map<OrderForCooking, RegistrationUserData> orders = (Map<OrderForCooking, RegistrationUserData>) req.getSession().getAttribute(RequestParameterName.REQ_PARAM_ORDERS_FOR_DELIVERING);
+        for (OrderForCooking order : orders.keySet()) {
             if (order.getIdOrder() == orderIdForDelivering) {
                 orders.remove(order);
                 break;
