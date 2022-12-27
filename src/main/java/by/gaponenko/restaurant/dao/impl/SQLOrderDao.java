@@ -221,7 +221,7 @@ public class SQLOrderDao implements OrderDao {
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
 
-        Map<Order, RegistrationUserData> orderUsedDataMap;
+        Map<Order, RegistrationUserData> orderUserDataMap;
 
         try {
             connection = connectToDataBase(connection);
@@ -243,7 +243,7 @@ public class SQLOrderDao implements OrderDao {
             }
             resultSet = preparedStatement.executeQuery();
 
-            orderUsedDataMap = new LinkedHashMap<>();
+            orderUserDataMap = new LinkedHashMap<>();
             while (resultSet.next()) {
                 Order order = new Order();
                 order.setIdOrder(resultSet.getInt(1));
@@ -257,10 +257,10 @@ public class SQLOrderDao implements OrderDao {
                 userData.setAddress(resultSet.getString(7));
                 userData.setTelephoneNumber(resultSet.getString(8));
 
-                orderUsedDataMap.put(order, userData);
+                orderUserDataMap.put(order, userData);
             }
 
-            return orderUsedDataMap;
+            return orderUserDataMap;
 
         } catch (SQLException e) {
             log.error("Error occurred while find orders by criteria", e);
@@ -282,12 +282,14 @@ public class SQLOrderDao implements OrderDao {
 
         try {
             connection = connectToDataBase(connection);
+            connection.setAutoCommit(false);
 
             preparedStatement = connection.prepareStatement(UPDATE_ORDER_STATUS);
             preparedStatement.setString(1, status);
             preparedStatement.setInt(2, idOrder);
             preparedStatement.executeUpdate();
 
+            connection.commit();
             return true;
 
         } catch (SQLException e) {

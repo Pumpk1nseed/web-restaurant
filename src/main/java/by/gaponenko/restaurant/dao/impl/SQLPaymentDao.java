@@ -115,6 +115,7 @@ public class SQLPaymentDao implements PaymentDao {
 
         try {
             connection = connectToDataBase(connection);
+            connection.setAutoCommit(false);
 
             preparedStatement = connection.prepareStatement(UPDATE_BILL_STATUS);
             preparedStatement.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
@@ -122,6 +123,7 @@ public class SQLPaymentDao implements PaymentDao {
             preparedStatement.setInt(3, idBill);
             preparedStatement.executeUpdate();
 
+            connection.commit();
             return true;
 
         } catch (SQLException e) {

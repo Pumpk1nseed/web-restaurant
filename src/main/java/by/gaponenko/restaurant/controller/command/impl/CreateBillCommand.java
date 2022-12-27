@@ -1,7 +1,6 @@
 package by.gaponenko.restaurant.controller.command.impl;
 
 import by.gaponenko.restaurant.bean.Order;
-import by.gaponenko.restaurant.bean.OrderForCooking;
 import by.gaponenko.restaurant.bean.RegistrationUserData;
 import by.gaponenko.restaurant.bean.User;
 import by.gaponenko.restaurant.bean.criteria.Criteria;
@@ -16,7 +15,6 @@ import by.gaponenko.restaurant.service.ServiceException;
 import by.gaponenko.restaurant.service.ServiceProvider;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,7 +34,7 @@ public class CreateBillCommand implements Command {
         User currentUser = (User) req.getSession().getAttribute(RequestParameterName.REQ_PARAM_USER);
         int id_userRole = currentUser.getIdRole();
 
-        if (id_userRole == 4) {
+        if (id_userRole != 1) {
             idOrderForBill = Integer.parseInt(req.getParameter(RequestParameterName.REQ_PARAM_ID_ORDER_FOR_BILL));
         } else {
             idOrderForBill = (Integer) req.getSession().getAttribute(RequestParameterName.REQ_PARAM_ID_ORDER_FOR_BILL);
@@ -60,8 +58,6 @@ public class CreateBillCommand implements Command {
         }
 
         try {
-            req.getSession().removeAttribute(RequestParameterName.REQ_PARAM_ID_ORDER_FOR_BILL);
-
             resp.sendRedirect(JSPPageName.BILL_PAGE);
         } catch (IOException e) {
             log.error("Error invalid address to redirect while create a bill", e);

@@ -161,7 +161,6 @@ public class SQLUserDao implements UserDao {
         try {
             connection = connectToDataBase(connection);
 
-
             resultSet = findUserByLogin(connection, login);
 
             if (!resultSet.next()) {

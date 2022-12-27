@@ -35,9 +35,11 @@ public class PayBillCommand implements Command {
         }
 
         try {
+            req.getSession().removeAttribute(RequestParameterName.REQ_PARAM_ID_BILL);
             req.getSession().removeAttribute(RequestParameterName.REQ_PARAM_ORDER_FOR_BILL);
+/*            req.getSession().removeAttribute(RequestParameterName.REQ_PARAM_ID_ORDER_FOR_BILL);*/
 
-            if (id_userRole== 4) {
+            if (id_userRole != 1) {
                 resp.sendRedirect(JSPPageName.EDIT_SUCCESS_PAGE);
             } else if (id_userRole == 1) {
                 resp.sendRedirect(JSPPageName.ORDER_FINISH_PAGE);

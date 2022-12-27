@@ -40,7 +40,8 @@ public class MakeOrderCommand implements Command {
             session.removeAttribute(RequestParameterName.REQ_PARAM_ORDERS);
 
             if (idPaymentMethod == 1) {
-                resp.sendRedirect(JSPPageName.BILL_PAGE);
+                CreateBillCommand createBill = new CreateBillCommand();
+                createBill.execute(req, resp);
             } else {
                 resp.sendRedirect(JSPPageName.ORDER_FINISH_PAGE);
             }
@@ -70,7 +71,7 @@ public class MakeOrderCommand implements Command {
             return idOrder;
 
         } catch (ServiceException e) {
-            log.error("Error iccured while create an order");
+            log.error("Error occurred while create an order");
             throw new ControllerException(e);
         }
     }
