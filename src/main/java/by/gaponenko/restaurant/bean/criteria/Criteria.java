@@ -3,6 +3,9 @@ package by.gaponenko.restaurant.bean.criteria;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The ${@code Criteria} class provides the ability to search by criteria
+ */
 public class Criteria {
     private String groupSearchName;
     private Map<String, Object> criteria = new HashMap<String, Object>();

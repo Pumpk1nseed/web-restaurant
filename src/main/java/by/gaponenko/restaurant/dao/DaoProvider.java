@@ -4,6 +4,8 @@ import by.gaponenko.restaurant.dao.impl.SQLMenuDao;
 import by.gaponenko.restaurant.dao.impl.SQLOrderDao;
 import by.gaponenko.restaurant.dao.impl.SQLPaymentDao;
 import by.gaponenko.restaurant.dao.impl.SQLUserDao;
+import by.gaponenko.restaurant.dao.util.TransactionDao;
+import by.gaponenko.restaurant.dao.util.TransactionImpl;
 
 public class DaoProvider {
     private static final DaoProvider instance = new DaoProvider();
@@ -11,6 +13,7 @@ public class DaoProvider {
     private final MenuDao menuDao = new SQLMenuDao();
     private final OrderDao orderDao = new SQLOrderDao();
     private final PaymentDao paymentDao = new SQLPaymentDao();
+    private final TransactionDao transactionDao = new TransactionImpl();
 
     public static DaoProvider getInstance() {
         return instance;
@@ -30,4 +33,6 @@ public class DaoProvider {
     public PaymentDao getPaymentDao() {
         return paymentDao;
     }
+
+    public TransactionDao getTransactionDao() {return transactionDao; };
 }

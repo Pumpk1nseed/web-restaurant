@@ -287,7 +287,7 @@ public class SQLMenuDao implements MenuDao {
         } catch (InterruptedException e) {
             log.error("Error while getting connection from connection pool queue", e);
             throw new DaoException("Error taking connection to database", e);
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return connection;

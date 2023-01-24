@@ -48,7 +48,7 @@ public class SQLUserDao implements UserDao {
         User user = new User();
 
         try {
-            connection = connectToDataBase(connection);
+            connection = connectionPool.takeConnection();
 
             preparedStatement = connection.prepareStatement(FIND_AUTHORIZED_USER);
             preparedStatement.setString(1, login);
@@ -75,6 +75,9 @@ public class SQLUserDao implements UserDao {
         } catch (SQLException e) {
             log.error("Error working with statements while sign in", e);
             throw new DaoException("Error while working with database while sign in", e);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new DaoException("Error when trying to take connection", e);
         } finally {
             try {
                 connectionPool.closeConnection(connection, preparedStatement, resultSet);
@@ -386,7 +389,7 @@ public class SQLUserDao implements UserDao {
 
             preparedStatement = connection.prepareStatement(queryDishBuilder.toString());
             int i = 1;
-            for (Object value : criteriaMap.values()){
+            for (Object value : criteriaMap.values()) {
                 preparedStatement.setString(i, value.toString());
                 i++;
             }
@@ -425,7 +428,7 @@ public class SQLUserDao implements UserDao {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         try {
             connection = connectionPool.takeConnection();
-        } catch (InterruptedException | SQLException | ClassNotFoundException e) {
+        } catch (InterruptedException | SQLException e) {
             log.error("Error while getting connection from connection pool queue", e);
             throw new DaoException("Error taking connection to database", e);
         }

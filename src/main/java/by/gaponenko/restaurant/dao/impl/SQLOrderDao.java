@@ -446,7 +446,7 @@ public class SQLOrderDao implements OrderDao {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         try {
             connection = connectionPool.takeConnection();
-        } catch (InterruptedException | SQLException | ClassNotFoundException e) {
+        } catch (InterruptedException | SQLException e) {
             log.error("Error while getting connection from connection pool queue", e);
             throw new DaoException("Error taking connection to database", e);
         }

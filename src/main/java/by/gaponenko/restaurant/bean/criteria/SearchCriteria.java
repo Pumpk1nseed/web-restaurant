@@ -1,12 +1,9 @@
 package by.gaponenko.restaurant.bean.criteria;
 
-import by.gaponenko.restaurant.bean.Dish;
-
-import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.util.HashMap;
-import java.util.Map;
-
+/**
+ * The ${@code SearchCriteria} class provides possible options for creating a {@link Criteria} class
+ * @see Criteria
+ */
 public final class SearchCriteria {
     private SearchCriteria() {
     }

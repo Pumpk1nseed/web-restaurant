@@ -46,7 +46,7 @@ public class ConnectionPool {
         } catch (NumberFormatException e) {
             this.poolSize = DEFAULT_POOLSIZE;
         }
-        initPoolData();
+                initConnectionPool();
     }
 
     public static ConnectionPool getInstance() {
@@ -55,18 +55,17 @@ public class ConnectionPool {
         }
     }
 
-    public void initPoolData() throws ClassNotFoundException, SQLException {
+    public void initConnectionPool() throws ClassNotFoundException, SQLException {
+            Class.forName(driverName);
 
-        Class.forName(driverName);
-        connectionsQueue = new ArrayBlockingQueue<>(poolSize, true);
-        givenAwayQueue = new ArrayBlockingQueue<>(poolSize, true);
+            connectionsQueue = new ArrayBlockingQueue<>(poolSize, true);
+            givenAwayQueue = new ArrayBlockingQueue<>(poolSize, true);
 
-        for (int i = 0; i < poolSize; i++) {
-            Connection connection = DriverManager.getConnection(url, userName, password);
-            PooledConnection pooledConnection = new PooledConnection(connection);
-            connectionsQueue.add(pooledConnection);
-
-        }
+            for (int i = 0; i < poolSize; i++) {
+                Connection connection = DriverManager.getConnection(url, userName, password);
+                PooledConnection pooledConnection = new PooledConnection(connection);
+                connectionsQueue.add(pooledConnection);
+            }
     }
 
     public void closeConnection(Connection connection,
@@ -119,7 +118,7 @@ public class ConnectionPool {
         clearConnectionQueue();
     }
 
-    public Connection takeConnection() throws InterruptedException, SQLException, ClassNotFoundException {
+    public Connection takeConnection() throws InterruptedException, SQLException {
         Connection connection;
         connection = connectionsQueue.take();
         givenAwayQueue.add(connection);
